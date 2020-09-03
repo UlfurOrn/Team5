@@ -26,12 +26,14 @@ class Type(Resource):
     def get(self):
         return DBapi.('GET',id)
 
+    @api.response(201, 'Type successfully updated.')
     @api.doc('Edit a type')
     def put(self):
         data = request.json
         return DBapi('PUT',id,data)
 
     @api.doc('Delete a type')
+    @api.response(201, 'Type successfully deleted.')
     def delete(self):
         return DBapi('DELETE',id)
     
