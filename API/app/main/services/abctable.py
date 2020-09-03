@@ -21,4 +21,3 @@ class Abctable(ABC):
     @abstractclassmethod
     def delete(cls, id):
         pass
-
