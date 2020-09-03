@@ -3,8 +3,11 @@ from abctable import *
 class Typesio(Abctable):
     @classmethod
     def get(cls, id):
-        super()._cur.execute("SELECT * FROM types;") # Example of a command
-        print (super()._cur.fetchall())
+        if id:
+            super()._cur.execute("SELECT * FROM types WHERE typeid = %s;", (id,))
+        else:
+            super()._cur.execute("SELECT * FROM types;")
+        return super()._cur.fetchall()
 
     @classmethod
     def post(cls, data):
