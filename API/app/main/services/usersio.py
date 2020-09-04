@@ -3,8 +3,11 @@ from abctable import *
 class Usersio(Abctable):
     @classmethod
     def get(cls, id):
-        super()._cur.execute("SELECT * FROM users;")  # Example of a command
-        print (super()._cur.fetchall())
+        if id:
+            super()._cur.execute("SELECT * FROM users WHERE userid = %s;", (id,))
+        else:
+            super()._cur.execute("SELECT * FROM users;")
+        return super()._cur.fetchall()
 
     @classmethod
     def post(cls, data):
@@ -16,7 +19,8 @@ class Usersio(Abctable):
 
     @classmethod
     def delete(cls, id):
-        pass
+        super()._cur.execute("DELETE * FROM users WHERE userid = %s;", (id,))
+        
 
 if __name__ == "__main__":
     Usersio.get(0)
