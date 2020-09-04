@@ -19,7 +19,7 @@ class Typesio(Abctable):
 
     @classmethod
     def delete(cls, id):
-        pass
+        super()._cur.execute("DELETE * FROM types WHERE typeid = %s;", (id,))
 
 if __name__ == "__main__":
     Typesio.get(0)
