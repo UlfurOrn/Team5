@@ -5,10 +5,12 @@ from ..services.dbapi import DBapi
 from ..util.DTO.recordDTO import RecordDTO
 
 api = RecordDTO.api
+_record = RecordDTO.record
 
 @api.route('/record')
 class RecordList(Resource):
     @api.doc('List all records')
+    @api.marshal_list_with(_record, envelope='records')
     def get(self):
         return DBapi.records('GET')
 

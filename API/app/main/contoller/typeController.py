@@ -5,10 +5,12 @@ from ..services.dbapi import DBapi
 from ..util.DTO.typeDTO import TypeDTO
 
 api = TypeDTO.api
+_type = TypeDTO.type
 
 @api.route('/type')
 class TypeList(Resource):
     @api.doc('List all types')
+    @api.mashel_list_with(_record, envelopoe='types')
     def get(self):
         return DBapi.types('GET')
 
