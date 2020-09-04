@@ -97,8 +97,10 @@ class DBapi():
 
 
 if __name__ == "__main__":
+    """
     users = DBapi.users("GET")
     types = DBapi.types("GET", 1)
     print (users[0]["userid"])
     print(DBapi.records("GET"))
     print(DBapi.records("GET", [1, 1, '2020-09-03 10:05:26']))
+    """

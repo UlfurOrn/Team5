@@ -12,7 +12,7 @@ class Usersio(Abctable):
     @classmethod
     def post(cls, data):
         name, email, dob, gender, weight, height = data["Name"], data["Email"], data["DoB"], data["Gender"], data["Weight"], data["Height"]
-        super()._cur.execute("INSERT INTO users (Name, Email, DoB, Gender, Weight, Height) VALUES (%s, %s, %s, %s, %s, %s)",
+        super()._cur.execute("INSERT INTO users (Name, Email, DoB, Gender, Weight, Height) VALUES (%s, %s, %s, %s, %s, %s);",
             (name, email, dob, gender, weight, height))
 
     @classmethod
@@ -31,10 +31,12 @@ class Usersio(Abctable):
 
     @classmethod
     def delete(cls, id):
-        super()._cur.execute("DELETE * FROM users WHERE userid = %s;", (id,))
+        super()._cur.execute("DELETE FROM users WHERE userid = %s;", (id,))
 
 if __name__ == "__main__":
+    """
     print(Usersio.get(None))
     #Usersio.post({"Name": "Testio", "Email":"testio@tes.is", "DoB":"2020-01-01", "Gender":"f", "Weight":70, "Height":170})
-    Usersio.put(3, {"Name": "TestIO", "Gender":"f"})
+    Usersio.put(5, {"Name": "TestIO", "Gender":"f"})
     print(Usersio.get(None))
+    """
