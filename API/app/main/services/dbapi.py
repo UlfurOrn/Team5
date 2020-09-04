@@ -3,19 +3,23 @@ from recordsio import Recordsio
 from typesio import Typesio
 
 class DBapi():
-    methods = ["GET", "POST", "PUT", "DELETE"]
+    GET = "GET"
+    POST = "POST"
+    PUT = "PUT"
+    DELETE = "DELETE"
+    
     @classmethod
     def users(cls, method: str, id: int=None, data=None):
-        if method == cls.methods[0]:
+        if method == cls.GET:
             return Usersio.get(id)
 
-        elif method == cls.methods[1]:
+        elif method == cls.POST:
             if data:
                 Usersio.post(data)
             else:
                 raise Exception("Missing data")
 
-        elif method == cls.methods[2]:
+        elif method == cls.PUT:
             if id:
                 if data:
                     Usersio.put(id, data)
@@ -24,7 +28,7 @@ class DBapi():
             else:
                 raise Exception("Missing id")
 
-        elif method == cls.methods[3]:
+        elif method == cls.DELETE:
             if id:
                 Usersio.delete(id)
             else:
@@ -35,16 +39,16 @@ class DBapi():
 
     @classmethod
     def types(cls, method: str, id: int=None, data=None):
-        if method == cls.methods[0]:
+        if method == cls.GET:
             return Typesio.get(id)
 
-        elif method == cls.methods[1]:
+        elif method == cls.POST:
             if data:
                 Typesio.post(data)
             else:
                 raise Exception("Missing data")
 
-        elif method == cls.methods[2]:
+        elif method == cls.PUT:
             if id:
                 if data:
                     Typesio.put(id, data)
@@ -53,7 +57,7 @@ class DBapi():
             else:
                 raise Exception("Missing id")
 
-        elif method == cls.methods[3]:
+        elif method == cls.DELETE:
             if id:
                 Typesio.delete(id)
             else:
@@ -63,28 +67,28 @@ class DBapi():
             raise Exception("Method not in list of approved methods: {}".format(cls.methods))
 
     @classmethod
-    def records(cls, method: str, ids: list=None, data=None):
-        if method == cls.methods[0]:
-            return Recordsio.get(id)
+    def records(cls, method: str, ids: list=[], data=None):
+        if method == cls.GET:
+            return Recordsio.get(ids)
 
-        elif method == cls.methods[1]:
+        elif method == cls.POST:
             if data:
                 Recordsio.post(data)
             else:
                 raise Exception("Missing data")
 
-        elif method == cls.methods[2]:
+        elif method == cls.PUT:
             if id:
                 if data:
-                    Recordsio.put(id, data)
+                    Recordsio.put(ids, data)
                 else:
                     raise Exception("Missing data")
             else:
                 raise Exception("Missing id")
 
-        elif method == cls.methods[3]:
+        elif method == cls.DELETE:
             if id:
-                Recordsio.delete(id)
+                Recordsio.delete(ids)
             else:
                 raise Exception("Missing id")
 
@@ -93,6 +97,10 @@ class DBapi():
 
 
 if __name__ == "__main__":
-    DBapi.users("GET")
-    print(DBapi.types("GET", 1))
-    DBapi.records("GET")
+    """
+    users = DBapi.users("GET")
+    types = DBapi.types("GET", 1)
+    print (users[0]["userid"])
+    print(DBapi.records("GET"))
+    print(DBapi.records("GET", [1, 1, '2020-09-03 10:05:26']))
+    """

@@ -4,6 +4,7 @@ from abc import ABC, abstractclassmethod
 
 class Abctable(ABC):
     __conn = psycopg2.connect("dbname=habittracker user=habitapi password=habitapi123&  host=gudjoniv.com")
+    __conn.autocommit = True
     _cur = __conn.cursor(cursor_factory=extras.DictCursor)
 
     @abstractclassmethod
