@@ -22,4 +22,4 @@ class Typesio(Abctable):
         super()._cur.execute("DELETE * FROM types WHERE typeid = %s;", (id,))
 
 if __name__ == "__main__":
-    Typesio.get(0)
+    Typesio.get(1)

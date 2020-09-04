@@ -20,7 +20,6 @@ class Usersio(Abctable):
     @classmethod
     def delete(cls, id):
         super()._cur.execute("DELETE * FROM users WHERE userid = %s;", (id,))
-        
 
 if __name__ == "__main__":
     Usersio.get(0)
