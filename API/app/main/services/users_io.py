@@ -25,8 +25,8 @@ class Usersio(AbcTable):
     @classmethod
     def put(cls, user_id, data):
         """ Takes in an int and a dict with info to change and updates those columns in the database. Returns nothing """
-        values = [val for val in data.values()] # Get all keys from the input dict
-        keys = [key for key in data.keys()]     # Get all values from the input dict
+        values = [val for val in data.values()]  # Get all keys from the input dict
+        keys = [key for key in data.keys()]      # Get all values from the input dict
         values.extend([user_id])
 
         commandStr = "UPDATE users SET "

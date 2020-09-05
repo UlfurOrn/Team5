@@ -41,6 +41,7 @@ class SingleUser(Resource):
 
     @api.response(201, 'User successfully updated.')
     @api.doc('Edit a user')
+    @api.expect(_user)
     def put(self, user_id):
         data = request.json
         return DBapi.users('PUT', user_id, data)
