@@ -1,8 +1,8 @@
 from flask import request
 from flask_restplus import Resource
-from ..services.dbapi import DBapi
+from ..services.db_api import DBapi
 
-from ..util.DTO.typeDTO import TypeDTO
+from ..util.DTO.type_dto import TypeDTO
 
 api = TypeDTO.api
 _type = TypeDTO.type
