@@ -7,7 +7,8 @@ from main.util.DTO.user_dto import UserDTO
 api = UserDTO.api
 _user = UserDTO.user
 
-@api.route('/user')
+
+@api.route('')
 class UserList(Resource):
     @api.doc('List all users')
     @api.marshal_list_with(_user, envelope='users')
@@ -22,7 +23,7 @@ class UserList(Resource):
         return DBapi.users('POST', data=data)
 
 
-@api.route('/user/<id>')
+@api.route('/<id>')
 @api.response(404, 'User not found.')
 class user(Resource):
     @api.doc('Get a single user')

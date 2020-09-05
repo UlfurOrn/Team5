@@ -8,7 +8,7 @@ api = TypeDTO.api
 _type = TypeDTO.type
 
 
-@api.route('/type')
+@api.route('')
 class TypeList(Resource):
     @api.doc('List all types')
     @api.marshal_list_with(_type, envelope='types')
@@ -20,23 +20,23 @@ class TypeList(Resource):
     @api.expect(_type, validate=True)
     def post(self):
         data = request.json
-        return DBapi.types('POST',data=data)
+        return DBapi.types('POST', data=data)
 
 
-@api.route('/type/<id>')
+@api.route('/<id>')
 @api.response(404, 'Type not found.')
 class Type(Resource):
     @api.doc('Get a single type')
     def get(self):
-        return DBapi.types('GET',id)
+        return DBapi.types('GET', id)
 
     @api.response(201, 'Type successfully updated.')
     @api.doc('Edit a type')
     def put(self):
         data = request.json
-        return DBapi.types('PUT',id,data)
+        return DBapi.types('PUT', id, data)
 
     @api.doc('Delete a type')
     @api.response(201, 'Type successfully deleted.')
     def delete(self):
-        return DBapi.types('DELETE',id)
+        return DBapi.types('DELETE', id)
