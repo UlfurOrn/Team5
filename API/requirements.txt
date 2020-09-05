@@ -1,2 +1,6 @@
 flask-restplus==0.13.0
 Werkzeug==0.16.1
+psycopg2-binary==2.8.5
+
+# Packages for linting, testing and more
+flake8==3.8.3
