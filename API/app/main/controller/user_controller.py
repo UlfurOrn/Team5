@@ -13,7 +13,13 @@ class UserList(Resource):
     @api.doc('List all users')
     @api.marshal_list_with(_user, envelope='users')
     def get(self):
-        return DBapi.users('GET')
+        data = DBapi.users('GET')
+
+        user_list = []
+        for user in data:
+            user_list.append(dict(user))
+
+        return user_list
 
     @api.response(201, 'User successfully created.')
     @api.doc('create a new user')
@@ -23,25 +29,23 @@ class UserList(Resource):
         return DBapi.users('POST', data=data)
 
 
-@api.route('/<id>')
+@api.route('/<user_id>')
 @api.response(404, 'User not found.')
-class user(Resource):
+class SingleUser(Resource):
     @api.doc('Get a single user')
     @api.marshal_with(_user)
-    def get(self, id):
-        print("Start")
-        data = DBapi.users('GET', id)
-        print("Done")
-        print(dict(data[0]))
-        return dict(data[0])
+    def get(self, user_id):
+        data = DBapi.users('GET', user_id)
+        user_dict = dict(data[0])
+        return user_dict
 
     @api.response(201, 'User successfully updated.')
     @api.doc('Edit a user')
-    def put(self):
+    def put(self, user_id):
         data = request.json
-        return DBapi.users('PUT', id, data)
+        return DBapi.users('PUT', user_id, data)
 
     @api.doc('Delete a user')
     @api.response(201, 'user successfully deleted.')
-    def delete(self):
-        return DBapi.users('DELETE', id)
+    def delete(self, user_id):
+        return DBapi.users('DELETE', user_id)

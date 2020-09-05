@@ -13,7 +13,6 @@ class Usersio(AbcTable):
             super()._cur.execute("SELECT * FROM users WHERE userid = %s;", (id,))
         else:
             super()._cur.execute("SELECT * FROM users;")
-        print("Select")
         return super()._cur.fetchall()
 
     @classmethod

@@ -23,20 +23,20 @@ class TypeList(Resource):
         return DBapi.types('POST', data=data)
 
 
-@api.route('/<id>')
+@api.route('/<type_id>')
 @api.response(404, 'Type not found.')
 class Type(Resource):
     @api.doc('Get a single type')
-    def get(self):
-        return DBapi.types('GET', id)
+    def get(self, type_id):
+        return DBapi.types('GET', type_id)
 
     @api.response(201, 'Type successfully updated.')
     @api.doc('Edit a type')
-    def put(self):
+    def put(self, type_id):
         data = request.json
-        return DBapi.types('PUT', id, data)
+        return DBapi.types('PUT', type_id, data)
 
     @api.doc('Delete a type')
     @api.response(201, 'Type successfully deleted.')
-    def delete(self):
-        return DBapi.types('DELETE', id)
+    def delete(self, type_id):
+        return DBapi.types('DELETE', type_id)

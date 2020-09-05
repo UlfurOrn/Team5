@@ -20,23 +20,23 @@ class RecordList(Resource):
     @api.expect(_record, validate=True)
     def post(self):
         data = request.json
-        return DBapi.types('POST', data=data)
+        return DBapi.records('POST', data=data)
 
 
-@api.route('/<id>')
+@api.route('/<record_id>')
 @api.response(404, 'Record not found.')
 class Record(Resource):
     @api.doc('Get a single record')
-    def get(self):
-        return DBapi.records('GET', id)
+    def get(self, record_id):
+        return DBapi.records('GET', record_id)
 
     @api.response(201, 'Record successfully updated.')
     @api.doc('Edit a record')
-    def put(self):
+    def put(self, record_id):
         data = request.json
-        return DBapi('PUT', id, data)
+        return DBapi.records('PUT', record_id, data)
 
     @api.doc('Delete a record')
     @api.response(201, 'Record successfully deleted.')
-    def delete(self):
-        return DBapi('DELETE', id)
+    def delete(self, record_id):
+        return DBapi.records('DELETE', record_id)
