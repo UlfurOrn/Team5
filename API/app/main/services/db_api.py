@@ -25,6 +25,7 @@ class DBapi():
                 If method = GET returns list of dictionaries else returns nothing
         """
         if method == cls.GET:
+            print("Get")
             return Usersio.get(id)
 
         elif method == cls.POST:

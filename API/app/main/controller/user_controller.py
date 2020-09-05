@@ -27,16 +27,21 @@ class UserList(Resource):
 @api.response(404, 'User not found.')
 class user(Resource):
     @api.doc('Get a single user')
-    def get(self):
-        return DBapi('GET', id)
+    @api.marshal_with(_user)
+    def get(self, id):
+        print("Start")
+        data = DBapi.users('GET', id)
+        print("Done")
+        print(dict(data[0]))
+        return dict(data[0])
 
     @api.response(201, 'User successfully updated.')
     @api.doc('Edit a user')
     def put(self):
         data = request.json
-        return DBapi('PUT', id, data)
+        return DBapi.users('PUT', id, data)
 
     @api.doc('Delete a user')
     @api.response(201, 'user successfully deleted.')
     def delete(self):
-        return DBapi('DELETE', id)
+        return DBapi.users('DELETE', id)
