@@ -7,7 +7,7 @@ class Recordsio(Abctable):
     """
     @classmethod
     def get(cls, id: list):
-        """ Takes in a list of ints. Returns row with set ints or all rows if list=[] """
+        """ Takes in a list of ints. Returns row from records with set id's or all rows if id=[] """
         if id != []:
             super()._cur.execute("SELECT * FROM records WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (id[0], id[1], id[2]))
         else:
@@ -17,7 +17,7 @@ class Recordsio(Abctable):
 
     @classmethod
     def post(cls, data: dict):
-        """ Takes in a dict with a user and saves to the database. Returns nothing """
+        """ Takes in a dict with a record and saves to the database. Returns nothing """
         userid, typeid, rdatetime, ammount = data["UserId"], data["TypeId"], data["RDateTime"], data["Amount"]
         super()._cur.execute("INSERT INTO records VALUES (%s, %s, %s, %s);", (userid, typeid, rdatetime, ammount))
 
@@ -42,15 +42,3 @@ class Recordsio(Abctable):
     def delete(cls, id: list):
         """ Takes in a list of ints. Deletes row with those id's from the database. Returns nothing """
         super()._cur.execute("DELETE FROM users WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (id[0], id[1], id[2]))
-
-
-
-
-
-if __name__ == "__main__":
-    """
-    print(Recordsio.get([1, 1, '2020-09-03 10:05:26']))
-    Recordsio.put([1, 1, '2020-09-03 10:05:26'], {"ammount": "1000"})
-    print(Recordsio.get([1, 1, '2020-09-03 10:05:26']))
-    print (Recordsio.get([]))
-    """
