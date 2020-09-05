@@ -2,7 +2,6 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 
 
 
@@ -40,11 +39,9 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
-* [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contact](#contact)
-* [Acknowledgements](#acknowledgements)
+* [Team Members](#team-members)
+* [Teacher](#teacher)
+* [TA](#ta)
 
 
 
@@ -71,10 +68,10 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+* pip
 ```sh
-npm install npm@latest -g
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
 ```
 
 ### Installation
@@ -83,9 +80,13 @@ npm install npm@latest -g
 ```sh
 git clone https://github.com/bjartur20/Team5.git
 ```
-2. Install NPM packages
+2. Install packages with pip
 ```sh
-npm install
+pip install -r requirements.txt
+```
+3. Run the API
+```sh
+python app.py
 ```
 
 
@@ -95,32 +96,27 @@ npm install
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-See the [open issues](https://github.com/bjartur20/Team5/issues) for a list of proposed features (and known issues).
 
 
 
 <!-- TEAM MEMBERS -->
-## Contributing
+## Team Members
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+The members of Team-5 include RU students from the Computer Science department. We are a mixture of second and third year computer science and software engineering students.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+* Annija Apine, Computer Science - annija17@ru.is
+* Bent Gunnarsson, Software Engineering - bent19@ru.is
+* Bjartur Þórhallsson, Software Engineering - bjartur19@ru.is
+* Erla Óskarsdóttir, Computer Science - erla19@ru.is
+* Guðjón Ingi Valdimarsson, Software Engineering - gudjonv18@ru.is
+* Magnús Konráð Sigurðsson, Software Engineering - magnusks19@ru.is
+* Páll Þorsteinsson Sonnentag, Computer Science - pallt18@ru.is
+* Úlfur Örn Björnsson, Software Engineering - ulfur19@ru.is
 
 
 
 <!-- TEACHER -->
-## Teacherr
+## Teacher
 
 Gerardo Reynaga
 
@@ -144,8 +140,6 @@ Gunnar Jörgen Viggósson
 [stars-url]: https://github.com/bjartur20/Team5/stargazers
 [issues-shield]: https://img.shields.io/github/issues/bjartur20/Team5.svg?style=flat-square
 [issues-url]: https://github.com/bjartur20/Team5/issues
-[license-shield]: https://img.shields.io/github/license/bjartur20/Team5.svg?style=flat-square
-[license-url]: https://github.com/bjartur20/Team5/blob/master/LICENSE.txt
 [product-screenshot]: images/screenshot.png
 [python]: https://www.python.org/
 [flask-restplus]: https://github.com/noirbizarre/flask-restplus
