@@ -10,7 +10,7 @@ _user = UserDTO.user
 @api.route('/user')
 class UserList(Resource):
     @api.doc('List all users')
-    @api.marhal_list_with(_user, envelope='users')
+    @api.marshal_list_with(_user, envelope='users')
     def get(self):
         return DBapi.users('GET')
 

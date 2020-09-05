@@ -7,10 +7,11 @@ from main.util.DTO.type_dto import TypeDTO
 api = TypeDTO.api
 _type = TypeDTO.type
 
+
 @api.route('/type')
 class TypeList(Resource):
     @api.doc('List all types')
-    @api.mashel_list_with(_type, envelopoe='types')
+    @api.marshal_list_with(_type, envelope='types')
     def get(self):
         return DBapi.types('GET')
 

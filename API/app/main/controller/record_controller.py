@@ -16,10 +16,11 @@ class RecordList(Resource):
 
     @api.response(201, 'Type successfully created.')
     @api.doc('create a new Type')
-    @api.expect(_user, validate=True)
+    @api.expect(_record, validate=True)
     def post(self):
         data = request.json
         return DBapi.types('POST',data=data)
+
 
 @api.route('/record/<id>')
 @api.response(404, 'Record not found.')
@@ -38,4 +39,3 @@ class Record(Resource):
     @api.response(201, 'Record successfully deleted.')
     def delete(self):
         return DBapi('DELETE',id)
-    
