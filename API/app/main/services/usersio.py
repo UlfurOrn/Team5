@@ -1,6 +1,10 @@
 from abctable import *
 
 class Usersio(Abctable):
+    """
+        An input-output class for the users table in the Habit tracker database.
+        Contains methods for each CRUD operation [GET, POST, PUT, DELETE]
+    """
     @classmethod
     def get(cls, id):
         if id:

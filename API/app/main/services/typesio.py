@@ -1,6 +1,10 @@
 from abctable import *
 
 class Typesio(Abctable):
+    """
+        An input-output class for the types table in the Habit tracker database.
+        Contains methods for each CRUD operation [GET, POST, PUT, DELETE]
+    """
     @classmethod
     def get(cls, id):
         if id:
