@@ -1,6 +1,7 @@
-from abctable import *
+from main.services.abc_table import AbcTable
 
-class Recordsio(Abctable):
+
+class Recordsio(AbcTable):
     """
         An input-output class for the records table in the Habit tracker database.
         Contains methods for each CRUD operation [GET, POST, PUT, DELETE]

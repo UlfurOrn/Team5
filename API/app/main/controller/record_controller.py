@@ -1,8 +1,8 @@
 from flask import request
 from flask_restplus import Resource
-from ..services.db_api import DBapi
+from main.services.db_api import DBapi
 
-from ..util.DTO.record_dto import RecordDTO
+from main.util.DTO.record_dto import RecordDTO
 
 api = RecordDTO.api
 _record = RecordDTO.record

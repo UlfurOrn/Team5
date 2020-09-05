@@ -1,6 +1,7 @@
-from usersio import Usersio
-from recordsio import Recordsio
-from typesio import Typesio
+from main.services.users_io import Usersio
+from main.services.records_io import Recordsio
+from main.services.types_io import Typesio
+
 
 class DBapi():
     """
