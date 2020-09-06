@@ -1,4 +1,4 @@
-from app.main.controller.services.dbapi import DBapi
+from main.services.db_api import DBapi
 
 def test_get_single_record():
     pass
