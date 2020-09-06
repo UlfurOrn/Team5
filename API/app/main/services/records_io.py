@@ -9,7 +9,7 @@ class Recordsio(AbcTable):
     @classmethod
     def get(cls, record_id: list):
         """ Takes in a list of ints. Returns row from records with set id's or all rows if id=[] """
-        if id != []:
+        if record_id != []:
             super()._cur.execute("SELECT * FROM records WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (record_id[0], record_id[1], record_id[2]))
         else:
             super()._cur.execute("SELECT * FROM records;")

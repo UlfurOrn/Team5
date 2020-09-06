@@ -13,7 +13,13 @@ class TypeList(Resource):
     @api.doc('List all types')
     @api.marshal_list_with(_type, envelope='types')
     def get(self):
-        return DBapi.types('GET')
+        data = DBapi.types('GET')
+
+        record_list = []
+        for record in data:
+            record_list.append(dict(record))
+
+        return record_list
 
     @api.response(201, 'Type successfully created.')
     @api.doc('create a new Type')
@@ -25,13 +31,17 @@ class TypeList(Resource):
 
 @api.route('/<type_id>')
 @api.response(404, 'Type not found.')
-class Type(Resource):
+class SingleType(Resource):
     @api.doc('Get a single type')
+    @api.marshal_with(_type)
     def get(self, type_id):
-        return DBapi.types('GET', type_id)
+        data = DBapi.types('GET', type_id)
+        type_dict = dict(data[0])
+        return type_dict
 
     @api.response(201, 'Type successfully updated.')
     @api.doc('Edit a type')
+    @api.expect(_type, validate=True)
     def put(self, type_id):
         data = request.json
         return DBapi.types('PUT', type_id, data)
