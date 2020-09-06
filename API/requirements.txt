@@ -4,3 +4,5 @@ psycopg2-binary==2.8.5
 
 # Packages for linting, testing and more
 flake8==3.8.3
+pytest==6.0.1
+requests==2.24.0
