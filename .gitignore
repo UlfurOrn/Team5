@@ -299,6 +299,7 @@ Pipfile
 Pipfile.lock
 
 ### VisualStudioCode ###
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json

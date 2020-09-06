@@ -9,7 +9,7 @@ class Typesio(AbcTable):
     @classmethod
     def get(cls, type_id):
         """ Takes in an int. Returns row from types with set id or all rows if id=None """
-        if id:
+        if type_id:
             super()._cur.execute("SELECT * FROM types WHERE typeid = %s;", (type_id,))
         else:
             super()._cur.execute("SELECT * FROM types;")
@@ -18,7 +18,7 @@ class Typesio(AbcTable):
     @classmethod
     def post(cls, data):
         """ Takes in a dict with a type and saves to the database. Returns nothing """
-        name, description, measurement = data["Name"], data["Description"], data["Measurement"]
+        name, description, measurement = data["name"], data["description"], data["measurement"]
         super()._cur.execute("INSERT INTO types (name, description, measurement) VALUES (%s, %s, %s);", (name, description, measurement))
 
     @classmethod

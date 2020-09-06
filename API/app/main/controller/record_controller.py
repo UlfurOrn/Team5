@@ -13,7 +13,13 @@ class RecordList(Resource):
     @api.doc('List all records')
     @api.marshal_list_with(_record, envelope='records')
     def get(self):
-        return DBapi.records('GET')
+        data = DBapi.records('GET')
+
+        record_list = []
+        for record in data:
+            record_list.append(dict(record))
+
+        return record_list
 
     @api.response(201, 'Type successfully created.')
     @api.doc('create a new Type')
@@ -23,20 +29,24 @@ class RecordList(Resource):
         return DBapi.records('POST', data=data)
 
 
-@api.route('/<record_id>')
+@api.route('/<user_id>/<type_id>/<datetime>')
 @api.response(404, 'Record not found.')
 class Record(Resource):
     @api.doc('Get a single record')
-    def get(self, record_id):
-        return DBapi.records('GET', record_id)
+    @api.marshal_with(_record)
+    def get(self, user_id, type_id, datetime):
+        data = DBapi.records('GET', [user_id, type_id, datetime])
+        record_dict = dict(data[0])
+        return record_dict
 
     @api.response(201, 'Record successfully updated.')
     @api.doc('Edit a record')
-    def put(self, record_id):
+    @api.expect(_record, validate=True)
+    def put(self, user_id, type_id, datetime):
         data = request.json
-        return DBapi.records('PUT', record_id, data)
+        return DBapi.records('PUT', [user_id, type_id, datetime], data)
 
     @api.doc('Delete a record')
     @api.response(201, 'Record successfully deleted.')
-    def delete(self, record_id):
-        return DBapi.records('DELETE', record_id)
+    def delete(self, user_id, type_id, datetime):
+        return DBapi.records('DELETE', [user_id, type_id, datetime])

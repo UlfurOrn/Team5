@@ -9,7 +9,7 @@ class Recordsio(AbcTable):
     @classmethod
     def get(cls, record_id: list):
         """ Takes in a list of ints. Returns row from records with set id's or all rows if id=[] """
-        if id != []:
+        if record_id != []:
             super()._cur.execute("SELECT * FROM records WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (record_id[0], record_id[1], record_id[2]))
         else:
             super()._cur.execute("SELECT * FROM records;")
@@ -19,8 +19,8 @@ class Recordsio(AbcTable):
     @classmethod
     def post(cls, data: dict):
         """ Takes in a dict with a record and saves to the database. Returns nothing """
-        userid, typeid, rdatetime, ammount = data["UserId"], data["TypeId"], data["RDateTime"], data["Amount"]
-        super()._cur.execute("INSERT INTO records VALUES (%s, %s, %s, %s);", (userid, typeid, rdatetime, ammount))
+        userid, typeid, rdatetime, amount = data["userid"], data["typeid"], data["rdatetime"], data["amount"]
+        super()._cur.execute("INSERT INTO records VALUES (%s, %s, %s, %s);", (userid, typeid, rdatetime, amount))
 
 
     @classmethod
@@ -42,4 +42,4 @@ class Recordsio(AbcTable):
     @classmethod
     def delete(cls, record_id: list):
         """ Takes in a list of ints. Deletes row with those id's from the database. Returns nothing """
-        super()._cur.execute("DELETE FROM users WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (record_id[0], record_id[1], record_id[2]))
+        super()._cur.execute("DELETE FROM records WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (record_id[0], record_id[1], record_id[2]))
