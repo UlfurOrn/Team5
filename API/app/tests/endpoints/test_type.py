@@ -19,7 +19,7 @@ class TestTypeEndpoint(TestBase):
     def test_get_single_type(self, mock_db):
         mock_db.return_value = [self.test_type]  # DB returns type in a list
 
-        response = self.app.get("type/1")
+        response = self.app.get("type/1", headers=self.valid_header)
         data = response.json
 
         assert data == self.test_type
@@ -46,7 +46,7 @@ class TestTypeEndpoint(TestBase):
 
         mock_db.return_value = test_type_list
 
-        response = self.app.get("/type")
+        response = self.app.get("/type", headers=self.valid_header)
         data = response.json
 
         assert data == {
@@ -75,7 +75,7 @@ class TestTypeEndpoint(TestBase):
     def test_delete_type(self, mock_db):
         mock_db.return_value = None
 
-        response = self.app.delete("/type/1", headers=self.valid_header, json=self.test_type)
+        response = self.app.delete("/type/1", headers=self.valid_header)
         data = response.json
 
         assert data is None
