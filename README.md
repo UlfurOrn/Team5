@@ -101,6 +101,7 @@ cd app/
 ```sh
 python app.py
 ```
+7. Open the link: http://127.0.0.1:5000/ in a web browser and try out the REST API
 
 
 
