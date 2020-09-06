@@ -38,7 +38,7 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Usage](#usage)
+* [Testing](#testing)
 * [Team Members](#team-members)
 * [Teacher](#teacher)
 * [TA](#ta)
@@ -48,7 +48,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Swagger UI Screen Shot][product-screenshot]](https://i.imgur.com/WP7MQJj.png)
 
 This is the Github repository for Team 5's project in T-302-HONN.
 We created a habit tracking platform for nutritional information.
@@ -56,8 +56,9 @@ We created a habit tracking platform for nutritional information.
 
 ### Built With
 
-* [Python](python)
-* [Flask-restplus](flask-restplus)
+* [Python][python]
+* [Flask-restplus][flask-restplus]
+* [Psycopg2][psycopg2]
 
 
 
@@ -91,10 +92,13 @@ python app.py
 
 
 
-<!-- USAGE EXAMPLES -->
-## Usage
+<!-- TESTING -->
+## Testing
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+* Running the unit tests, with coverage
+```sh
+coverage run -m pytest
+```
 
 
 
@@ -140,6 +144,7 @@ Gunnar Jörgen Viggósson
 [stars-url]: https://github.com/bjartur20/Team5/stargazers
 [issues-shield]: https://img.shields.io/github/issues/bjartur20/Team5.svg?style=flat-square
 [issues-url]: https://github.com/bjartur20/Team5/issues
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: https://i.imgur.com/WP7MQJj.png
 [python]: https://www.python.org/
 [flask-restplus]: https://github.com/noirbizarre/flask-restplus
+[psycopg2]: https://www.psycopg.org/docs/
