@@ -44,7 +44,7 @@ class SingleUser(Resource):
     @api.expect(_user)
     def put(self, user_id):
         data = request.json
-        return DBapi.users('PUT', user_id, data)
+        return DBapi.users('PUT', user_id, data=data)
 
     @api.doc('Delete a user')
     @api.response(201, 'user successfully deleted.')

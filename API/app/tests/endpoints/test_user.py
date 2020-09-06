@@ -3,7 +3,8 @@ from unittest.mock import patch
 
 from tests.endpoints.test_base import TestBase
 
-@patch("main.services.db_api.DBapi.users")
+
+@patch("main.controller.user_controller.DBapi.users")
 class TestUserEndpoint(TestBase):
     def setUp(self):
         super(TestUserEndpoint, self).setUp()
@@ -11,10 +12,10 @@ class TestUserEndpoint(TestBase):
         self.test_user = {
             'name': "testuser",
             'email': "testuser@email.com",
-            'dob': "2020-04-25",
+            'dob': "2020-04-25T00:00:00",
             'gender': "m",
-            'weight': "85",
-            'height': "180"
+            'weight': 85,
+            'height': 180
         }
 
     def test_get_single_user(self, mock_db):
@@ -24,26 +25,25 @@ class TestUserEndpoint(TestBase):
         data = response.json
 
         assert data == self.test_user
-        assert mock_db.called_once_with('GET', '1')
-
+        mock_db.assert_called_once_with('GET', '1')
 
     def test_get_user_list(self, mock_db):
         test_user_list = [
             {
                 'name': "testuser",
                 'email': "test@email.com",
-                'dob': "2020-04-25",
+                'dob': "2020-04-25T00:00:00",
                 'gender': "m",
-                'weight': "85",
-                'height': "180"
+                'weight': 85,
+                'height': 180
             },
             {
                 'name': "testuser2",
                 'email': "test2@email.com",
-                'dob': "2000-01-25",
+                'dob': "2020-05-25T00:00:00",
                 'gender': "f",
-                'weight': "60",
-                'height': "170"
+                'weight': 60,
+                'height': 170
             }
         ]
 
@@ -55,7 +55,7 @@ class TestUserEndpoint(TestBase):
         assert data == {
             "users": test_user_list
         }
-        assert mock_db.called_once_with('GET')
+        mock_db.assert_called_once_with('GET')
 
     def test_post_user(self, mock_db):
         mock_db.return_value = None
@@ -78,11 +78,8 @@ class TestUserEndpoint(TestBase):
     def test_delete_user(self, mock_db):
         mock_db.return_value = None
 
-        response = self.app.delete("/user/1", headers=self.valid_header, json=self.test_user)
+        response = self.app.delete("/user/1", headers=self.valid_header)
         data = response.json
 
         assert data is None
         mock_db.assert_called_once_with("DELETE", "1")
-
-    def test_exceptions_user(self):
-        pass
