@@ -44,7 +44,7 @@ class SingleType(Resource):
     @api.expect(_type, validate=True)
     def put(self, type_id):
         data = request.json
-        return DBapi.types('PUT', type_id, data)
+        return DBapi.types('PUT', type_id, data=data)
 
     @api.doc('Delete a type')
     @api.response(201, 'Type successfully deleted.')

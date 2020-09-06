@@ -4,7 +4,7 @@ from unittest.mock import patch
 from tests.endpoints.test_base import TestBase
 
 
-@patch("main.services.db_api.DBapi.types")
+@patch("main.controller.type_controller.DBapi.types")
 class TestTypeEndpoint(TestBase):
 
     def setUp(self):
@@ -23,7 +23,7 @@ class TestTypeEndpoint(TestBase):
         data = response.json
 
         assert data == self.test_type
-        assert mock_db.called_once_with('GET', "1")
+        mock_db.assert_called_once_with('GET', "1")
 
     def test_get_type_list(self, mock_db):
         test_type_list = [
@@ -52,7 +52,7 @@ class TestTypeEndpoint(TestBase):
         assert data == {
             "types": test_type_list
         }
-        assert mock_db.called_once_with('GET')
+        mock_db.assert_called_once_with("GET")
 
     def test_post_type(self, mock_db):
         mock_db.return_value = None
@@ -61,10 +61,22 @@ class TestTypeEndpoint(TestBase):
         data = response.json
 
         assert data is None
-        assert mock_db.called_once_with("POST", self.test_type)
+        mock_db.assert_called_once_with("POST", data=self.test_type)
 
     def test_put_type(self, mock_db):
-        pass
+        mock_db.return_value = None
+
+        response = self.app.put("/type/1", headers=self.valid_header, json=self.test_type)
+        data = response.json
+
+        assert data is None
+        mock_db.assert_called_once_with("PUT", "1", data=self.test_type)
 
     def test_delete_type(self, mock_db):
-        pass
+        mock_db.return_value = None
+
+        response = self.app.delete("/type/1", headers=self.valid_header, json=self.test_type)
+        data = response.json
+
+        assert data is None
+        mock_db.assert_called_once_with("DELETE", "1")
