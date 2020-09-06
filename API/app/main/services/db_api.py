@@ -110,7 +110,7 @@ class DBapi():
                 raise Exception("Missing data")
 
         elif method == cls.PUT:
-            if id:
+            if ids:
                 if data:
                     Recordsio.put(ids, data)
                 else:
@@ -119,7 +119,7 @@ class DBapi():
                 raise Exception("Missing id")
 
         elif method == cls.DELETE:
-            if id:
+            if ids:
                 Recordsio.delete(ids)
             else:
                 raise Exception("Missing id")
