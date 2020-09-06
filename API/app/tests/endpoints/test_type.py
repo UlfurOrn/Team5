@@ -7,19 +7,22 @@ from tests.endpoints.test_base import TestBase
 @patch("main.services.db_api.DBapi.types")
 class TestTypeEndpoint(TestBase):
 
-    def test_get_single_type(self, mock_db):
-        test_type = {
+    def setUp(self):
+        super(TestTypeEndpoint, self).setUp()
+
+        self.test_type = {
             'name': "TestType",
             'description': "Testing Test Type",
             'measurement': "1234.5678"
         }
 
-        mock_db.return_value = [test_type]  # DB returns type in a list
+    def test_get_single_type(self, mock_db):
+        mock_db.return_value = [self.test_type]  # DB returns type in a list
 
         response = self.app.get("type/1")
         data = response.json
 
-        assert data == test_type
+        assert data == self.test_type
         assert mock_db.called_once_with('GET', "1")
 
     def test_get_type_list(self, mock_db):
@@ -52,7 +55,13 @@ class TestTypeEndpoint(TestBase):
         assert mock_db.called_once_with('GET')
 
     def test_post_type(self, mock_db):
-        self.app.post("/type")
+        mock_db.return_value = None
+
+        response = self.app.post("/type", headers=self.valid_header, json=self.test_type)
+        data = response.json
+
+        assert data is None
+        assert mock_db.called_once_with("POST", self.test_type)
 
     def test_put_type(self, mock_db):
         pass

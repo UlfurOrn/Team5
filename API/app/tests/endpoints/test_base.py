@@ -22,3 +22,7 @@ class TestBase(unittest.TestCase):
         api.init_app(app)
 
         self.app = app.test_client()
+
+        self.valid_header = {
+            "Content-Type": "application/json"
+        }
