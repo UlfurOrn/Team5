@@ -49,7 +49,7 @@ class DBapi():
                 raise Exception("Missing id")
 
         else:
-            raise Exception("Method not in list of approved methods: {}".format(cls.methods))
+            raise Exception("Method not in list of approved methods: GET, POST, PUT, DELETE")
 
     @classmethod
     def types(cls, method: str, id: int=None, data: dict=None):
@@ -87,7 +87,7 @@ class DBapi():
                 raise Exception("Missing id")
 
         else:
-            raise Exception("Method not in list of approved methods: {}".format(cls.methods))
+            raise Exception("Method not in list of approved methods: GET, POST, PUT, DELETE")
 
     @classmethod
     def records(cls, method: str, ids: list=[], data: dict=None):
@@ -125,4 +125,4 @@ class DBapi():
                 raise Exception("Missing id")
 
         else:
-            raise Exception("Method not in list of approved methods: {}".format(cls.methods))
+            raise Exception("Method not in list of approved methods: GET, POST, PUT, DELETE")

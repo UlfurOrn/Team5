@@ -1,8 +1,8 @@
 from main.services.db_api import DBapi
 from main.services.abc_table import AbcTable
-from unittest.mock import patch
 import psycopg2
 from psycopg2 import extras
+import pytest
 
 # This connects the AbcTable to another designated test database
 AbcTable._conn = psycopg2.connect("dbname=habittest user=habittester password=tester123  host=gudjoniv.com")
@@ -39,3 +39,15 @@ def test_delete_user():
     DBapi.users("DELETE", 3)
     assert len(DBapi.users("GET")) == 2
     AbcTable._cur.execute("ROLLBACK;")
+
+def test_exceptions_user():
+    with pytest.raises(Exception, match="Missing data"):
+        DBapi.users("POST")
+    with pytest.raises(Exception, match="Missing data"):
+        DBapi.users("PUT", 1)
+    with pytest.raises(Exception, match="Missing id"):
+        DBapi.users("PUT")
+    with pytest.raises(Exception, match="Missing id"):
+        DBapi.users("DELETE")
+    with pytest.raises(Exception, match="Method not in list of approved methods: GET, POST, PUT, DELETE"):
+        DBapi.users("test")
