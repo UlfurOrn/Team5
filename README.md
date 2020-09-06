@@ -81,11 +81,23 @@ python get-pip.py
 ```sh
 git clone https://github.com/bjartur20/Team5.git
 ```
-2. Install packages with pip
+2. Create a virtual environment(optional)
+```sh
+python3 -m venv venv
+```
+3. Move to API folder
+```sh
+cd API/
+```
+4. Install packages with pip
 ```sh
 pip install -r requirements.txt
 ```
-3. Run the API
+5. Move to main app folder
+```sh
+cd app/
+```
+6. Run the API
 ```sh
 python app.py
 ```
@@ -94,10 +106,15 @@ python app.py
 
 <!-- TESTING -->
 ## Testing
+The current code coverage of the repository is **97%**
 
 * Running the unit tests, with coverage
 ```sh
 coverage run -m pytest
+```
+* Getting the coverage report
+```sh
+coverage report -m
 ```
 
 
