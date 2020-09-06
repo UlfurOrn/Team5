@@ -38,7 +38,7 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Usage](#usage)
+* [Testing](#testing)
 * [Team Members](#team-members)
 * [Teacher](#teacher)
 * [TA](#ta)
