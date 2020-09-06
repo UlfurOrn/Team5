@@ -44,7 +44,7 @@ class Record(Resource):
     @api.expect(_record, validate=True)
     def put(self, user_id, type_id, datetime):
         data = request.json
-        return DBapi.records('PUT', [user_id, type_id, datetime], data)
+        return DBapi.records('PUT', [user_id, type_id, datetime], data=data)
 
     @api.doc('Delete a record')
     @api.response(201, 'Record successfully deleted.')
