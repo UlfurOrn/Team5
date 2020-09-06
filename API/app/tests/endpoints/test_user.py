@@ -1,53 +1,88 @@
-from main.services.db_api import DBapi
-from main.services.abc_table import AbcTable
-import psycopg2
-from psycopg2 import extras
-import pytest
+import requests
+from unittest.mock import patch
 
-# This connects the AbcTable to another designated test database
-AbcTable._conn = psycopg2.connect("dbname=habittest user=habittester password=tester123  host=gudjoniv.com")
-AbcTable._conn.autocommit = True
-AbcTable._cur = AbcTable._conn.cursor(cursor_factory=extras.DictCursor)
+from tests.endpoints.test_base import TestBase
+
+@patch("main.services.db_api.DBapi.users")
+class TestUserEndpoint(TestBase):
+    def setUp(self):
+        super(TestUserEndpoint, self).setUp()
+
+        self.test_user = {
+            'name': "testuser",
+            'email': "testuser@email.com",
+            'dob': "2020-04-25",
+            'gender': "m",
+            'weight': "85",
+            'height': "180"
+        }
+
+    def test_get_single_user(self, mock_db):
+        mock_db.return_value = [self.test_user]
+
+        response = self.app.get("user/1")
+        data = response.json
+
+        assert data == self.test_user
+        assert mock_db.called_once_with('GET', '1')
 
 
-def test_get_single_user():
-    assert len(DBapi.users("GET", 1)) == 1
+    def test_get_user_list(self, mock_db):
+        test_user_list = [
+            {
+                'name': "testuser",
+                'email': "test@email.com",
+                'dob': "2020-04-25",
+                'gender': "m",
+                'weight': "85",
+                'height': "180"
+            },
+            {
+                'name': "testuser2",
+                'email': "test2@email.com",
+                'dob': "2000-01-25",
+                'gender': "f",
+                'weight': "60",
+                'height': "170"
+            }
+        ]
 
-def test_get_user_list():
-    assert len(DBapi.users("GET")) == 3
+        mock_db.return_value = test_user_list
 
-def test_post_user():
-    AbcTable._cur.execute("BEGIN;")
-    DBapi.users("POST", data={"name": "test",
-                              "email": "test", 
-                              "dob": "2000-10-02", 
-                              "gender": "f", 
-                              "weight": 50, 
-                              "height": 160})
-    assert len(DBapi.users("GET")) == 4
-    AbcTable._cur.execute("ROLLBACK;")
+        response = self.app.get("/user")
+        data = response.json
 
-def test_put_user():
-    AbcTable._cur.execute("BEGIN;")
-    DBapi.users("PUT", 1, {"name": "puttest", "gender": "f"})
-    assert str(DBapi.users("GET", 1)) == "[[1, 'puttest', 'test@email.com', datetime.date(2020, 4, 25), 'f', 85, 180]]"
-    AbcTable._cur.execute("ROLLBACK;")
+        assert data == {
+            "users": test_user_list
+        }
+        assert mock_db.called_once_with('GET')
 
-def test_delete_user():
-    AbcTable._cur.execute("BEGIN;")
-    assert len(DBapi.users("GET")) == 3
-    DBapi.users("DELETE", 3)
-    assert len(DBapi.users("GET")) == 2
-    AbcTable._cur.execute("ROLLBACK;")
+    def test_post_user(self, mock_db):
+        mock_db.return_value = None
 
-def test_exceptions_user():
-    with pytest.raises(Exception, match="Missing data"):
-        DBapi.users("POST")
-    with pytest.raises(Exception, match="Missing data"):
-        DBapi.users("PUT", 1)
-    with pytest.raises(Exception, match="Missing id"):
-        DBapi.users("PUT")
-    with pytest.raises(Exception, match="Missing id"):
-        DBapi.users("DELETE")
-    with pytest.raises(Exception, match="Method not in list of approved methods: GET, POST, PUT, DELETE"):
-        DBapi.users("test")
+        response = self.app.post("/user", headers=self.valid_header, json=self.test_user)
+        data = response.json
+
+        assert data is None
+        mock_db.assert_called_once_with("POST", data=self.test_user)
+
+    def test_put_user(self, mock_db):
+        mock_db.return_value = None
+
+        response = self.app.put("/user/1", headers=self.valid_header, json=self.test_user)
+        data = response.json
+
+        assert data is None
+        mock_db.assert_called_once_with("PUT", "1", data=self.test_user)
+
+    def test_delete_user(self, mock_db):
+        mock_db.return_value = None
+
+        response = self.app.delete("/user/1", headers=self.valid_header, json=self.test_user)
+        data = response.json
+
+        assert data is None
+        mock_db.assert_called_once_with("DELETE", "1")
+
+    def test_exceptions_user(self):
+        pass
