@@ -1,10 +1,11 @@
-from usersio import Usersio
-from recordsio import Recordsio
-from typesio import Typesio
+from main.services.users_io import Usersio
+from main.services.records_io import Recordsio
+from main.services.types_io import Typesio
+
 
 class DBapi():
     """
-        A gateway class that interfaces the database opperations available for the Habit tracker platform.
+        A gateway class that interfaces the database operations available for the Habit tracker platform.
         Each method is a table in the database. So adding a new table requires the addition of a new method.
     """
     GET = "GET"

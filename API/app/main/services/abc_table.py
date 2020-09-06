@@ -2,7 +2,8 @@ import psycopg2
 from psycopg2 import extras
 from abc import ABC, abstractclassmethod
 
-class Abctable(ABC):
+
+class AbcTable(ABC):
     """
         An abstract class that provides unfilled class methods for all 4 CRUD operations on a table in the Habit tracker database.
         Has connection objects to the database and a cursor that can be called with super()._cur.

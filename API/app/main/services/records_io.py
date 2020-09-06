@@ -1,15 +1,16 @@
-from abctable import *
+from main.services.abc_table import AbcTable
 
-class Recordsio(Abctable):
+
+class Recordsio(AbcTable):
     """
         An input-output class for the records table in the Habit tracker database.
         Contains methods for each CRUD operation [GET, POST, PUT, DELETE]
     """
     @classmethod
-    def get(cls, id: list):
+    def get(cls, record_id: list):
         """ Takes in a list of ints. Returns row from records with set id's or all rows if id=[] """
         if id != []:
-            super()._cur.execute("SELECT * FROM records WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (id[0], id[1], id[2]))
+            super()._cur.execute("SELECT * FROM records WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (record_id[0], record_id[1], record_id[2]))
         else:
             super()._cur.execute("SELECT * FROM records;")
         return super()._cur.fetchall()
@@ -23,11 +24,11 @@ class Recordsio(Abctable):
 
 
     @classmethod
-    def put(cls, id: list, data: dict):
+    def put(cls, record_id: list, data: dict):
         """ Takes in a list of ints and a dict with info to change and updates those columns in the database. Returns nothing """
         values = [val for val in data.values()] # Get all keys from the input dict
         keys = [key for key in data.keys()]     # Get all values from the input dict
-        values.extend(id)
+        values.extend(record_id)
 
         commandStr = "UPDATE records SET "
         for i in range(len(keys)):                      # Add all update arguments to the string
@@ -39,6 +40,6 @@ class Recordsio(Abctable):
 
 
     @classmethod
-    def delete(cls, id: list):
+    def delete(cls, record_id: list):
         """ Takes in a list of ints. Deletes row with those id's from the database. Returns nothing """
-        super()._cur.execute("DELETE FROM users WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (id[0], id[1], id[2]))
+        super()._cur.execute("DELETE FROM users WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (record_id[0], record_id[1], record_id[2]))
