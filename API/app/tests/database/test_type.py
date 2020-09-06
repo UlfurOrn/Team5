@@ -35,4 +35,13 @@ def test_delete_type():
     AbcTable._cur.execute("ROLLBACK;")
 
 def test_exceptions_type():
-    pass
+    with pytest.raises(Exception, match="Missing data"):
+        DBapi.types("POST")
+    with pytest.raises(Exception, match="Missing data"):
+        DBapi.types("PUT", 1)
+    with pytest.raises(Exception, match="Missing id"):
+        DBapi.types("PUT")
+    with pytest.raises(Exception, match="Missing id"):
+        DBapi.types("DELETE")
+    with pytest.raises(Exception, match="Method not in list of approved methods: GET, POST, PUT, DELETE"):
+        DBapi.types("test")
