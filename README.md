@@ -119,6 +119,10 @@ coverage report -m
 ```
 
 
+<!-- LECTURE ASPECTS -->
+## Lecture Aspects
+For this sprint we used a layered design where the database (data) and the Rest API (domain) work as independant entities. The presentation layer will be implemented in a future sprint.
+Objer-Oriented Programming was implemented in the DBapi using abstract classes and a main gateway (see more in services README.md). Encapsulation is also used is various places in the API.
 
 
 <!-- TEAM MEMBERS -->
