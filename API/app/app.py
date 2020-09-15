@@ -16,4 +16,4 @@ api.add_namespace(user_ns)
 api.init_app(app)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=8000)
