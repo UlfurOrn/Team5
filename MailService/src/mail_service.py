@@ -14,21 +14,26 @@ class MailService:
             html_content=""
         )
 
-    def send_email(self, email):
+    def send_email(self, emails):
         # Make secure if needed
         api_key = self.API_KEY
         sg = SendGridAPIClient(api_key)
 
         message = self.MESSAGE
-        message.to = email
+        message.to = emails
         sg.send(message)
 
-    def change_subject(self, subject):
+    def get_subject(self):
+        return self.MESSAGE.subject
+
+    def set_subject(self, subject):
         self.MESSAGE.subject = subject
 
-    def change_content(self, content):
+    def get_content(self):
+        return self.MESSAGE.content
+
+    def set_content(self, content):
         self.MESSAGE.content = content
 
 
-if __name__ == "__main__":
-    ms = MailService()
+mail_service = MailService()
