@@ -5,24 +5,30 @@ from sendgrid.helpers.mail import Mail
 
 class MailService:
 
-    def send_email(self):
-        message = Mail(
-            from_email="my.habit.tracker.app@gmail.com",
-            to_emails="ulfurinn@gmail.com",
-            subject="Mail Service",
-            html_content="Bjó til email service fyrir Sprintinn lol"
+    API_KEY = "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"
+    FROM_EMAIL = "my.habit.tracker.app@gmail.com"
+    MESSAGE = Mail(
+            from_email=FROM_EMAIL,
+            to_emails=[],
+            subject="",
+            html_content=""
         )
 
+    def send_email(self, email):
         # Make secure if needed
-        api_key = "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"
+        api_key = self.API_KEY
         sg = SendGridAPIClient(api_key)
-        response = sg.send(message)
 
-        print(response.status_code)
-        print(response.body)
-        print(response.headers)
+        message = self.MESSAGE
+        message.to = email
+        sg.send(message)
+
+    def change_subject(self, subject):
+        self.MESSAGE.subject = subject
+
+    def change_content(self, content):
+        self.MESSAGE.content = content
 
 
 if __name__ == "__main__":
     ms = MailService()
-    ms.send_email()
