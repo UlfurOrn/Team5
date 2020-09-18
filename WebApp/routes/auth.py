@@ -47,7 +47,7 @@ def login():
         error = None
 
         print(f'Getting user {username} from api: {current_app.config["API_URL"]}')
-        user = get_user(username)
+        user = get_user(current_app.config["API_URL"], username)
 
         if user is None:
             error = 'Incorrect username'
