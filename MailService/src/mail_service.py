@@ -30,9 +30,10 @@ class MailService:
         self.MESSAGE.subject = subject
 
     def get_content(self):
-        return self.MESSAGE.content
+        return self.MESSAGE.contents
 
     def set_content(self, content):
+        self.MESSAGE._contents = None  # Could not find better solution, no clear method
         self.MESSAGE.content = content
 
 
