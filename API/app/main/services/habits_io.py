@@ -1,4 +1,5 @@
 from main.services.abc_table import AbcTable
+from main.util.mappers.habit import Habit
 
 
 class Habitsio(AbcTable):
@@ -13,7 +14,10 @@ class Habitsio(AbcTable):
             super()._cur.execute("SELECT * FROM habits WHERE habitid = %s;", (habit_id,))
         else:
             super()._cur.execute("SELECT * FROM habits;")
-        return super()._cur.fetchall()
+        habits_list = []
+        for habit in super()._cur.fetchall():
+            habits_list.append(Habit(habit[0], habit[1], habit[2], habit[3], habit[4]))
+        return habits_list
 
     @classmethod
     def post(cls, data):
