@@ -28,9 +28,9 @@ class DBapi():
             Arguments: 
                 method: str - Specifies the method to use [GET, POST, PUT, DELETE]
                 id: int - Specifies the id of the object. If none, gets all in GET method
-                data: Dictionary of data to be written or updated in the database
+                data: Object of type User to be used for insert or update
             Returns:
-                If method = GET returns list of dictionaries else returns nothing
+                If method = GET returns list of User objects else returns nothing
         """
         if method == cls.GET:
             return Usersio.get(id)
@@ -62,13 +62,13 @@ class DBapi():
     @classmethod
     def habits(cls, method: str, id: int=None, data: Habit=None):
         """ 
-            A gateway to the types table.
+            A gateway to the habits table.
             Arguments: 
                 method: str - Specifies the method to use [GET, POST, PUT, DELETE]
                 id: int - Specifies the id of the object. If none, gets all in GET method
-                data: Dictionary of data to be written or updated in the database
+                data: Object of type Habit to be used for insert or update
             Returns:
-                If method = GET returns list of dictionaries else returns nothing
+                If method = GET returns list of Habit objects else returns nothing
         """
         if method == cls.GET:
             return Habitsio.get(id)
@@ -103,10 +103,10 @@ class DBapi():
             A gateway to the records table.
             Arguments: 
                 method: str - Specifies the method to use [GET, POST, PUT, DELETE]
-                id: int- Specifies the id of the object. If none, gets all in GET method
-                data: Dictionary of data to be written or updated in the database
+                id: int - Specifies the id of the object. If none, gets all in GET method
+                data: Object of type Record to be used for insert or update
             Returns:
-                If method = GET returns list of dictionaries else returns nothing
+                If method = GET returns list of Record objects else returns nothing
         """
         if method == cls.GET:
             return Recordsio.get(id)
@@ -140,7 +140,7 @@ class DBapi():
         """
         A gateway to the measurements table.
             Argument: id: int- Specifies the id of the object. If none, gets all in GET method
-            Returns: row with id or all rows if id is none
+            Returns: row with id or all rows if id is none as list of Measurment objects
         """
         return Measurementsio.get(id)
 
@@ -149,10 +149,11 @@ class DBapi():
         """
         A gateway to the mcategories table.
             Argument: id: int- Specifies the id of the object. If none, gets all in GET method
-            Returns: row with id or all rows if id is none
+            Returns: row with id or all rows if id is none as list of Mcategories objects
         """
         return Mcategoriesio.get(id)
     
     @classmethod
     def checkpassword(cls, username: str, password: str):
+        """ Takes in a username and password and checks if they match in the database """
         return Usersio.password(username, password)
