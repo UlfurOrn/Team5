@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <input type="text" placeholder="Full Name" name="fullname" id="fullname" required><br>
+    <input name="username" placeholder="username" name="username" id="username" required><br>
+    <input type="email" placeholder="Email" name="email" id="email" required><br>
+    <input type="password" placeholder="Password" name="passw" id="passw" required><br>
+    <input type="date" placeholder="Date of Birth" name="dateOfBirth" id="dateOFBirth" required><br>
+    <input type="text" placeholder="Gender" name="gender" id="gender" required><br>
+    <input type="number" placeholder="Weight (kg)" name="weight" id="weight" required><br>
+    <input type="number" placeholder="Height (cm)" name="heigh" id="height" required><br>
+    <input type="submit" value="Register">
+  </form>
+{% endblock %}
