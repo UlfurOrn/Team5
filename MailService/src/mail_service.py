@@ -5,7 +5,7 @@ from sendgrid.helpers.mail import Mail
 
 class MailService:
 
-    API_KEY = "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"
+    API_KEY = os.environ.get("SENDGRID_API_KEY")
     FROM_EMAIL = "my.habit.tracker.app@gmail.com"
     MESSAGE = Mail(
             from_email=FROM_EMAIL,
@@ -18,6 +18,8 @@ class MailService:
         # Make secure if needed
         api_key = self.API_KEY
         sg = SendGridAPIClient(api_key)
+
+        print(api_key)
 
         message = self.MESSAGE
         message.to = emails
