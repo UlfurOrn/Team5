@@ -34,7 +34,7 @@ def test_put_habit():
 def test_delete_habit():
     AbcTable._cur.execute("BEGIN;")
     DBapi.habits("DELETE", 2)
-    assert len(DBapi.habits("GET")) == 2
+    assert len(DBapi.habits("GET")) == 3
     AbcTable._cur.execute("ROLLBACK;")
 
 def test_exceptions_type():
