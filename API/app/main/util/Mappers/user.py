@@ -1,4 +1,4 @@
-from mapper import Mapper
+from main.util.mappers.mapper import Mapper
 
 class User(Mapper):
     def __init__(self, userid=None, name=None, email=None, username=None, password=None, dob=None, gender=None, weight=None, height=None):

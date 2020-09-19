@@ -1,4 +1,4 @@
-from mapper import Mapper
+from main.util.mappers.mapper import Mapper
 
 class Record(Mapper):
     def __init__(self, recordid=None, userid=None, habitid=None, amount=None, rdate=None, rtime=None):

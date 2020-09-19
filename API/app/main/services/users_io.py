@@ -44,4 +44,5 @@ class Usersio(AbcTable):
     
     @classmethod
     def password(cls, username, password):
-        return super()._cur.execute("SELECT F_CheckPassword(%s, %s)", (password, username))
+        super()._cur.execute("SELECT F_CheckPassword(%s, %s);", (password, username))
+        return super()._cur.fetchall()
