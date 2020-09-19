@@ -1,45 +1,39 @@
 from main.services.abc_table import AbcTable
-
+from main.util.mappers.record import Record
+from psycopg2.extensions import AsIs # Used to remove '' from SQL strings I insert
 
 class Recordsio(AbcTable):
     """
         An input-output class for the records table in the Habit tracker database.
         Contains methods for each CRUD operation [GET, POST, PUT, DELETE]
     """
+
     @classmethod
-    def get(cls, record_id: list):
-        """ Takes in a list of ints. Returns row from records with set id's or all rows if id=[] """
-        if record_id != []:
-            super()._cur.execute("SELECT * FROM records WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (record_id[0], record_id[1], record_id[2]))
+    def get(cls, record_id: int):
+        """ Takes in an int. Returns row from records with set id or all rows if id=None as a list of Record objects """
+        if record_id:
+            super()._cur.execute("SELECT * FROM records WHERE recordid = %s;", (record_id,))
         else:
             super()._cur.execute("SELECT * FROM records;")
-        return super()._cur.fetchall()
-
+        records_list = []
+        for record in super()._cur.fetchall():
+            records_list.append(Record(record[0], record[1], record[2], record[3], record[4], record[5]))
+        return records_list
 
     @classmethod
     def post(cls, data: dict):
-        """ Takes in a dict with a record and saves to the database. Returns nothing """
-        userid, typeid, rdatetime, amount = data["userid"], data["typeid"], data["rdatetime"], data["amount"]
-        super()._cur.execute("INSERT INTO records VALUES (%s, %s, %s, %s);", (userid, typeid, rdatetime, amount))
+        """ Takes in a Record object and saves it to the database. Returns nothing """
+        record_touple = data.to_sql_insert()
+        super()._cur.execute("INSERT INTO records %s VALUES %s;", (AsIs(record_touple[0]), AsIs(record_touple[1])))
+
+    @classmethod
+    def put(cls, record_id: int, data: dict):
+        """ Takes in an int and a Record object with changes and updates those columns in the database. Returns nothing """
+        record_str = data.to_sql_update()
+        super()._cur.execute("UPDATE records SET %s WHERE recordid = %s", (AsIs(record_str), record_id))
 
 
     @classmethod
-    def put(cls, record_id: list, data: dict):
-        """ Takes in a list of ints and a dict with info to change and updates those columns in the database. Returns nothing """
-        values = [val for val in data.values()] # Get all keys from the input dict
-        keys = [key for key in data.keys()]     # Get all values from the input dict
-        values.extend(record_id)
-
-        commandStr = "UPDATE records SET "
-        for i in range(len(keys)):                      # Add all update arguments to the string
-            commandStr += "{} = %s,".format(keys[i])
-        commandStr = commandStr[:-1].replace(";", "")   # To avoid SQL injections and remove last comma
-        commandStr += " WHERE userid = %s AND typeid = %s AND rdatetime = %s;" 
-
-        super()._cur.execute(commandStr, values)
-
-
-    @classmethod
-    def delete(cls, record_id: list):
+    def delete(cls, record_id: int):
         """ Takes in a list of ints. Deletes row with those id's from the database. Returns nothing """
-        super()._cur.execute("DELETE FROM records WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (record_id[0], record_id[1], record_id[2]))
+        super()._cur.execute("DELETE FROM records WHERE recordid = %s;", (record_id,))

@@ -8,7 +8,7 @@ class AbcTable(ABC):
         An abstract class that provides unfilled class methods for all 4 CRUD operations on a table in the Habit tracker database.
         Has connection objects to the database and a cursor that can be called with super()._cur.
     """
-    _conn = psycopg2.connect("dbname=habittracker user=habitapi password=habitapi123&  host=gudjoniv.com")
+    _conn = psycopg2.connect("dbname=habittracker2 user=habitapi password=habitapi123&  host=gudjoniv.com")
     _conn.autocommit = True
     _cur = _conn.cursor(cursor_factory=extras.DictCursor)
 
