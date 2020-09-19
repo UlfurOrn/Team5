@@ -6,10 +6,14 @@
 
 {% block content %}
   <form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
+    <input type="text" placeholder="Full Name" name="fullname" id="fullname" required><br>
+    <input type="email" placeholder="Email" name="email" id="email" required><br>
+    <input type="text" placeholder="Username" name="username" id="username" required><br>
+    <input type="password" placeholder="Password" name="passw" id="passw" required><br>
+    <input type="date" placeholder="Date of Birth" name="dateOfBirth" id="dateOFBirth" required><br>
+    <input type="text" placeholder="Gender" name="gender" id="gender" required><br>
+    <input type="number" placeholder="Weight (kg)" name="weight" id="weight" required><br>
+    <input type="number" placeholder="Height (cm)" name="heigh" id="height" required><br>
     <input type="submit" value="Register">
   </form>
 {% endblock %}
