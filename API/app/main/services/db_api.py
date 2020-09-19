@@ -4,6 +4,10 @@ from main.services.habits_io import Habitsio
 from main.services.measurements_io import Measurementsio
 from main.services.mcategories_io import Mcategoriesio
 
+from main.util.mappers.habit import Habit
+from main.util.mappers.user import User
+from main.util.mappers.record import Record
+
 
 class DBapi():
     """
@@ -16,7 +20,7 @@ class DBapi():
     DELETE = "DELETE"
     
     @classmethod
-    def users(cls, method: str, id: int=None, data: dict=None):
+    def users(cls, method: str, id: int=None, data: User=None):
         """ 
             A gateway to the users table.
             Arguments: 
@@ -54,7 +58,7 @@ class DBapi():
             raise Exception("Method not in list of approved methods: GET, POST, PUT, DELETE")
 
     @classmethod
-    def habits(cls, method: str, id: int=None, data: dict=None):
+    def habits(cls, method: str, id: int=None, data: Habit=None):
         """ 
             A gateway to the types table.
             Arguments: 
@@ -92,7 +96,7 @@ class DBapi():
             raise Exception("Method not in list of approved methods: GET, POST, PUT, DELETE")
 
     @classmethod
-    def records(cls, method: str, id: int=None, data: dict=None):
+    def records(cls, method: str, id: int=None, data: Record=None):
         """ 
             A gateway to the records table.
             Arguments: 
