@@ -1,4 +1,5 @@
 from main.services.abc_table import AbcTable
+from main.util.mappers.mcategory import Mcategory
 
 class Mcategoriesio(AbcTable):
     @classmethod
@@ -8,7 +9,10 @@ class Mcategoriesio(AbcTable):
             super()._cur.execute("SELECT * FROM mcategories WHERE mcategoryid = %s;", (mcategory_id,))
         else:
             super()._cur.execute("SELECT * FROM mcategories;")
-        return super()._cur.fetchall()
+        categ_list = []
+        for categ in super()._cur.fetchall():
+            categ_list.append(Mcategory(categ[0], categ[1]))
+        return categ_list
 
     @classmethod
     def post(cls, data):
