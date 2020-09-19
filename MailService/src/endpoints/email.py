@@ -1,28 +1,27 @@
 from flask import request
 from flask_restplus import Resource
 
-from models.subject_dto import SubjectDTO
+from models.email_dto import EmailDTO
 from mail_service import mail_service
 
-api = SubjectDTO.api
-subject_model = SubjectDTO.model
+api = EmailDTO.api
+email_model = EmailDTO.model
 
 
 @api.route('')
-class SubjectEndpoint(Resource):
-    @api.marshal_with(subject_model)
+class EmailEndpoint(Resource):
+    @api.marshal_with(email_model)
     def get(self):
-        """Get subject of email"""
+        """View subject and content of the email"""
 
-        return mail_service.get_subject()
+        return mail_service.get_subject(), mail_service.get_content()
 
-    @api.expect(subject_model, validate=True)
-    @api.marshal_with(subject_model)
-    def put(self):
-        """Change subject of email"""
+    @api.expect(email_model, validate=True)
+    @api.marshal_with(email_model)
+    def post(self):
+        """Send email"""
 
         data = request.json
-        subject = data["subject"]
+        emails = data["emails"]
 
-        mail_service.set_subject(subject)
-        return mail_service.get_subject()
+        return mail_service.send_email(emails)
