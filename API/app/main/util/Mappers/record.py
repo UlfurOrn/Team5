@@ -1,6 +1,6 @@
 from mapper import Mapper
 
-class record(Mapper):
+class Record(Mapper):
     def __init__(self, recordid=None, userid=None, habitid=None, amount=None, rdate=None, rtime=None):
         self.recordid = recordid
         self.userid = userid

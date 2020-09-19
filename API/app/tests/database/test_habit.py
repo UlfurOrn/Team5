@@ -1,5 +1,6 @@
 from main.services.db_api import DBapi
 from main.services.abc_table import AbcTable
+from main.util.mappers.habit import Habit
 import psycopg2
 from psycopg2 import extras
 import pytest
@@ -10,25 +11,27 @@ AbcTable._conn.autocommit = True
 AbcTable._cur = AbcTable._conn.cursor(cursor_factory=extras.DictCursor)
 
 
-def test_get_single_type():
+def test_get_single_habit():
     assert len(DBapi.habits("GET", 1)) == 1
 
-def test_get_type_list():
-    assert len(DBapi.habits("GET")) == 3
-
-"""def test_post_type():
-    AbcTable._cur.execute("BEGIN;")
-    DBapi.habits("POST", data={"name": "testType", "description": "A test type", "measurement": "Coverage"})
+def test_get_habit_list():
     assert len(DBapi.habits("GET")) == 4
+
+def test_post_habit():
+    AbcTable._cur.execute("BEGIN;")
+    new_habit = Habit(userid=1, name="Test habit", description="My test habit", measurementid=4)
+    DBapi.habits("POST", data=new_habit)
+    assert len(DBapi.habits("GET")) == 5
     AbcTable._cur.execute("ROLLBACK;")
 
-def test_put_type():
+def test_put_habit():
     AbcTable._cur.execute("BEGIN;")
-    DBapi.habits("PUT", 1, {"name": "Vatn", "description": "Drykkur"})
-    assert str(DBapi.habits("GET", 1)) == "[[1, 'Vatn', 'Drykkur', 'mL']]"
-    AbcTable._cur.execute("ROLLBACK;")"""
+    updated_habit = Habit(name="TEST")
+    DBapi.habits("PUT", 1, updated_habit)
+    assert DBapi.habits("GET", 1)[0].name == "TEST"
+    AbcTable._cur.execute("ROLLBACK;")
 
-def test_delete_type():
+def test_delete_habit():
     AbcTable._cur.execute("BEGIN;")
     DBapi.habits("DELETE", 2)
     assert len(DBapi.habits("GET")) == 2
