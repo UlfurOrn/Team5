@@ -21,7 +21,7 @@ def test_post_record():
     AbcTable._cur.execute("BEGIN;")
     new_record = Record(userid=1, habitid=1, amount=10, rdate='2020-06-06', rtime='10:10:10')
     DBapi.records("POST", data=new_record)
-    assert len(DBapi.records("GET")) == 4
+    assert len(DBapi.records("GET")) == 5
     AbcTable._cur.execute("ROLLBACK;")
 
 def test_put_record():

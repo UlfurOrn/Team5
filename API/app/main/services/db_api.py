@@ -7,6 +7,8 @@ from main.services.mcategories_io import Mcategoriesio
 from main.util.mappers.habit import Habit
 from main.util.mappers.user import User
 from main.util.mappers.record import Record
+from main.util.mappers.measurement import Measurement
+from main.util.mappers.mcategory import Mcategory
 
 
 class DBapi():
