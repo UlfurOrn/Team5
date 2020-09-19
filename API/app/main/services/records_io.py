@@ -7,10 +7,10 @@ class Recordsio(AbcTable):
         Contains methods for each CRUD operation [GET, POST, PUT, DELETE]
     """
     @classmethod
-    def get(cls, record_id: list):
+    def get(cls, record_id: int):
         """ Takes in a list of ints. Returns row from records with set id's or all rows if id=[] """
-        if record_id != []:
-            super()._cur.execute("SELECT * FROM records WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (record_id[0], record_id[1], record_id[2]))
+        if record_id:
+            super()._cur.execute("SELECT * FROM records WHERE recordid = %s;", (record_id,))
         else:
             super()._cur.execute("SELECT * FROM records;")
         return super()._cur.fetchall()
@@ -24,7 +24,7 @@ class Recordsio(AbcTable):
 
 
     @classmethod
-    def put(cls, record_id: list, data: dict):
+    def put(cls, record_id: int, data: dict):
         """ Takes in a list of ints and a dict with info to change and updates those columns in the database. Returns nothing """
         values = [val for val in data.values()] # Get all keys from the input dict
         keys = [key for key in data.keys()]     # Get all values from the input dict
@@ -40,6 +40,6 @@ class Recordsio(AbcTable):
 
 
     @classmethod
-    def delete(cls, record_id: list):
+    def delete(cls, record_id: int):
         """ Takes in a list of ints. Deletes row with those id's from the database. Returns nothing """
-        super()._cur.execute("DELETE FROM records WHERE userid = %s AND typeid = %s AND rdatetime = %s;", (record_id[0], record_id[1], record_id[2]))
+        super()._cur.execute("DELETE FROM records WHERE recordid = %s;", (record_id,))

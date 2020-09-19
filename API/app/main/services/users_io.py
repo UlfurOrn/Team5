@@ -41,3 +41,7 @@ class Usersio(AbcTable):
     def delete(cls, user_id):
         """ Takes in an int. Deletes row with that id from the database. Returns nothing """
         super()._cur.execute("DELETE FROM users WHERE userid = %s;", (user_id,))
+    
+    @classmethod
+    def password(cls, username, password):
+        return super()._cur.execute("SELECT F_CheckPassword(%s, %s)", (password, username))
