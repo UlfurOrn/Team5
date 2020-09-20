@@ -2,5 +2,7 @@
 from tests.test_base import TestBase
 from tests.mail_service_stub import MailServiceStub
 
+
 class TestSubject(TestBase):
-    pass
+
+    def test_get
