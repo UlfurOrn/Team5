@@ -4,7 +4,7 @@ from logging.config import fileConfig
 
 class LoggingPlugin:
 
-    LOGGING_CONFIG = "main.util.logging.logging.ini"
+    LOGGING_CONFIG = "main/util/logging/logging.ini"
 
     @classmethod
     def get_logger(cls):
