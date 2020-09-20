@@ -12,7 +12,14 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 def register():
     if request.method == 'POST':
         username = request.form['username']
+        email = request.form['email']
+        username = request.form['username']
         password = request.form['password']
+        date_of_birth = request.form['dateOfBirth']
+        gender = request.form['gender']
+        weight = request.form['weight']
+        height = request.form['height']
+
         error = None
 
         if not username:
@@ -24,11 +31,17 @@ def register():
             print(f'Adding user {username} to api: {current_app.config["API_URL"]}')
             user = {
                 'username': username,
-                'password_hash': generate_password_hash(password)
+                'email': email,
+                'username': username,
+                'password_hash': generate_password_hash(password),
+                'date': date_of_birth,
+                'gender': gender,
+                'weight': weight,
+                'height': height
             }
 
             resp = save_user(current_app.config["API_URL"], user)
-            
+
             if resp is None:
                 return redirect(url_for('auth.login'))
             else:
@@ -37,7 +50,7 @@ def register():
         flash(error)
 
     return render_template('auth/register.html')
-        
+
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
