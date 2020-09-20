@@ -40,7 +40,7 @@ class SingleUser(Resource):
     def get(self, user_id):
         data = DBapi.users('GET', user_id)
         if not data:
-            return "", 400
+            return "", 404
         user_dict = data[0].to_dict()
         return user_dict
 
