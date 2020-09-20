@@ -4,10 +4,11 @@ from flask_restplus import Resource
 from main.util.mappers.user import User
 from main.services.db_api import DBapi
 from main.util.DTO.user_dto import UserDTO
+from main.util.DTO.habit_dto import HabitDTO
 
 api = UserDTO.api
 _user = UserDTO.user
-
+_habit = HabitDTO.habit
 
 @api.route('')
 class UserList(Resource):
@@ -30,6 +31,22 @@ class UserList(Resource):
         user = User()
         user.set_dict(data)
         return DBapi.users('POST', data=user)
+
+
+@api.route("/<user_id>/habit")
+class UserHabit(Resource):
+
+    @api.marshal_list_with(_habit, envelope='habits')
+    def get(self, user_id):
+        data = DBapi.habits("GET")
+
+        habit_list = []
+        for habit in data:
+            habit_dict = habit.to_dict()
+            if habit_dict["userid"] == int(user_id):
+                habit_list.append(habit_dict)
+
+        return habit_list
 
 
 @api.route('/<user_id>')
