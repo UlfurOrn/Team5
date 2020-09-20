@@ -35,8 +35,8 @@ def register():
                 'username': username,
                 'password': password,
                 'gender': gender,
-                'weight': weight,
-                'height': height
+                'weight': int(weight),
+                'height': int(height)
             }
 
             resp = save_user(current_app.config["API_URL"], user)

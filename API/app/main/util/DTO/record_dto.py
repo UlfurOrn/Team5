@@ -10,3 +10,7 @@ class RecordDTO:
         'rdate': fields.DateTime(required=True, description='The timestamp for the record'),
         'amount': fields.Float(required=True, description='The amount for the record')
     })
+
+    output_record = api.inherit("record out", record, {
+        "recordid": fields.Integer(required=True, description='The record identification number for the record')
+    })

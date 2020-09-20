@@ -44,7 +44,7 @@ def get_user_id(api_url, user_id):
 
 def save_user(api_url, user):
     session = requests.Session()
-
+    print(user)
     r = session.post(api_url + 'user', json=user)
     
     if r.status_code != 200:
