@@ -4,7 +4,7 @@ from .auth import login_required
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 
-from ..services.api_calls import get_user_habits, create_habit
+from ..services.api_calls import get_user_habits, create_habit, get_user_records
 
 bp = Blueprint('habit', __name__, url_prefix='/habit')
 
@@ -31,3 +31,14 @@ def userhabits():
 
         resp = create_habit(current_app.config["API_URL"], habit)
     return render_template('habits/habits.html', habits=habitdict['habits'])
+
+
+@bp.route('/records', methods=('GET','POST'))
+def userrecords():
+    #user_id = session.get('user_id')
+    user_id = 1
+    recorddict = get_user_records(current_app.config['API_URL'], user_id)
+    if request.method == 'GET':
+        somestatement = True
+
+    return render_template('habits/records.html', records=recorddict['records'])
