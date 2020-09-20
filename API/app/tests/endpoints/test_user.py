@@ -1,4 +1,3 @@
-import requests
 from unittest.mock import patch
 
 from tests.endpoints.test_base import TestBase
