@@ -80,7 +80,7 @@ def create_habit(api_url,habit):
 def get_user_records(api_url, user_id):
     session = requests.Session()
 
-    r = session.get(api_url+'record/'+str(user_id))
+    r = session.get(api_url+"user/"+str(user_id)+'/record')
 
     if r.status_code != 200:
         print('Cannot connect to API:', r.status_code)
