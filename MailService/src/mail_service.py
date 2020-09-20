@@ -19,11 +19,19 @@ class MailService:
         api_key = self.API_KEY
         sg = SendGridAPIClient(api_key)
 
-        print(api_key)
-
         message = self.MESSAGE
         message.to = emails
         sg.send(message)
+
+    def get_mail(self):
+        subject = self.MESSAGE.subject
+        content = self.MESSAGE.contents[0]
+        content = content.get()["value"]
+
+        return {
+            "subject": subject,
+            "content": content
+        }
 
     def get_subject(self):
         return self.MESSAGE.subject
@@ -32,7 +40,7 @@ class MailService:
         self.MESSAGE.subject = subject
 
     def get_content(self):
-        return self.MESSAGE.contents
+        return self.MESSAGE.contents[0]
 
     def set_content(self, content):
         self.MESSAGE._contents = None  # Could not find better solution, no clear method
