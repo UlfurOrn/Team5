@@ -7,7 +7,7 @@ from ..services.api_calls import get_user_habits
 bp = Blueprint('habit', __name__, url_prefix='/habit')
 
 # User habits view
-@bp.route('/', methods=('GET'))
+@bp.route('/', methods=('GET',"POST"))
 def userhabits():
     user_id = session.get('user_id')
     if request.method == 'GET':
