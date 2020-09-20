@@ -16,7 +16,7 @@ class MailServiceStub:
         return {"subject": self.MESSAGE["subject"]}
 
     def set_subject(self, subject):
-        self.MESSAGE[subject] = subject
+        self.MESSAGE["subject"] = subject
 
     def get_content(self):
         return {"content": self.MESSAGE["content"]}
