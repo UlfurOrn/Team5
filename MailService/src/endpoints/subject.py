@@ -13,6 +13,7 @@ class SubjectEndpoint(Resource):
     @api.marshal_with(subject_model)
     def get(self):
         """Get subject of email"""
+
         mail_service = MailService()
         return mail_service.get_subject()
 

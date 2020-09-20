@@ -6,6 +6,7 @@ from mail_service import MailService
 
 api = ContentDTO.api
 content_model = ContentDTO.model
+mail_service = MailService()
 
 
 @api.route('')

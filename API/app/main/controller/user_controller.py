@@ -1,7 +1,8 @@
 from flask import request
 from flask_restplus import Resource
-from main.services.db_api import DBapi
 
+from main.util.mappers.user import User
+from main.services.db_api import DBapi
 from main.util.DTO.user_dto import UserDTO
 
 api = UserDTO.api
@@ -17,7 +18,7 @@ class UserList(Resource):
 
         user_list = []
         for user in data:
-            user_list.append(dict(user))
+            user_list.append(user.to_dict())
 
         return user_list
 
@@ -26,7 +27,9 @@ class UserList(Resource):
     @api.expect(_user, validate=True)
     def post(self):
         data = request.json
-        return DBapi.users('POST', data=data)
+        user = User()
+        user.set_dict(data)
+        return DBapi.users('POST', data=user)
 
 
 @api.route('/<user_id>')
@@ -36,7 +39,9 @@ class SingleUser(Resource):
     @api.marshal_with(_user)
     def get(self, user_id):
         data = DBapi.users('GET', user_id)
-        user_dict = dict(data[0])
+        if not data:
+            return "", 404
+        user_dict = data[0].to_dict()
         return user_dict
 
     @api.response(201, 'User successfully updated.')
@@ -44,7 +49,9 @@ class SingleUser(Resource):
     @api.expect(_user)
     def put(self, user_id):
         data = request.json
-        return DBapi.users('PUT', user_id, data=data)
+        user = User()
+        user.set_dict(data)
+        return DBapi.users('PUT', user_id, data=user)
 
     @api.doc('Delete a user')
     @api.response(201, 'user successfully deleted.')
