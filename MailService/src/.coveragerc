@@ -1,0 +1,3 @@
+# Don't unittest mail service since it is replaced with a service stub
+[run]
+omit = mail_service.py

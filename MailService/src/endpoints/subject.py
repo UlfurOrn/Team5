@@ -14,7 +14,8 @@ class SubjectEndpoint(Resource):
     def get(self):
         """Get subject of email"""
 
-        return MailService().get_subject()
+        mail_service = MailService()
+        return mail_service.get_subject()
 
     @api.expect(subject_model, validate=True)
     @api.marshal_with(subject_model)
@@ -24,5 +25,6 @@ class SubjectEndpoint(Resource):
         data = request.json
         subject = data["subject"]
 
+        mail_service = MailService()
         mail_service.set_subject(subject)
         return mail_service.get_subject()

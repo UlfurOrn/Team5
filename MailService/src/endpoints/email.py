@@ -6,7 +6,7 @@ from mail_service import MailService
 
 api = EmailDTO.api
 email_model = EmailDTO.model
-mail_service = MailService()
+email_expect = EmailDTO.expect
 
 
 @api.route('')
@@ -15,14 +15,17 @@ class EmailEndpoint(Resource):
     def get(self):
         """View subject and content of the email"""
 
-        return mail_service.get_subject(), mail_service.get_content()
+        mail_service = MailService()
+        return mail_service.get_mail()
 
-    @api.expect(email_model, validate=True)
-    @api.marshal_with(email_model)
+    @api.expect(email_expect, validate=True)
     def post(self):
         """Send email"""
 
         data = request.json
         emails = data["emails"]
 
-        return mail_service.send_email(emails)
+        mail_service = MailService()
+        mail_service.send_email(emails)
+
+        return "", 200

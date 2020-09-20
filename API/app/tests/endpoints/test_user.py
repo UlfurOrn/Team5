@@ -1,5 +1,6 @@
 from unittest.mock import patch
 
+from main.util.mappers.user import User
 from tests.endpoints.test_base import TestBase
 
 
@@ -8,14 +9,15 @@ class TestUserEndpoint(TestBase):
     def setUp(self):
         super(TestUserEndpoint, self).setUp()
 
-        self.test_user = {
-            'name': "testuser",
-            'email': "testuser@email.com",
-            'dob': "2020-04-25T00:00:00",
-            'gender': "m",
-            'weight': 85,
-            'height': 180
-        }
+        self.test_user = User("testuser", "testuser@email.com", "2020-04-25T00:00:00", "m", 85, 180)
+        # self.test_user = {
+        #     'name': "testuser",
+        #     'email': "testuser@email.com",
+        #     'dob': "2020-04-25T00:00:00",
+        #     'gender': "m",
+        #     'weight': 85,
+        #     'height': 180
+        # }
 
     def test_get_single_user(self, mock_db):
         mock_db.return_value = [self.test_user]
