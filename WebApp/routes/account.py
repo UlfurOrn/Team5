@@ -1,7 +1,7 @@
 import functools
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
-from ..services.api_calls import save_user, get_user, get_user_id
+from ..services.api_calls import save_user, get_user, get_user_id, save_edited_user
 
 bp = Blueprint('account', __name__, url_prefix='/account')
 
@@ -18,8 +18,8 @@ def editAccount():
     user_id = 2
     if request.method == 'GET':
         details = get_user_id(current_app.config['API_URL'], user_id)
-    
-    if request.method == 'PUT':
+    elif request.method == 'POST':
+        details = get_user_id(current_app.config['API_URL'], user_id)
         name = request.form['fullname']
         error = None
         if error is None:
@@ -27,7 +27,7 @@ def editAccount():
             user = {
                 'name': name,
             }
-            resp = save_user(current_app.config["API_URL"], user)
+            resp = save_edited_user(current_app.config["API_URL"], user_id,user)
             if resp is None:
                 error = resp
             else:

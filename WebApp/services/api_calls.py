@@ -51,6 +51,15 @@ def save_user(api_url, user):
         print(r.json)
         return f'Cannot connect to API {r.status_code}'
 
+def save_edited_user(api_url, user_id,user):
+    session = requests.Session()
+
+    r = session.put(api_url + 'user/'+str(user_id), json=user)
+    
+    if r.status_code != 200:
+        print(r.json)
+        return f'Cannot connect to API {r.status_code}'
+
 def get_user_habits(api_url, user_id):
     session = requests.Session()
     
