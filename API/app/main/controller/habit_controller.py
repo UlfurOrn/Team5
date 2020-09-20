@@ -6,7 +6,8 @@ from main.util.DTO.habit_dto import HabitDTO
 from main.services.db_api import DBapi
 
 api = HabitDTO.api
-_habit = HabitDTO.habit
+_expect = HabitDTO.habit
+_habit = HabitDTO.output_habit
 
 
 @api.route('')
@@ -24,7 +25,7 @@ class HabitList(Resource):
 
     @api.response(201, 'Habit successfully created.')
     @api.doc('create a new Habit')
-    @api.expect(_habit, validate=True)
+    @api.expect(_expect, validate=True)
     def post(self):
         data = request.json
         habit = Habit()
@@ -46,7 +47,7 @@ class SingleHabit(Resource):
 
     @api.response(201, 'Habit successfully updated.')
     @api.doc('Edit a habit')
-    @api.expect(_habit, validate=True)
+    @api.expect(_expect, validate=True)
     def put(self, habit_id):
         data = request.json
         habit = Habit()

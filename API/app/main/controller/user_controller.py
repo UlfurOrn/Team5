@@ -7,8 +7,10 @@ from main.util.DTO.user_dto import UserDTO
 from main.util.DTO.habit_dto import HabitDTO
 
 api = UserDTO.api
-_user = UserDTO.user
+_excpect = UserDTO.user
+_user = UserDTO.output_user
 _habit = HabitDTO.habit
+
 
 @api.route('')
 class UserList(Resource):
@@ -25,7 +27,7 @@ class UserList(Resource):
 
     @api.response(201, 'User successfully created.')
     @api.doc('create a new user')
-    @api.expect(_user, validate=True)
+    @api.expect(_excpect, validate=True)
     def post(self):
         data = request.json
         user = User()
@@ -63,7 +65,7 @@ class SingleUser(Resource):
 
     @api.response(201, 'User successfully updated.')
     @api.doc('Edit a user')
-    @api.expect(_user)
+    @api.expect(_excpect)
     def put(self, user_id):
         data = request.json
         user = User()
