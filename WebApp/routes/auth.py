@@ -3,7 +3,7 @@ import functools
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from ..services.api_calls import save_user, get_user, get_user_id
+from ..services.api_calls import save_user, get_user, get_user_id, user_login
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -70,7 +70,7 @@ def login():
         if error is None:
             session.clear()
             session['user_ud'] = user['id']
-            return redirect(url_for('index'))
+            return redirect(url_for('habits'))
 
         flash(error)
 
