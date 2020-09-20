@@ -133,6 +133,31 @@ flask run
 
 
 
+Mail Service:
+
+1. Move to MailService folder
+```sh
+cd MailService/
+```
+2. Install packages with pip
+```sh
+pip install -r requirements.txt
+```
+3. Move to main src folder
+```sh
+cd src/
+```
+4. Run the MailService Api
+```sh
+python app.py
+```
+5. Open the link: http://127.0.0.1:8001/ in a web browser and try out the Mail Service
+
+**Note:** The mail api service we were using closed our account for exposing an api key.
+          The service was working but unfortunately not anymore. Hopefully this is alright
+          for this sprint, and this will be fixed by the end of the next one.
+
+
 <!-- TESTING -->
 ## Testing
 The current code coverage of the repository is **97%**
@@ -156,20 +181,24 @@ Objer-Oriented Programming was implemented in the DBapi using abstract classes a
 
 ### Sprint 2
 The six of the eight Base Design Patterns we decided on implementing for our system are the following:
+
 * Registry: 
-The registry design pattern is used to implement a global sole instance logger that we use for error logging, this introduces logging to our system.
+The registry design pattern is used to implement a global sole instance logger that we use for error logging, 
+this introduces logging to our system.
 
 * Plug-in: 
-The Plug-in pattern is used to read a config file for the logger, aka output format, output file and some more.
+The Plug-in pattern is used to read a config file for the logger, aka output format, output file and more
 
 * Mapper:
-The Mapper design pattern is implemented to make changing between the rest api bodies and database structure easier. This also makes changes to the models easier.
+The Mapper design pattern is implemented to make changing between the rest api bodies and database structure easier. 
+This also makes changes to the models easier.
 
 * Layer Supertype:
 For the Layer Supertype we created a Mapper interface with some methods to implement which the other Mapper classes inherit from.
 
 * Gateway:
-To implement the Gateway pattern we introduced a small external service into our project, a mail service, and we created a more basic api for said service.
+To implement the Gateway pattern we introduced a small external service into our project, a mail service, 
+and we created a more basic api for said service.
 
 * Service Stub:
 For the service stub we created a fake mail service to remove the dependency on the mail service during unit tests.

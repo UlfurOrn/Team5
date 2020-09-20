@@ -1,4 +1,6 @@
 sendgrid==6.4.7
+flask-restplus==0.13.0
+Werkzeug==0.16.1
 
 # Packages for linting, testing and more
 flake8==3.8.3

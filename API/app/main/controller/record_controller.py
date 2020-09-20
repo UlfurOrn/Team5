@@ -6,8 +6,8 @@ from main.util.DTO.record_dto import RecordDTO
 from main.services.db_api import DBapi
 
 api = RecordDTO.api
-_expect = RecordDTO.record
-_record = RecordDTO.output_record
+_expect = RecordDTO.expect_model
+_record = RecordDTO.model
 
 
 @api.route('')
