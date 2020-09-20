@@ -7,7 +7,7 @@ class EmailDTO:
         'subject': fields.String(required=True, description='Subject of the email', example="Subject"),
         'content': fields.String(required=True, description='Content of the email', example="Content")
     })
-    body = api.model('To emails', {
+    expect = api.model('To emails', {
         'emails': fields.List(
             fields.String(required=True, description="List of user emails", example="user1@email.com")
         )

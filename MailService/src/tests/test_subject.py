@@ -1,4 +1,3 @@
-import sys
 from unittest.mock import patch
 
 from tests.test_base import TestBase
@@ -6,19 +5,27 @@ from tests.mail_service_stub import MailServiceStub
 
 
 @patch("endpoints.subject.MailService")
-class TestSubjectEndpoint(TestBase):
+class TestSubject(TestBase):
 
-    def test_get(self, mock_mail):
-        mock_mail.return_value = MailServiceStub()
-        response = self.app.get("subject")
+    def test_get_subject(self, mock_mail_service):
+        mock_mail_service.return_value = MailServiceStub()
+
+        response = self.app.get("/subject")
         data = response.json
 
         assert data["subject"] == "subject"
 
-    def test_put(self, mock_mail):
-        mock_mail.return_value = MailServiceStub()
+    def test_put_subject(self, mock_mail_service):
+        mock_mail_service.return_value = MailServiceStub()
 
-        response = self.app.put("subject")
+        test_subject = {
+            "subject": "Test Subject"
+        }
+
+        response = self.app.put("/subject", headers=self.valid_header, json=test_subject)
         data = response.json
 
-        assert data["subject"] == "subject"
+        assert data == test_subject
+
+        # Reset after test
+        self.app.put("/subject", headers=self.valid_header, json={"subject": "subject"})

@@ -23,6 +23,16 @@ class MailService:
         message.to = emails
         sg.send(message)
 
+    def get_mail(self):
+        subject = self.MESSAGE.subject
+        content = self.MESSAGE.contents[0]
+        content = content.get()["value"]
+
+        return {
+            "subject": subject,
+            "content": content
+        }
+
     def get_subject(self):
         return self.MESSAGE.subject
 
