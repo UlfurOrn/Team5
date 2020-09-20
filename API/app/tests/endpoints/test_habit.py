@@ -1,6 +1,8 @@
 import requests
 from unittest.mock import patch
 
+
+from main.util.mappers.habit import Habit
 from tests.endpoints.test_base import TestBase
 
 
@@ -10,11 +12,7 @@ class TestHabitEndpoint(TestBase):
     def setUp(self):
         super(TestHabitEndpoint, self).setUp()
 
-        self.test_habit = {
-            'name': "TestHabit",
-            'description': "Testing Test Habit",
-            'measurement': "1234.5678"
-        }
+        self.test_habit = Habit("TestHabit", "Testing Test Habit, 1234.5678")
 
     def test_get_single_habit(self, mock_db):
         mock_db.return_value = [self.test_habit]  # DB returns habit in a list
@@ -26,25 +24,18 @@ class TestHabitEndpoint(TestBase):
         mock_db.assert_called_once_with('GET', "1")
 
     def test_get_habit_list(self, mock_db):
+        test_habit_list_insert = [
+            Habit("TestHabit1", "Testing Test Habit 1", "1234.5678"),
+            Habit("TestHabit2", "Testing Test Habit 2", "8765.4321"),
+            Habit("TestHabit3", "Testing Test Habit 3", "1234")
+        ]
         test_habit_list = [
-            {
-                'name': "TestHabit1",
-                'description': "Testing Test Habit 1",
-                'measurement': "1234.5678"
-            },
-            {
-                'name': "TestHabit2",
-                'description': "Testing Test Habit 2",
-                'measurement': "8765.4321"
-            },
-            {
-                'name': "TestHabit3",
-                'description': "Testing Test Habit 3",
-                'measurement': "1234"
-            }
+            {"name": "TestHabit1", "description": "Testing Habit 1", "measurement":"1234.5678"},
+            {"name": "TestHabit2", "descriptiono": "Testing Habit 2", "measurement": "8765.3421"},
+            {"name": "TestHabit3", "description": "Testing Habit 3", "measurement": "1234"}
         ]
 
-        mock_db.return_value = test_habit_list
+        mock_db.return_value = test_habit_list_insert
 
         response = self.app.get("/habit", headers=self.valid_header)
         data = response.json

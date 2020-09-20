@@ -32,23 +32,6 @@ class HabitList(Resource):
         return DBapi.habits('POST', data=habit)
 
 
-@api.route("/<user_id>")
-class UserHabit(Resource):
-
-    @api.marshal_list_with(_habit, envelope='habits')
-    def get(self, user_id):
-        data = DBapi.habits("GET")
-
-        habit_list = []
-        for habit in data:
-            habit_dict = habit.to_dict()
-            if habit_dict["userid"] == int(user_id):
-                habit_list.append(habit_dict)
-
-        return habit_list
-
-
-
 @api.route('/<habit_id>')
 @api.response(404, 'Habit not found.')
 class SingleHabit(Resource):
