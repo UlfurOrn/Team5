@@ -1,5 +1,5 @@
 from main.services.db_api import DBapi
-from main.services.abc_table import AbcTable
+from main.repositories.abc_table import AbcTable
 from main.util.mappers.user import User
 import psycopg2
 from psycopg2 import extras

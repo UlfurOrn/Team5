@@ -2,10 +2,11 @@ from flask import request
 from flask_restplus import Resource
 
 from models.content_dto import ContentDTO
-from mail_service import mail_service
+from mail_service import MailService
 
 api = ContentDTO.api
 content_model = ContentDTO.model
+mail_service = MailService()
 
 
 @api.route('')

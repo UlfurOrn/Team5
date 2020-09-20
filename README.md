@@ -8,7 +8,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/bjartur20/Team5">
+  <a href="https://github.com/UlfurOrn/Team5">
     <img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Reykjavik_University_Logo.svg/1200px-Reykjavik_University_Logo.svg.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -17,14 +17,14 @@
   <p align="center">
     Habit tracking platform for nutritional information
     <br />
-    <a href="https://github.com/bjartur20/Team5"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/UlfurOrn/Team5"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/bjartur20/Team5">View Demo</a>
+    <a href="https://github.com/UlfurOrn/Team5">View Demo</a>
     ·
-    <a href="https://github.com/bjartur20/Team5/issues">Report Bug</a>
+    <a href="https://github.com/UlfurOrn/Team5/issues">Report Bug</a>
     ·
-    <a href="https://github.com/bjartur20/Team5/issues">Request Feature</a>
+    <a href="https://github.com/UlfurOrn/Team5/issues">Request Feature</a>
   </p>
 </p>
 
@@ -39,6 +39,9 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Testing](#testing)
+* [Lecure Aspects](#lecture-aspects)
+  * [Sprint 1](#sprint-1)
+  * [Sprint 2](#sprint-2)
 * [Team Members](#team-members)
 * [Teacher](#teacher)
 * [TA](#ta)
@@ -57,6 +60,7 @@ We created a habit tracking platform for nutritional information.
 ### Built With
 
 * [Python][python]
+* [Flask][flask]
 * [Flask-restplus][flask-restplus]
 * [Psycopg2][psycopg2]
 
@@ -79,7 +83,7 @@ python get-pip.py
 
 1. Clone the repo
 ```sh
-git clone https://github.com/bjartur20/Team5.git
+git clone https://github.com/UlfurOrn/Team5.git
 ```
 2. Create a virtual environment(optional)
 ```sh
@@ -101,7 +105,7 @@ cd app/
 ```sh
 python app.py
 ```
-7. Open the link: http://127.0.0.1:5000/ in a web browser and try out the REST API
+7. Open the link: http://127.0.0.1:8000/ in a web browser and try out the REST API
 
 
 
@@ -121,8 +125,30 @@ coverage report -m
 
 <!-- LECTURE ASPECTS -->
 ## Lecture Aspects
+
+### Sprint 1
 For this sprint we used a layered design where the database (data) and the Rest API (domain) work as independant entities. The presentation layer will be implemented in a future sprint.
 Objer-Oriented Programming was implemented in the DBapi using abstract classes and a main gateway (see more in services README.md). Encapsulation is also used is various places in the API.
+
+### Sprint 2
+The six of the eight Base Design Patterns we decided on implementing for our system are the following:
+* Registry: 
+The registry design pattern is used to implement a global sole instance logger that we use for error logging, this introduces logging to our system.
+
+* Plug-in: 
+The Plug-in pattern is used to read a config file for the logger, aka output format, output file and some more.
+
+* Mapper:
+The Mapper design pattern is implemented to make changing between the rest api bodies and database structure easier. This also makes changes to the models easier.
+
+* Layer Supertype:
+For the Layer Supertype we created a Mapper interface with some methods to implement which the other Mapper classes inherit from.
+
+* Gateway:
+To implement the Gateway pattern we introduced a small external service into our project, a mail service, and we created a more basic api for said service.
+
+* Service Stub:
+For the service stub we created a fake mail service to remove the dependency on the mail service during unit tests.
 
 
 <!-- TEAM MEMBERS -->
@@ -149,24 +175,27 @@ Gerardo Reynaga
 
 
 <!-- TA -->
-## TA
+## TAs
 
-Gunnar Jörgen Viggósson
+* Gunnar Jörgen Viggósson
+* Svanur Jóhannesson
+* Þórður Friðriksson
 
 
 
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[contributors-shield]: https://img.shields.io/github/contributors/bjartur20/Team5.svg?style=flat-square
-[contributors-url]: https://github.com/bjartur20/Team5/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/bjartur20/Team5.svg?style=flat-square
-[forks-url]: https://github.com/bjartur20/Team5/network/members
-[stars-shield]: https://img.shields.io/github/stars/bjartur20/Team5.svg?style=flat-square
-[stars-url]: https://github.com/bjartur20/Team5/stargazers
-[issues-shield]: https://img.shields.io/github/issues/bjartur20/Team5.svg?style=flat-square
-[issues-url]: https://github.com/bjartur20/Team5/issues
+[contributors-shield]: https://img.shields.io/github/contributors/UlfurOrn/Team5.svg?style=flat-square
+[contributors-url]: https://github.com/UlfurOrn/Team5/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/UlfurOrn/Team5.svg?style=flat-square
+[forks-url]: https://github.com/UlfurOrn/Team5/network/members
+[stars-shield]: https://img.shields.io/github/stars/UlfurOrn/Team5.svg?style=flat-square
+[stars-url]: https://github.com/UlfurOrn/Team5/stargazers
+[issues-shield]: https://img.shields.io/github/issues/UlfurOrn/Team5.svg?style=flat-square
+[issues-url]: https://github.com/UlfurOrn/Team5/issues
 [product-screenshot]: https://i.imgur.com/WP7MQJj.png
 [python]: https://www.python.org/
+[flask]: https://flask.palletsprojects.com/en/1.1.x/
 [flask-restplus]: https://github.com/noirbizarre/flask-restplus
 [psycopg2]: https://www.psycopg.org/docs/
