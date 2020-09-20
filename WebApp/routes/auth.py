@@ -62,12 +62,10 @@ def login():
         error = None
 
         print(f'Getting user {username} from api: {current_app.config["API_URL"]}')
-        user = get_user(current_app.config["API_URL"], username)
+        resp = user_login(current_app.config["API_URL"], username, password)
 
-        if user is None:
-            error = 'Incorrect username'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password'
+        if not resp:
+            error = 'failed to login'
         
         if error is None:
             session.clear()

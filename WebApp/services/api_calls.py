@@ -1,5 +1,18 @@
 import requests
 
+
+def user_login(api_url, username, password):
+    session = requests.Session()
+    user_login_form = {'username': username, 'password': password}
+
+    r = session.post(api_url + "auth/login", json=user_login_form)
+
+    if r.status_code != 200:
+        print('Cannot connect to API:', r.status_code)
+        return False
+
+    return True
+
 def get_user(api_url, username):
     session = requests.Session()
 
