@@ -69,7 +69,7 @@ def login():
         
         if error is None:
             session.clear()
-            session['user_ud'] = 1
+            session['user_id'] = 1
             return redirect(url_for('habit.userhabits'))
 
         flash(error)
