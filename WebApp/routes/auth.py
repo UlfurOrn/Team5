@@ -69,8 +69,8 @@ def login():
         
         if error is None:
             session.clear()
-            session['user_ud'] = user['id']
-            return redirect(url_for('habits'))
+            session['user_ud'] = 1
+            return redirect(url_for('habit.userhabits'))
 
         flash(error)
 
