@@ -19,7 +19,7 @@ class UserList(Resource):
     @api.marshal_list_with(_user, envelope='users')
     def get(self):
         data = DBapi.users('GET')
-        logger.exception("This is problem!!!")
+
         user_list = []
         for user in data:
             user_list.append(user.to_dict())
