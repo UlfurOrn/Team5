@@ -7,12 +7,15 @@ from main.util.mappers.user import User
 from main.services.db_api import DBapi
 from main.util.DTO.user_dto import UserDTO
 from main.util.DTO.habit_dto import HabitDTO
+from main.util.DTO.record_dto import RecordDTO
+
 
 logger = LoggingRegistry.get_logger()
 api = UserDTO.api
 _expect = UserDTO.expected_model
 _user = UserDTO.model
 _habit = HabitDTO.model
+_record = RecordDTO.model
 
 
 @api.route('')
