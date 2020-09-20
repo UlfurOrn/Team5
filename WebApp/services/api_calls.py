@@ -51,7 +51,7 @@ def save_user(api_url, user):
         print(r.json)
         return f'Cannot connect to API {r.status_code}'
 
-def get_user_habits(api_url,user_id):
+def get_user_habits(api_url, user_id):
     session = requests.Session()
     
     r = session.get(api_url+'user/'+str(user_id)+'/habit')
