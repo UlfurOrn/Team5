@@ -34,22 +34,6 @@ class RecordList(Resource):
         return DBapi.records('POST', data=record)
 
 
-@api.route("/<user_id>")
-class UserRecords(Resource):
-
-    @api.marshal_list_with(_record, envelope='records')
-    def get(self, user_id):
-        data = DBapi.records("GET")
-
-        record_list = []
-        for record in data:
-            record_dict = record.to_dict()
-            if record_dict["userid"] == int(user_id):
-                record_list.append(record_dict)
-
-        return record_list
-
-
 @api.route('/<record_id>')
 @api.response(404, 'Record not found.')
 class SingleRecord(Resource):
