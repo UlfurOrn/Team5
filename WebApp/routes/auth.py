@@ -32,14 +32,14 @@ def register():
         if error is None:
             print(f'Adding user {username} to api: {current_app.config["API_URL"]}')
             user = {
-                'Name': name,
-                'Email': email,
-                'Username': username,
-                'Password': generate_password_hash(password),
-                'DoB': date_of_birth + "T00:00:00",
-                'Gender': gender,
-                'Weight': weight,
-                'Height': height
+                'name': name,
+                'email': email,
+                'dob': date_of_birth + 'T00:00:00',
+                'username': username,
+                'password': generate_password_hash(password),
+                'gender': gender,
+                'weight': weight,
+                'height': height
             }
 
             resp = save_user(current_app.config["API_URL"], user)
