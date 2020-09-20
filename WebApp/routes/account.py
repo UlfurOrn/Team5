@@ -6,10 +6,10 @@ from ..services.api_calls import get_user_id
 bp = Blueprint('account', __name__, url_prefix='/account')
 
 # User account view
-@bp.route('/viewaccount', methods=('GET','POST'))
+@bp.route('/', methods=('GET','POST'))
 def viewAccount():
-    user_id = session.get('user_id')
+    user_id = 2
     if request.method == 'GET':
-        accountDetails = get_user_id(current_app.config['API_URL'].user_id)
-    return render_template('viewAccount.html', account=accountDetails)
+        details = get_user_id(current_app.config['API_URL'], user_id)
+    return render_template('account/viewAccount.html', account=details)
 

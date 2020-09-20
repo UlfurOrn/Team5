@@ -15,6 +15,7 @@ class ContentEndpoint(Resource):
     def get(self):
         """Get content of email"""
 
+        mail_service = MailService()
         return mail_service.get_content()
 
     @api.expect(content_model, validate=True)
@@ -25,5 +26,6 @@ class ContentEndpoint(Resource):
         data = request.json
         content = data["content"]
 
+        mail_service = MailService()
         mail_service.set_content(content)
         return mail_service.get_content()

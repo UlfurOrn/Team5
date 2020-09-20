@@ -22,13 +22,12 @@ def get_user(api_url, username):
 def get_user_id(api_url, user_id):
     session = requests.Session()
 
-    r = session.get(api_url + 'user/' + user_id)
-
+    r = session.get(api_url + 'user/' + str(user_id))
     if r.status_code != 200:
         print('Cannot connect to API:', r.status_code)
         return None
-    
-    return r.json()['user_id']
+    account = r.json()
+    return account
 
 def save_user(api_url, user):
     session = requests.Session()
@@ -42,11 +41,10 @@ def save_user(api_url, user):
 def get_user_habits(api_url,user_id):
     session = requests.Session()
     
-    r = session.get(api_url+'habit/'+str(user_id))
+    r = session.get(api_url+'user/'+str(user_id)+'/habit')
     if r.status_code != 200:
         print('Cannot connect to API:', r.status_code)
         return None
-    print("Status Code: \n")
+
     habits = r.json()
-    print(r.status_code)
     return habits

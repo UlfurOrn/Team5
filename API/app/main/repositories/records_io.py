@@ -17,7 +17,7 @@ class Recordsio(AbcTable):
             super()._cur.execute("SELECT * FROM records;")
         records_list = []
         for record in super()._cur.fetchall():
-            records_list.append(Record(record[0], record[1], record[2], record[3], record[4], record[5]))
+            records_list.append(Record(record[0], record[1], record[2], record[3], record[4]))
         return records_list
 
     @classmethod
