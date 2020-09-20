@@ -16,8 +16,9 @@ def create_app():
     except OSError:
         pass
 
-    from .routes import auth, habits
+    from .routes import auth, habits, account 
     app.register_blueprint(auth.bp)
     app.register_blueprint(habits.bp)
+    app.register_blueprint(account.bp)
 
     return app

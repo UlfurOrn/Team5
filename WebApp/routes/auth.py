@@ -3,7 +3,7 @@ import functools
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from ..services.api_calls import save_user, get_user, get_user_id
+from ..services.api_calls import save_user, get_user, get_user_id, user_login
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -11,8 +11,15 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
+        name = request.form['fullname']
+        email = request.form['email']
         username = request.form['username']
         password = request.form['password']
+        date_of_birth = request.form['dateOfBirth']
+        gender = request.form['gender']
+        weight = request.form['weight']
+        height = request.form['height']
+
         error = None
 
         if not username:
@@ -21,14 +28,19 @@ def register():
             error = 'Password required'
 
         if error is None:
-            print(f'Adding user {username} to api: {current_app.config["API_URL"]}')
             user = {
+                'name': name,
+                'email': email,
+                'dob': date_of_birth + 'T00:00:00',
                 'username': username,
-                'password_hash': generate_password_hash(password)
+                'password': password,
+                'gender': gender,
+                'weight': int(weight),
+                'height': int(height)
             }
 
             resp = save_user(current_app.config["API_URL"], user)
-            
+
             if resp is None:
                 return redirect(url_for('auth.login'))
             else:
@@ -37,7 +49,7 @@ def register():
         flash(error)
 
     return render_template('auth/register.html')
-        
+
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
@@ -46,18 +58,15 @@ def login():
         password = request.form['password']
         error = None
 
-        print(f'Getting user {username} from api: {current_app.config["API_URL"]}')
-        user = get_user(current_app.config["API_URL"], username)
+        resp = user_login(current_app.config["API_URL"], username, password)
 
-        if user is None:
-            error = 'Incorrect username'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password'
+        if not resp:
+            error = 'failed to login'
         
         if error is None:
             session.clear()
-            session['user_ud'] = user['id']
-            return redirect(url_for('index'))
+            session['user_id'] = 1
+            return redirect(url_for('habit.userhabits'))
 
         flash(error)
 
@@ -66,7 +75,7 @@ def login():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('auth.login'))
 
 @bp.before_app_first_request
 def load_logged_in_user():
