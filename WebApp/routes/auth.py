@@ -22,6 +22,8 @@ def register():
 
         error = None
 
+        print(type(date_of_birth))
+
         if not username:
             error = 'Username required'
         elif not password:
@@ -58,6 +60,8 @@ def login():
         password = request.form['password']
         error = None
 
+        print(f'Getting user {username} from api: {current_app.config["API_URL"]}')
+
         resp = user_login(current_app.config["API_URL"], username, password)
 
         if not resp:
@@ -65,7 +69,7 @@ def login():
         
         if error is None:
             session.clear()
-            session['user_id'] = 1
+            session['user_ud'] = 1
             return redirect(url_for('habit.userhabits'))
 
         flash(error)
