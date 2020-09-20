@@ -6,7 +6,7 @@ from ..services.api_calls import get_user_id
 bp = Blueprint('account', __name__, url_prefix='/account')
 
 # User account view
-@bp.route('/viewaccount', methods=('GET',"POST"))
+@bp.route('/viewaccount', methods=('GET','POST'))
 def viewAccount():
     user_id = session.get('user_id')
     if request.method == 'GET':
