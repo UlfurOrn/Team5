@@ -10,6 +10,6 @@ class RecordDTO:
         'amount': fields.Float(required=True, description='The amount for the record')
     })
 
-    model = api.inherit("Record", record, {
+    model = api.inherit("Record", expect_model, {
         "recordid": fields.Integer(required=True, description='The record identification number for the record')
     })
