@@ -54,7 +54,7 @@ class UserHabit(Resource):
         return habit_list
 
 
-@api.route("/<user_id>/habit")
+@api.route("/<user_id>/record")
 class UserRecords(Resource):
 
     @api.marshal_list_with(_record, envelope='records')
