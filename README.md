@@ -89,23 +89,47 @@ git clone https://github.com/UlfurOrn/Team5.git
 ```sh
 python3 -m venv venv
 ```
-3. Move to API folder
+
+
+API:
+
+
+1. Move to API folder
 ```sh
 cd API/
 ```
-4. Install packages with pip
+2. Install packages with pip
 ```sh
 pip install -r requirements.txt
 ```
-5. Move to main app folder
+3. Move to main app folder
 ```sh
 cd app/
 ```
-6. Run the API
+4. Run the API
 ```sh
 python app.py
 ```
-7. Open the link: http://127.0.0.1:8000/ in a web browser and try out the REST API
+5. Open the link: http://127.0.0.1:8000/ in a web browser and try out the REST API
+
+
+WebApp:
+
+
+1. Move to the Project folder
+```sh
+cd
+```
+2. Export the environmental variables:
+```sh
+Terminal: export FLASK_APP=WebApp
+Windows: set FLASK_APP=Webapp
+```
+3. Run the Flask app
+```sh
+flask run
+```
+4. Open the link: http://127.0.0.1:5000 in a web browser and try out the WebApp
 
 
 
