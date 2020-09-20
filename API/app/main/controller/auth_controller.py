@@ -20,7 +20,8 @@ class UserLogin(Resource):
         '''
         post_data = request.json
 
-        if Usersio.password(post_data['username'], post_data['password']):
+        pass_resp = Usersio.password(post_data['username'], post_data['password'])[0][0]
+        if pass_resp:
             return "successfully logged in", 200
         else:
             return "", 404
