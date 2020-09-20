@@ -1,10 +1,8 @@
-import requests
 from unittest.mock import patch
 
 
 from main.util.mappers.habit import Habit
 from tests.endpoints.test_base import TestBase
-
 
 @patch("main.controller.habit_controller.DBapi.habits")
 class TestHabitEndpoint(TestBase):
@@ -12,27 +10,28 @@ class TestHabitEndpoint(TestBase):
     def setUp(self):
         super(TestHabitEndpoint, self).setUp()
 
-        self.test_habit = Habit("TestHabit", "Testing Test Habit, 1234.5678")
+        self.test_habit_mapper = Habit(1, 1, "TestHabit", "Testing Test Habit", 1)
+        self.test_habit_dict = {"habitid": 1, "userid": 1, "name": "TestHabit", "description": "Testing Test Habit", "measurementid": 1}
 
     def test_get_single_habit(self, mock_db):
-        mock_db.return_value = [self.test_habit]  # DB returns habit in a list
+        mock_db.return_value = [self.test_habit_mapper]  # DB returns habit in a list
 
         response = self.app.get("habit/1", headers=self.valid_header)
         data = response.json
 
-        assert data == self.test_habit
+        assert data == self.test_habit_dict
         mock_db.assert_called_once_with('GET', "1")
 
     def test_get_habit_list(self, mock_db):
         test_habit_list_insert = [
-            Habit("TestHabit1", "Testing Test Habit 1", "1234.5678"),
-            Habit("TestHabit2", "Testing Test Habit 2", "8765.4321"),
-            Habit("TestHabit3", "Testing Test Habit 3", "1234")
+            Habit(1, 1, "TestHabit1", "Testing Test Habit 1", 1),
+            Habit(2, 1, "TestHabit2", "Testing Test Habit 2", 2),
+            Habit(3, 1, "TestHabit3", "Testing Test Habit 3", 3)
         ]
         test_habit_list = [
-            {"name": "TestHabit1", "description": "Testing Habit 1", "measurement":"1234.5678"},
-            {"name": "TestHabit2", "descriptiono": "Testing Habit 2", "measurement": "8765.3421"},
-            {"name": "TestHabit3", "description": "Testing Habit 3", "measurement": "1234"}
+            {"habitid": 1, "userid": 1, "name": "TestHabit1", "description": "Testing Test Habit 1", "measurementid": 1},
+            {"habitid": 2, "userid": 1, "name": "TestHabit2", "description": "Testing Test Habit 2", "measurementid": 2},
+            {"habitid": 3, "userid": 1, "name": "TestHabit3", "description": "Testing Test Habit 3", "measurementid": 3}
         ]
 
         mock_db.return_value = test_habit_list_insert
@@ -48,20 +47,20 @@ class TestHabitEndpoint(TestBase):
     def test_post_habit(self, mock_db):
         mock_db.return_value = None
 
-        response = self.app.post("/habit", headers=self.valid_header, json=self.test_habit)
+        response = self.app.post("/habit", headers=self.valid_header, json=self.test_habit_dict)
         data = response.json
 
         assert data is None
-        mock_db.assert_called_once_with("POST", data=self.test_habit)
+        mock_db.assert_called_once()
 
     def test_put_habit(self, mock_db):
         mock_db.return_value = None
 
-        response = self.app.put("/habit/1", headers=self.valid_header, json=self.test_habit)
+        response = self.app.put("/habit/1", headers=self.valid_header, json=self.test_habit_dict)
         data = response.json
 
         assert data is None
-        mock_db.assert_called_once_with("PUT", "1", data=self.test_habit)
+        mock_db.assert_called_once()
 
     def test_delete_habit(self, mock_db):
         mock_db.return_value = None

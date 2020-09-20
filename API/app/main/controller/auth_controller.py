@@ -1,7 +1,8 @@
 from flask import request
 from flask_restplus import Resource, Namespace
 
-from main.repositories.users_io import Usersio
+from main.services.db_api import DBapi
+# from main.repositories.users_io import Usersio
 from main.util.DTO.auth_dto import AuthDTO
 
 api = AuthDTO.api
@@ -19,9 +20,13 @@ class UserLogin(Resource):
             tuple: response message and conde
         '''
         post_data = request.json
+        print(post_data['username'])
+        print(post_data['password'])
+        
 
-        pass_resp = Usersio.password(post_data['username'], post_data['password'])[0][0]
-        if pass_resp:
+        pass_resp = DBapi.checkpassword(post_data['username'], post_data['password'])
+        print(pass_resp[0][0])
+        if pass_resp[0][0]:
             return "successfully logged in", 200
         else:
             return "", 404

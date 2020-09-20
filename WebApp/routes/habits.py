@@ -10,7 +10,6 @@ bp = Blueprint('habit', __name__, url_prefix='/habit')
 
 # User habits view
 @bp.route('/', methods=('GET','POST'))
-@login_required
 def userhabits():
     #user_id = session.get('user_id')
     user_id = 1

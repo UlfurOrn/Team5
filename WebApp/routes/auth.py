@@ -22,21 +22,18 @@ def register():
 
         error = None
 
-        print(type(date_of_birth))
-
         if not username:
             error = 'Username required'
         elif not password:
             error = 'Password required'
 
         if error is None:
-            print(f'Adding user {username} to api: {current_app.config["API_URL"]}')
             user = {
                 'name': name,
                 'email': email,
                 'dob': date_of_birth + 'T00:00:00',
                 'username': username,
-                'password': generate_password_hash(password),
+                'password': password,
                 'gender': gender,
                 'weight': weight,
                 'height': height
@@ -61,7 +58,6 @@ def login():
         password = request.form['password']
         error = None
 
-        print(f'Getting user {username} from api: {current_app.config["API_URL"]}')
         resp = user_login(current_app.config["API_URL"], username, password)
 
         if not resp:
@@ -69,8 +65,8 @@ def login():
         
         if error is None:
             session.clear()
-            session['user_ud'] = user['id']
-            return redirect(url_for('habits'))
+            session['user_id'] = 1
+            return redirect(url_for('habit.userhabits'))
 
         flash(error)
 
@@ -79,7 +75,7 @@ def login():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('auth.login'))
 
 @bp.before_app_first_request
 def load_logged_in_user():
