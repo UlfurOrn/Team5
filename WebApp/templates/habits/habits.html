@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}habits{% endblock %}</h1>
+  <h1>{% block title %}User Habits{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
   {% for x in habits%}
     <p>{{x}}</p>
     {% endfor %}
+
+
+  <h1>Create new habit</h1>
+  <form method="post">
+    <input type="text" placeholder="Name" name="name" id="name" required><br>
+    <input type="text" placeholder="Description" name="description" id="description" required><br>
+    <input type="text" placeholder="Measurement" name="measurement" id="measurement" required><br>
+    <input type="submit" value="Create Habit">
+  </form>
+
 {% endblock %}
+

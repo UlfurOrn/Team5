@@ -61,3 +61,8 @@ def get_user_habits(api_url, user_id):
 
     habits = r.json()
     return habits
+
+def create_habit(api_url,habit):
+    session = requests.Session()
+
+    r = session.post(api_url + 'habit',json=habit)
