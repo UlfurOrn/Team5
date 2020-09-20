@@ -11,22 +11,23 @@ class TestRecordEndpoint(TestBase):
     def setUp(self):
         super(TestRecordEndpoint, self).setUp()
 
-        self.test_record_mapper = Record(1, 1, "2020-01-01T01:01:01", 1234)
+        self.test_record_mapper = Record(1, 1, 1, 1234, "2020-01-01T01:01:01")
         self.test_record_dict = {
+                'recordid': 1,
                 'userid': 1,
                 'habitid': 1,
-                'rdatetime': "2020-01-01T01:01:01",
+                'rdate': "2020-01-01T01:01:01",
                 'amount': 1234
             }
 
     def test_get_single_record(self, mock_db):
         mock_db.return_value = [self.test_record_mapper]  # DB returns record in a list
 
-        response = self.app.get("record/1/1/2020-01-01T01:01:01", headers=self.valid_header)
+        response = self.app.get("record/1", headers=self.valid_header)
         data = response.json
 
         assert data == self.test_record_dict
-        mock_db.assert_called_once_with('GET', ["1", "1", "2020-01-01T01:01:01"])
+        mock_db.assert_called_once_with('GET', "1")
 
     def test_get_record_list(self, mock_db):
         test_record_list_insert = [
@@ -62,7 +63,7 @@ class TestRecordEndpoint(TestBase):
     def test_put_record(self, mock_db):
         mock_db.return_value = None
 
-        response = self.app.put("record/1/1/2020-01-01T01:01:01", headers=self.valid_header, json=self.test_record_dict)
+        response = self.app.put("record/1", headers=self.valid_header, json=self.test_record_dict)
         data = response.json
 
         assert data is None
@@ -71,8 +72,8 @@ class TestRecordEndpoint(TestBase):
     def test_delete_record(self, mock_db):
         mock_db.return_value = None
 
-        response = self.app.delete("record/1/1/2020-01-01T01:01:01", headers=self.valid_header)
+        response = self.app.delete("record/1", headers=self.valid_header)
         data = response.json
 
         assert data is None
-        mock_db.assert_called_once_with('DELETE', ["1", "1", "2020-01-01T01:01:01"])
+        mock_db.assert_called_once_with("DELETE", "1")
