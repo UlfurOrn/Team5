@@ -6,8 +6,8 @@ from main.util.DTO.habit_dto import HabitDTO
 from main.services.db_api import DBapi
 
 api = HabitDTO.api
-_expect = HabitDTO.habit
-_habit = HabitDTO.output_habit
+_expect = HabitDTO.expect_model
+_habit = HabitDTO.model
 
 
 @api.route('')

@@ -10,9 +10,9 @@ from main.util.DTO.habit_dto import HabitDTO
 
 logger = LoggingRegistry.get_logger()
 api = UserDTO.api
-_expect = UserDTO.user
-_user = UserDTO.output_user
-_habit = HabitDTO.habit
+_expect = UserDTO.expected_model
+_user = UserDTO.model
+_habit = HabitDTO.model
 
 
 @api.route('')
