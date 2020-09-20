@@ -10,7 +10,7 @@ class MailServiceStub:
     }
 
     def send_email(self, emails):
-        pass
+        pass  # Replace with logging later
 
     def get_mail(self):
         return {

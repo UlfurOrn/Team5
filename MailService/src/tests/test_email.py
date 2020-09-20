@@ -22,11 +22,13 @@ class TestSubject(TestBase):
 
         test_emails = {
             "emails": [
-                "test1@email.com"
+                "test1@email.com",
+                "test2@email.com",
+                "test3@email.com"
             ]
         }
 
-        # response = self.app.put("/subject", headers=self.valid_header, json=test_subject)
-        # data = response.json
+        response = self.app.post("/email", headers=self.valid_header, json=test_emails)
+        data = response.json
 
-        assert test_emails
+        assert data == ""
