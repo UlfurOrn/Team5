@@ -18,5 +18,3 @@ def userhabits():
         habitdict = get_user_habits(current_app.config['API_URL'],user_id)
         #print(habits)
     return render_template('habits/habits.html', habits=habitdict['habits'])
-        
-
