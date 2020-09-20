@@ -12,4 +12,3 @@ def viewAccount():
     if request.method == 'GET':
         details = get_user_id(current_app.config['API_URL'], user_id)
     return render_template('account/viewAccount.html', account=details)
-
