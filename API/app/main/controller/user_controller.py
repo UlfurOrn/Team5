@@ -10,8 +10,10 @@ from main.util.DTO.habit_dto import HabitDTO
 
 logger = LoggingRegistry.get_logger()
 api = UserDTO.api
-_user = UserDTO.user
+_expect = UserDTO.user
+_user = UserDTO.output_user
 _habit = HabitDTO.habit
+
 
 @api.route('')
 class UserList(Resource):
@@ -28,7 +30,7 @@ class UserList(Resource):
 
     @api.response(201, 'User successfully created.')
     @api.doc('create a new user')
-    @api.expect(_user, validate=True)
+    @api.expect(_expect, validate=True)
     def post(self):
         data = request.json
         user = User()
@@ -66,7 +68,7 @@ class SingleUser(Resource):
 
     @api.response(201, 'User successfully updated.')
     @api.doc('Edit a user')
-    @api.expect(_user)
+    @api.expect(_expect)
     def put(self, user_id):
         data = request.json
         user = User()
