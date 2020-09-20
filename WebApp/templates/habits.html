@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}habits{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% for x in range({{Habits}})%}
+    <p>x</p>
+    {% endfor %}
+{% endblock %}
