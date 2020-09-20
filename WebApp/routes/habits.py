@@ -10,10 +10,10 @@ bp = Blueprint('habit', __name__, url_prefix='/habit')
 @bp.route('/', methods=('GET','POST'))
 def userhabits():
     #user_id = session.get('user_id')
-    user_id = 2
+    user_id = 1
     if request.method == 'GET':
-        habits = get_user_habits(current_app.config['API_URL'],user_id)
-        ##print(habits)
-    return render_template('habits/habits.html', habit=habits)
+        habitdict = get_user_habits(current_app.config['API_URL'],user_id)
+        #print(habits)
+    return render_template('habits/habits.html', habits=habitdict['habits'])
         
 
