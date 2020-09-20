@@ -46,5 +46,4 @@ def get_user_habits(api_url,user_id):
         return None
     print("Status Code: \n")
     habits = r.json()
-    print(r.status_code)
     return habits
