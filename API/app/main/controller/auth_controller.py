@@ -26,5 +26,5 @@ class UserLogin(Resource):
         if pass_resp[0][0]:
             return "successfully logged in", 200
         else:
-            return "couldnt log in", 404
+            return "couldn't log in", 404
         

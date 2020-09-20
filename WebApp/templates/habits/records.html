@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}User Records{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% for x in records%}
+    <p>{{x}}</p>
+    {% endfor %}
+{% endblock %}

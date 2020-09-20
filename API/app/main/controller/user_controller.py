@@ -34,6 +34,7 @@ class UserList(Resource):
     @api.response(201, 'User successfully created.')
     @api.doc('create a new user')
     @api.expect(_expect, validate=True)
+    
     def post(self):
         data = request.json
         user = User()

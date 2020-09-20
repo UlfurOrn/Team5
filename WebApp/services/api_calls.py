@@ -43,8 +43,17 @@ def get_user_id(api_url, user_id):
 
 def save_user(api_url, user):
     session = requests.Session()
-    print(user)
+    
     r = session.post(api_url + 'user', json=user)
+    
+    if r.status_code != 200:
+        print(r.json)
+        return f'Cannot connect to API {r.status_code}'
+
+def save_edited_user(api_url, user_id,user):
+    session = requests.Session()
+
+    r = session.put(api_url + 'user/'+str(user_id), json=user)
     
     if r.status_code != 200:
         print(r.json)
@@ -54,6 +63,7 @@ def get_user_habits(api_url, user_id):
     session = requests.Session()
     
     r = session.get(api_url+'user/'+str(user_id)+'/habit')
+    
     if r.status_code != 200:
         print('Cannot connect to API:', r.status_code)
         return None
@@ -61,12 +71,14 @@ def get_user_habits(api_url, user_id):
     habits = r.json()
     return habits
 
-def save_new_habit(api_url, habit):
+def get_user_records(api_url, user_id):
     session = requests.Session()
 
-    r = session.post(api_url + 'habit', json=habit)
+    r = session.get(api_url+"user/"+str(user_id)+'/record')
 
     if r.status_code != 200:
-        print('Failed to post new habit:', r.status_code)
-    else:
-        print('Successfully posted new habit!')
+        print('Cannot connect to API:', r.status_code)
+        return None
+
+    records = r.json()
+    return records
