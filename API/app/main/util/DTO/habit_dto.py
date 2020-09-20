@@ -9,6 +9,6 @@ class HabitDTO:
         'description': fields.String(required=True, description='Short description for the habit'),
         'measurementid': fields.Integer('Measurement for the amount of a record of this habit')
     })
-    model = api.inherit("Habit", habit, {
+    model = api.inherit("Habit", expect_model, {
         'habitid': fields.Integer(required=True, description='Habit id')
     })

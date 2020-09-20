@@ -13,6 +13,6 @@ class UserDTO:
         'weight': fields.Integer(required=True, description='The users weight'),
         'height': fields.Integer(required=True, description='The users height'),
     })
-    model = api.inherit("User", user, {
+    model = api.inherit("User", expected_model, {
         'userid': fields.Integer(required=True, description='The user identification number for the user')
     })
