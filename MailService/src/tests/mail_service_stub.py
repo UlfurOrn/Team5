@@ -12,6 +12,12 @@ class MailServiceStub:
     def send_email(self, emails):
         pass
 
+    def get_mail(self):
+        return {
+            "subject": self.MESSAGE["subject"],
+            "content": self.MESSAGE["content"]
+        }
+
     def get_subject(self):
         return {"subject": self.MESSAGE["subject"]}
 

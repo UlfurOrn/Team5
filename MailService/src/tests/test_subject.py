@@ -27,3 +27,6 @@ class TestSubject(TestBase):
         data = response.json
 
         assert data == test_subject
+
+        # Reset after test
+        self.app.put("/subject", headers=self.valid_header, json={"subject": "subject"})

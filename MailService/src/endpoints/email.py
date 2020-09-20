@@ -15,6 +15,7 @@ class EmailEndpoint(Resource):
         """View subject and content of the email"""
 
         mail_service = MailService()
+        print(mail_service.get_mail())
         return mail_service.get_mail()
 
     @api.expect(email_model, validate=True)
