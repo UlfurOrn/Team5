@@ -3,7 +3,7 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
 
-class MailServiceStub:
+class MailService:
 
     API_KEY = os.environ.get("SENDGRID_API_KEY")
     FROM_EMAIL = "my.habit.tracker.app@gmail.com"
@@ -19,8 +19,6 @@ class MailServiceStub:
         api_key = self.API_KEY
         sg = SendGridAPIClient(api_key)
 
-        print(api_key)
-
         message = self.MESSAGE
         message.to = emails
         sg.send(message)
@@ -32,11 +30,8 @@ class MailServiceStub:
         self.MESSAGE.subject = subject
 
     def get_content(self):
-        return self.MESSAGE.contents
+        return self.MESSAGE.contents[0]
 
     def set_content(self, content):
         self.MESSAGE._contents = None  # Could not find better solution, no clear method
         self.MESSAGE.content = content
-
-
-mail_service = MailService()
