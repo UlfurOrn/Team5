@@ -7,11 +7,16 @@ from main.util.mappers.user import User
 from main.services.db_api import DBapi
 from main.util.DTO.user_dto import UserDTO
 from main.util.DTO.habit_dto import HabitDTO
+from main.util.DTO.record_dto import RecordDTO
+
 
 logger = LoggingRegistry.get_logger()
 api = UserDTO.api
-_user = UserDTO.user
-_habit = HabitDTO.habit
+_expect = UserDTO.expected_model
+_user = UserDTO.model
+_habit = HabitDTO.model
+_record = RecordDTO.model
+
 
 @api.route('')
 class UserList(Resource):
@@ -28,7 +33,8 @@ class UserList(Resource):
 
     @api.response(201, 'User successfully created.')
     @api.doc('create a new user')
-    @api.expect(_user)
+    @api.expect(_expect, validate=True)
+    
     def post(self):
         data = request.json
         user = User()
@@ -52,6 +58,22 @@ class UserHabit(Resource):
         return habit_list
 
 
+@api.route("/<user_id>/record")
+class UserRecords(Resource):
+
+    @api.marshal_list_with(_record, envelope='records')
+    def get(self, user_id):
+        data = DBapi.records("GET")
+
+        record_list = []
+        for record in data:
+            record_dict = record.to_dict()
+            if record_dict["userid"] == int(user_id):
+                record_list.append(record_dict)
+
+        return record_list
+
+
 @api.route('/<user_id>')
 @api.response(404, 'User not found.')
 class SingleUser(Resource):
@@ -66,7 +88,7 @@ class SingleUser(Resource):
 
     @api.response(201, 'User successfully updated.')
     @api.doc('Edit a user')
-    @api.expect(_user)
+    @api.expect(_expect)
     def put(self, user_id):
         data = request.json
         user = User()

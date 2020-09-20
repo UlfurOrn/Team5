@@ -44,7 +44,7 @@ def get_user_id(api_url, user_id):
 
 def save_user(api_url, user):
     session = requests.Session()
-
+    
     r = session.post(api_url + 'user', json=user)
     
     if r.status_code != 200:
@@ -64,6 +64,7 @@ def get_user_habits(api_url, user_id):
     session = requests.Session()
     
     r = session.get(api_url+'user/'+str(user_id)+'/habit')
+    
     if r.status_code != 200:
         print('Cannot connect to API:', r.status_code)
         return None

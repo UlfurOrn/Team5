@@ -3,7 +3,7 @@ from flask_restplus import Namespace, fields
 
 class UserDTO:
     api = Namespace('user', description='User related operations')
-    user = api.model('user', {
+    expected_model = api.model('Expected user', {
         'name': fields.String(required=True, description='The name of the user'),
         'email': fields.String(required=True, description='The email of the user'),
         'dob': fields.Date(required=True, description='The date of birth of the user'),
@@ -12,4 +12,7 @@ class UserDTO:
         'gender': fields.String(required=True, description='The gender of the user'),
         'weight': fields.Integer(required=True, description='The users weight'),
         'height': fields.Integer(required=True, description='The users height'),
+    })
+    model = api.inherit("User", expected_model, {
+        'userid': fields.Integer(required=True, description='The user identification number for the user')
     })
