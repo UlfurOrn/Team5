@@ -2,10 +2,11 @@ from flask import request
 from flask_restplus import Resource
 
 from models.email_dto import EmailDTO
-from mail_service import mail_service
+from mail_service import MailService
 
 api = EmailDTO.api
 email_model = EmailDTO.model
+mail_service = MailService()
 
 
 @api.route('')

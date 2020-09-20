@@ -1,5 +1,6 @@
 from main.util.mappers.mapper import Mapper
 
+
 class User(Mapper):
     """
         A Mapper class for the Users table
