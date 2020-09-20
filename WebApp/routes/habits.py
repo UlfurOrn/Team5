@@ -15,6 +15,7 @@ def userhabits():
     user_id = 1
     habitdict = get_user_habits(current_app.config['API_URL'],user_id)
     if request.method == 'GET':
+<<<<<<< HEAD
         somestatement = True
     elif request.method == 'POST':
         name = request.form['name']
@@ -30,4 +31,8 @@ def userhabits():
         }
 
         resp = create_habit(current_app.config["API_URL"], habit)
+=======
+        habitdict = get_user_habits(current_app.config['API_URL'],user_id)
+        #print(habits)
+>>>>>>> a9bc2333e4e299a7399d461afb0ae675d4f684a3
     return render_template('habits/habits.html', habits=habitdict['habits'])

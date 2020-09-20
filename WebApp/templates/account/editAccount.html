@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block content %}
-<form method="GET">
-    
+<form method="post">
+  <input type="text" placeholder={{account.name}} name="fullname" id="fullname" required><br>
+  <input type="submit" value="Save">
 </form>
+
 {% endblock %}

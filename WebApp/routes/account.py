@@ -1,7 +1,7 @@
 import functools
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
-from ..services.api_calls import get_user_id
+from ..services.api_calls import save_user, get_user, get_user_id
 
 bp = Blueprint('account', __name__, url_prefix='/account')
 
@@ -13,3 +13,25 @@ def viewAccount():
         details = get_user_id(current_app.config['API_URL'], user_id)
     return render_template('account/viewAccount.html', account=details)
 
+@bp.route('/edit', methods=('GET','POST'))
+def editAccount():
+    user_id = 2
+    if request.method == 'GET':
+        details = get_user_id(current_app.config['API_URL'], user_id)
+    
+    if request.method == 'PUT':
+        name = request.form['fullname']
+        error = None
+        if error is None:
+            print(f'Changing name to api: {current_app.config["API_URL"]}')
+            user = {
+                'name': name,
+            }
+            resp = save_user(current_app.config["API_URL"], user)
+            if resp is None:
+                error = resp
+            else:
+                error = resp
+        flash(error)
+
+    return render_template('account/editAccount.html', account=details)
