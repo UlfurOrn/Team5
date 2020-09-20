@@ -1,4 +1,4 @@
-from main.services.abc_table import AbcTable
+from main.repositories.abc_table import AbcTable
 from main.util.mappers.record import Record
 from psycopg2.extensions import AsIs # Used to remove '' from SQL strings I insert
 

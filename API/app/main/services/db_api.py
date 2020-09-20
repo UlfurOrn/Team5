@@ -1,8 +1,8 @@
-from main.services.users_io import Usersio
-from main.services.records_io import Recordsio
-from main.services.habits_io import Habitsio
-from main.services.measurements_io import Measurementsio
-from main.services.mcategories_io import Mcategoriesio
+from main.repositories.users_io import Usersio
+from main.repositories.records_io import Recordsio
+from main.repositories.habits_io import Habitsio
+from main.repositories.measurements_io import Measurementsio
+from main.repositories.mcategories_io import Mcategoriesio
 
 from main.util.mappers.habit import Habit
 from main.util.mappers.user import User
