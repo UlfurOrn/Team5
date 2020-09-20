@@ -25,7 +25,6 @@ def get_user(api_url, username):
     users = r.json()["users"]
 
     for user in users:
-        print(user)
         if user['username'] == username:
             return user
 
@@ -61,3 +60,13 @@ def get_user_habits(api_url, user_id):
 
     habits = r.json()
     return habits
+
+def save_new_habit(api_url, habit):
+    session = requests.Session()
+
+    r = session.post(api_url + 'habit', json=habit)
+
+    if r.status_code != 200:
+        print('Failed to post new habit:', r.status_code)
+    else:
+        print('Successfully posted new habit!')

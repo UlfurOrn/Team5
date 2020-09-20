@@ -65,7 +65,8 @@ def login():
         
         if error is None:
             session.clear()
-            session['user_id'] = 1
+            user = get_user(current_app.config["API_URL"], username)
+            session['user_id'] = user['userid']
             return redirect(url_for('habit.userhabits'))
 
         flash(error)
