@@ -1,6 +1,7 @@
 import requests
 from unittest.mock import patch
 
+from main.util.mappers.record import Record
 from tests.endpoints.test_base import TestBase
 
 
@@ -10,45 +11,36 @@ class TestRecordEndpoint(TestBase):
     def setUp(self):
         super(TestRecordEndpoint, self).setUp()
 
-        self.test_record = {
+        self.test_record_mapper = Record(1, 1, "2020-01-01T01:01:01", 1234)
+        self.test_record_dict = {
                 'userid': 1,
-                'typeid': 1,
+                'habitid': 1,
                 'rdatetime': "2020-01-01T01:01:01",
                 'amount': 1234
             }
 
     def test_get_single_record(self, mock_db):
-        mock_db.return_value = [self.test_record]  # DB returns record in a list
+        mock_db.return_value = [self.test_record_mapper]  # DB returns record in a list
 
         response = self.app.get("record/1/1/2020-01-01T01:01:01", headers=self.valid_header)
         data = response.json
 
-        assert data == self.test_record
+        assert data == self.test_record_dict
         mock_db.assert_called_once_with('GET', ["1", "1", "2020-01-01T01:01:01"])
 
     def test_get_record_list(self, mock_db):
+        test_record_list_insert = [
+            Record(1, 1, 1, 1234.0, "2020-01-01T01:01:01"),
+            Record(2, 2, 2, 12345.0, "2020-02-02T02:02:02"),
+            Record(3, 3, 3, 123456.0, "2020-03-03T03:03:03")
+        ]
         test_record_list = [
-            {
-                'userid': 1,
-                'typeid': 1,
-                'rdatetime': "2020-01-01T01:01:01",
-                'amount': 1234
-            },
-            {
-                'userid': 2,
-                'typeid': 2,
-                'rdatetime': "2020-02-02T02:02:02",
-                'amount': 12345
-            },
-            {
-                'userid': 3,
-                'typeid': 3,
-                'rdatetime': "2020-03-03T03:03:03",
-                'amount': 123456
-            }
+            {'recordid': 1, 'userid': 1, 'habitid': 1, 'rdate': "2020-01-01T01:01:01", 'amount': 1234.0},
+            {'recordid': 2, 'userid': 2, 'habitid': 2, 'rdate': "2020-02-02T02:02:02", 'amount': 12345.0},
+            {'recordid': 3, 'userid': 3, 'habitid': 3, 'rdate': "2020-03-03T03:03:03", 'amount': 123456.0}
         ]
 
-        mock_db.return_value = test_record_list
+        mock_db.return_value = test_record_list_insert
 
         response = self.app.get("/record", headers=self.valid_header)
         data = response.json
@@ -61,20 +53,20 @@ class TestRecordEndpoint(TestBase):
     def test_post_record(self, mock_db):
         mock_db.return_value = None
 
-        response = self.app.post("/record", headers=self.valid_header, json=self.test_record)
+        response = self.app.post("/record", headers=self.valid_header, json=self.test_record_dict)
         data = response.json
 
         assert data is None
-        mock_db.assert_called_once_with("POST", data=self.test_record)
+        mock_db.assert_called_once()
 
     def test_put_record(self, mock_db):
         mock_db.return_value = None
 
-        response = self.app.put("record/1/1/2020-01-01T01:01:01", headers=self.valid_header, json=self.test_record)
+        response = self.app.put("record/1/1/2020-01-01T01:01:01", headers=self.valid_header, json=self.test_record_dict)
         data = response.json
 
         assert data is None
-        mock_db.assert_called_once_with('PUT', ["1", "1", "2020-01-01T01:01:01"], data=self.test_record)
+        mock_db.assert_called_once()
 
     def test_delete_record(self, mock_db):
         mock_db.return_value = None

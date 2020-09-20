@@ -5,8 +5,7 @@
 {% endblock %}
 
 {% block content %}
-  {{ habit }}
-  {# {% for x in range({{ Habits }})%} #}
-    <!-- <p>x</p> -->
-  {# {% endfor %} #}
+  {% for x in habits%}
+    <p>{{x}}</p>
+    {% endfor %}
 {% endblock %}
