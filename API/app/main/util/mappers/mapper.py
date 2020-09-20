@@ -1,8 +1,9 @@
 class Mapper():
     """ 
-        This is a mapper super class for sql-rest transactions that defines four functions.
+        This is a mapper super class (or Layer Supertype) for sql-rest transactions that defines five functions.
         __str__ returns a string of the objects for testing purposes
         to_dict returns the class as a dict object for the REST-api to turn into JSON
+        set_dict sets the __dict__ variable of the mapper to a json body
         to_sql_update returns a string that can be used in an sql update query
         to_sql_insert returns a touble of strings that can be used in an sql insert query
     """
