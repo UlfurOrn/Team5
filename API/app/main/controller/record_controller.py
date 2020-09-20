@@ -38,7 +38,6 @@ class UserRecords(Resource):
 
         record_list = []
         for record in data:
-            print(record)
             record_dict = record.to_dict()
             if record_dict["userid"] == int(user_id):
                 record_list.append(record_dict)

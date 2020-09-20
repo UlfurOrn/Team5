@@ -2,6 +2,7 @@ from flask import request
 from flask_restplus import Resource
 from main.services.db_api import DBapi
 
+from main.util.mappers.habit import Habit
 from main.util.DTO.habit_dto import HabitDTO
 
 api = HabitDTO.api
@@ -15,18 +16,36 @@ class HabitList(Resource):
     def get(self):
         data = DBapi.habits('GET')
 
-        record_list = []
-        for record in data:
-            record_list.append(dict(record))
+        habit_list = []
+        for habit in data:
+            habit_list.append(habit.to_dict())
 
-        return record_list
+        return habit_list
 
     @api.response(201, 'Habit successfully created.')
     @api.doc('create a new Habit')
     @api.expect(_habit, validate=True)
     def post(self):
         data = request.json
-        return DBapi.habits('POST', data=data)
+        habit = Habit()
+        habit.set_dict(data)
+        return DBapi.habits('POST', data=habit)
+
+
+@api.route("/<user_id>")
+class UserHabit(Resource):
+
+    @api.marshal_list_with(_habit, envelope='habits')
+    def get(self, user_id):
+        data = DBapi.habits("GET")
+
+        habit_list = []
+        for habit in data:
+            habit_dict = habit.to_dict()
+            if habit_dict["userid"] == int(user_id):
+                habit_list.append(habit_dict)
+
+        return habit_list
 
 
 @api.route('/<habit_id>')
