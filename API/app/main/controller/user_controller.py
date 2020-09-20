@@ -1,11 +1,14 @@
 from flask import request
 from flask_restplus import Resource
 
+from main.util.logging.logging_registry import LoggingRegistry
+
 from main.util.mappers.user import User
 from main.services.db_api import DBapi
 from main.util.DTO.user_dto import UserDTO
 from main.util.DTO.habit_dto import HabitDTO
 
+logger = LoggingRegistry.get_logger()
 api = UserDTO.api
 _user = UserDTO.user
 _habit = HabitDTO.habit
