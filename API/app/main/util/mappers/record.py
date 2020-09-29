@@ -5,12 +5,4 @@ class Record(Mapper):
     """
         A Mapper class for the Records table
     """
-    KEYS = ["recordid", "userid", "habitid", "amount", "rdate"]
-
-    # def __init__(self, recordid=None, userid=None, habitid=None, amount=None, rdatetime=None):
-    #     self.recordid = recordid
-    #     self.userid = userid
-    #     self.habitid = habitid
-    #     self.amount = amount
-    #     self.rdate = rdatetime
-    #     # self.rtime = rtime
+    KEYS = ["recordid", "userid", "habitid", "amount", "rdate", "rtime"]

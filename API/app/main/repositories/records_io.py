@@ -1,6 +1,7 @@
 from main.repositories.abc_table import AbcTable
 from main.util.mappers.record import Record
-from psycopg2.extensions import AsIs # Used to remove '' from SQL strings I insert
+from psycopg2.extensions import AsIs  # Used to remove '' from SQL strings I insert
+
 
 class Recordsio(AbcTable):
     """
@@ -17,7 +18,7 @@ class Recordsio(AbcTable):
             super()._cur.execute("SELECT * FROM records;")
         records_list = []
         for record in super()._cur.fetchall():
-            records_list.append(Record(record[0], record[1], record[2], record[3], record[4]))
+            records_list.append(Record(*record))
         return records_list
 
     @classmethod
