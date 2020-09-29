@@ -1,6 +1,7 @@
 from main.repositories.abc_table import AbcTable
 from main.util.mappers.habit import Habit
-from psycopg2.extensions import AsIs # Used to remove '' from SQL strings I insert
+from psycopg2.extensions import AsIs  # Used to remove '' from SQL strings I insert
+
 
 class Habitsio(AbcTable):
     """
@@ -28,7 +29,10 @@ class Habitsio(AbcTable):
 
     @classmethod
     def put(cls, habit_id, data):
-        """ Takes in an int and a Habit object with changes and updates those columns in the database. Returns nothing """
+        """
+        Takes in an int and a Habit object with changes and updates
+        those columns in the database. Returns nothing
+        """
         habit_str = data.to_sql_update()
         super()._cur.execute("UPDATE habits SET %s WHERE habitid = %s", (AsIs(habit_str), habit_id))
 

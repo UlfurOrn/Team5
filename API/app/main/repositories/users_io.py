@@ -1,6 +1,7 @@
 from main.repositories.abc_table import AbcTable
 from main.util.mappers.user import User
-from psycopg2.extensions import AsIs # Used to remove '' from SQL strings I insert
+from psycopg2.extensions import AsIs  # Used to remove '' from SQL strings I insert
+
 
 class Usersio(AbcTable):
     """
@@ -36,7 +37,7 @@ class Usersio(AbcTable):
     def delete(cls, user_id):
         """ Takes in an int. Deletes row with that id from the database. Returns nothing """
         super()._cur.execute("DELETE FROM users WHERE userid = %s;", (user_id,))
-    
+
     @classmethod
     def password(cls, username, password):
         """ Takes in a username and a password and checks if the username and password match in the database """

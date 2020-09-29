@@ -1,6 +1,7 @@
 from main.repositories.abc_table import AbcTable
 from main.util.mappers.measurement import Measurement
 
+
 class Measurementsio(AbcTable):
     @classmethod
     def get(cls, measurement_id):

@@ -23,18 +23,26 @@ class Recordsio(AbcTable):
 
     @classmethod
     def post(cls, data: dict):
-        """ Takes in a Record object and saves it to the database. Returns nothing """
-        record_touple = data.to_sql_insert()
-        super()._cur.execute("INSERT INTO records %s VALUES %s;", (AsIs(record_touple[0]), AsIs(record_touple[1])))
+        """
+        Takes in a Record object and saves it to the database.
+        Returns nothing
+        """
+        record_tuple = data.to_sql_insert()
+        super()._cur.execute("INSERT INTO records %s VALUES %s;", (AsIs(record_tuple[0]), AsIs(record_tuple[1])))
 
     @classmethod
     def put(cls, record_id: int, data: dict):
-        """ Takes in an int and a Record object with changes and updates those columns in the database. Returns nothing """
+        """
+        Takes in an int and a Record object with changes and updates those
+        columns in the database. Returns nothing
+        """
         record_str = data.to_sql_update()
         super()._cur.execute("UPDATE records SET %s WHERE recordid = %s", (AsIs(record_str), record_id))
 
-
     @classmethod
     def delete(cls, record_id: int):
-        """ Takes in a list of ints. Deletes row with those id's from the database. Returns nothing """
+        """
+        Takes in a list of ints. Deletes row with those id's from the database.
+        Returns nothing
+        """
         super()._cur.execute("DELETE FROM records WHERE recordid = %s;", (record_id,))

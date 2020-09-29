@@ -1,6 +1,7 @@
 from main.repositories.abc_table import AbcTable
 from main.util.mappers.mcategory import Mcategory
 
+
 class Mcategoriesio(AbcTable):
     @classmethod
     def get(cls, mcategory_id):
