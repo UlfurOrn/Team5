@@ -18,17 +18,23 @@ class Mapper:
 
     def to_sql_update(self):
         """ Returns a string for an sql update query """
-        sql_string_list = [
-            f"{key} = '{value}'"
-            for key, value in self.__dict__.items()
-            if value is not None
-        ]
+        sql_string_list = []
+
+        for key, value in self.__dict__.items():
+            if value is not None:
+                sql_string_list.append(f"{key} = '{value}'")
+
         return ", ".join(sql_string_list)
     
     def to_sql_insert(self):
         """ Returns a tuple of strings that can be used in an sql insert query """
-        key_string_list = [str(key) for key in self.__dict__.keys()]
-        value_string_list = [f"'{value}'" for value in self.__dict__.values() if value is not None]
+        key_string_list = []
+        value_string_list = []
+
+        for key, value in self.__dict__.items():
+            if value is not None:
+                key_string_list.append(key)
+                value_string_list.append(f"'{value}'")
 
         key_string = "({})".format(", ".join(key_string_list))
         value_string = "({})".format(", ".join(value_string_list))
