@@ -5,4 +5,10 @@ class Habit(Mapper):
     """
         A Mapper class for the Habits table
     """
-    KEYS = ["habitid", "userid", "name", "description", "measurementid"]
+    KEYS = [
+        "habitid",
+        "userid",
+        "name",
+        "description",
+        "measurementid"
+    ]

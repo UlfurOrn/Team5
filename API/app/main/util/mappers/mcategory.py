@@ -5,4 +5,7 @@ class Mcategory(Mapper):
     """
         A Mapper class for the MCategories table
     """
-    KEYS = ["mcategoryid", "name"]
+    KEYS = [
+        "mcategoryid",
+        "name"
+    ]

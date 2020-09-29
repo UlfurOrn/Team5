@@ -5,4 +5,9 @@ class Measurement(Mapper):
     """
         A Mapper class for the Measurements table
     """
-    KEYS = ["measurementid", "name", "abreviation", "mcategoryid"]
+    KEYS = [
+        "measurementid",
+        "name",
+        "abreviation",
+        "mcategoryid"
+    ]
