@@ -1,11 +1,11 @@
-class Mapper():
+class Mapper:
     """ 
         This is a mapper super class (or Layer Supertype) for sql-rest transactions that defines five functions.
         __str__ returns a string of the objects for testing purposes
         to_dict returns the class as a dict object for the REST-api to turn into JSON
         set_dict sets the __dict__ variable of the mapper to a json body
         to_sql_update returns a string that can be used in an sql update query
-        to_sql_insert returns a touble of strings that can be used in an sql insert query
+        to_sql_insert returns a tuple of strings that can be used in an sql insert query
     """
     def __str__(self):
         return str(self.__dict__)
@@ -18,18 +18,19 @@ class Mapper():
 
     def to_sql_update(self):
         """ Returns a string for an sql update query """
-        ret_str = ""
-        for key, value in self.__dict__.items():
-            if value != None:
-                ret_str += "{} = '{}', ".format(key, value)
-        return ret_str.strip(", ")
+        sql_string_list = [
+            f"{key} = '{value}'"
+            for key, value in self.__dict__.items()
+            if value is not None
+        ]
+        return ", ".join(sql_string_list)
     
     def to_sql_insert(self):
-        """ Returns a touble of strings that can be used in an sql insert query """
-        keys_str = "("
-        values_str = "("
-        for key, value in self.__dict__.items():
-            if value != None:
-                keys_str += "{}, ".format(key)
-                values_str += "'{}', ".format(value)
-        return (keys_str.strip(", ") + ")", values_str.strip(", ") + ")")
+        """ Returns a tuple of strings that can be used in an sql insert query """
+        key_string_list = [str(key) for key in self.__dict__.keys()]
+        value_string_list = [f"'{value}'" for value in self.__dict__.values() if value is not None]
+
+        key_string = "({})".format(", ".join(key_string_list))
+        value_string = "({})".format(", ".join(value_string_list))
+
+        return key_string, value_string
