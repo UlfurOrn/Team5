@@ -13,5 +13,6 @@ AbcTable._cur = AbcTable._conn.cursor(cursor_factory=extras.DictCursor)
 def test_get_single_mcategory():
     assert len(DBapi.mcategories(1)) == 1
 
+
 def test_get_mcategories_list():
     assert len(DBapi.mcategories()) == 4

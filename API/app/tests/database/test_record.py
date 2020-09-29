@@ -14,8 +14,10 @@ AbcTable._cur = AbcTable._conn.cursor(cursor_factory=extras.DictCursor)
 def test_get_single_record():
     assert len(DBapi.records("GET", 1)) == 1
 
+
 def test_get_record_list():
     assert len(DBapi.records("GET")) == 4
+
 
 def test_post_record():
     AbcTable._cur.execute("BEGIN;")
@@ -24,6 +26,7 @@ def test_post_record():
     assert len(DBapi.records("GET")) == 5
     AbcTable._cur.execute("ROLLBACK;")
 
+
 def test_put_record():
     AbcTable._cur.execute("BEGIN;")
     updated_record = Record(amount = 10)
@@ -31,11 +34,13 @@ def test_put_record():
     assert DBapi.records("GET", 1)[0].amount == 10
     AbcTable._cur.execute("ROLLBACK;")
 
+
 def test_delete_record():
     AbcTable._cur.execute("BEGIN;")
     DBapi.records("DELETE", 1)
     assert len(DBapi.records("GET")) == 3
     AbcTable._cur.execute("ROLLBACK;")
+
 
 def test_exceptions_record():
     with pytest.raises(Exception, match="Missing data"):

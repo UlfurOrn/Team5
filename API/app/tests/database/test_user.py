@@ -14,8 +14,10 @@ AbcTable._cur = AbcTable._conn.cursor(cursor_factory=extras.DictCursor)
 def test_get_single_user():
     assert len(DBapi.users("GET", 1)) == 1
 
+
 def test_get_user_list():
     assert len(DBapi.users("GET")) == 5
+
 
 def test_post_user():
     AbcTable._cur.execute("BEGIN;")
@@ -24,6 +26,7 @@ def test_post_user():
     assert len(DBapi.users("GET")) == 6
     AbcTable._cur.execute("ROLLBACK;")
 
+
 def test_put_user():
     AbcTable._cur.execute("BEGIN;")
     updated_user = User(name="TESTNAME")
@@ -31,12 +34,14 @@ def test_put_user():
     assert DBapi.users("GET", 1)[0].name == "TESTNAME"
     AbcTable._cur.execute("ROLLBACK;")
 
+
 def test_delete_user():
     AbcTable._cur.execute("BEGIN;")
     assert len(DBapi.users("GET")) == 5
     DBapi.users("DELETE", 3)
     assert len(DBapi.users("GET")) == 4
     AbcTable._cur.execute("ROLLBACK;")
+
 
 def test_exceptions_user():
     with pytest.raises(Exception, match="Missing data"):

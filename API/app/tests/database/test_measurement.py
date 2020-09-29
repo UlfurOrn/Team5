@@ -13,5 +13,6 @@ AbcTable._cur = AbcTable._conn.cursor(cursor_factory=extras.DictCursor)
 def test_get_single_measurement():
     assert len(DBapi.measurements(1)) == 1
 
+
 def test_get_measurements_list():
     assert len(DBapi.measurements()) == 5

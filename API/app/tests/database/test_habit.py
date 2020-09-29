@@ -14,8 +14,10 @@ AbcTable._cur = AbcTable._conn.cursor(cursor_factory=extras.DictCursor)
 def test_get_single_habit():
     assert len(DBapi.habits("GET", 1)) == 1
 
+
 def test_get_habit_list():
     assert len(DBapi.habits("GET")) == 4
+
 
 def test_post_habit():
     AbcTable._cur.execute("BEGIN;")
@@ -24,6 +26,7 @@ def test_post_habit():
     assert len(DBapi.habits("GET")) == 5
     AbcTable._cur.execute("ROLLBACK;")
 
+
 def test_put_habit():
     AbcTable._cur.execute("BEGIN;")
     updated_habit = Habit(name="TEST")
@@ -31,11 +34,13 @@ def test_put_habit():
     assert DBapi.habits("GET", 1)[0].name == "TEST"
     AbcTable._cur.execute("ROLLBACK;")
 
+
 def test_delete_habit():
     AbcTable._cur.execute("BEGIN;")
     DBapi.habits("DELETE", 2)
     assert len(DBapi.habits("GET")) == 3
     AbcTable._cur.execute("ROLLBACK;")
+
 
 def test_exceptions_type():
     with pytest.raises(Exception, match="Missing data"):

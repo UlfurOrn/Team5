@@ -1,5 +1,5 @@
 class Mapper:
-    """ 
+    """
         This is a mapper super class (or Layer Supertype) for sql-rest transactions that defines five functions.
         __str__ returns a string of the objects for testing purposes
         to_dict returns the class as a dict object for the REST-api to turn into JSON
@@ -35,7 +35,7 @@ class Mapper:
                 sql_string_list.append(f"{key} = '{value}'")
 
         return ", ".join(sql_string_list)
-    
+
     def to_sql_insert(self):
         """ Returns a tuple of strings that can be used in an sql insert query """
         key_string_list = []

@@ -11,8 +11,8 @@ AbcTable._cur = AbcTable._conn.cursor(cursor_factory=extras.DictCursor)
 
 
 def test_correct_password():
-    assert DBapi.checkpassword("scowdroy0", "yV3wwHgvnQWe")[0][0] == True
+    assert DBapi.checkpassword("scowdroy0", "yV3wwHgvnQWe")[0][0]
+
 
 def test_incorrect_password():
-    assert DBapi.checkpassword("TEST", "INCORRECT")[0][0] == False
-    
+    assert not DBapi.checkpassword("TEST", "INCORRECT")[0][0]
