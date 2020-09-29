@@ -7,6 +7,16 @@ class Mapper:
         to_sql_update returns a string that can be used in an sql update query
         to_sql_insert returns a tuple of strings that can be used in an sql insert query
     """
+    def __init__(self, *args, **kwargs):
+        self.parse_input(self.KEYS, *args, **kwargs)
+
+    def parse_input(self, keys, *args, **kwargs):
+        if args:
+            for key, value in zip(keys, args):
+                kwargs[key] = value
+
+        self.__dict__ = kwargs
+
     def __str__(self):
         return str(self.__dict__)
 

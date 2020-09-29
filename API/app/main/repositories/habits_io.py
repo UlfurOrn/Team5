@@ -17,7 +17,7 @@ class Habitsio(AbcTable):
             super()._cur.execute("SELECT * FROM habits;")
         habits_list = []
         for habit in super()._cur.fetchall():
-            habits_list.append(Habit(habit[0], habit[1], habit[2], habit[3], habit[4]))
+            habits_list.append(Habit(*habit))
         return habits_list
 
     @classmethod
