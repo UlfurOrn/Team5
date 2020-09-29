@@ -11,7 +11,7 @@ class Measurementsio(AbcTable):
             super()._cur.execute("SELECT * FROM measurements;")
         measurements_list = []
         for measurement in super()._cur.fetchall():
-            measurements_list.append(Measurement(measurement[0], measurement[1], measurement[2], measurement[3]))
+            measurements_list.append(Measurement(*measurement))
         return measurements_list
 
     @classmethod
