@@ -9,7 +9,9 @@ class TestAuthenticationEndpoint(TestBase):
     def setUp(self):
         super(TestAuthenticationEndpoint, self).setUp()
 
-        self.test_user_mapper = User(1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25T00:00:00", "m", 85, 180)
+        self.test_user_mapper = User(
+            1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25", "m", 85, 180
+        )
 
     def test_login_working(self, mock_db):
         mock_db.return_value = [[True]]

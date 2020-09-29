@@ -1,9 +1,10 @@
+import pytest
+import psycopg2
+from psycopg2 import extras
+
 from main.services.db_api import DBapi
 from main.repositories.abc_table import AbcTable
 from main.util.mappers.record import Record
-import psycopg2
-from psycopg2 import extras
-import pytest
 
 # This connects the AbcTable to another designated test database
 AbcTable._conn = psycopg2.connect("dbname=habittest2 user=habittester password=tester123  host=gudjoniv.com")
@@ -29,7 +30,7 @@ def test_post_record():
 
 def test_put_record():
     AbcTable._cur.execute("BEGIN;")
-    updated_record = Record(amount = 10)
+    updated_record = Record(amount=10)
     DBapi.records("PUT", 1, updated_record)
     assert DBapi.records("GET", 1)[0].amount == 10
     AbcTable._cur.execute("ROLLBACK;")

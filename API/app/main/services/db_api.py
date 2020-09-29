@@ -88,7 +88,7 @@ class DBapi:
 
         elif method == cls.DELETE:
             if habit_id:
-                Habitsio.delete(id)
+                Habitsio.delete(habit_id)
             else:
                 raise Exception("Missing id")
 
@@ -138,7 +138,7 @@ class DBapi:
         """
         A gateway to the measurements table.
             Argument: measurement_id: int- Specifies the id of the object. If none, gets all in GET method
-            Returns: row with id or all rows if id is none as list of Measurment objects
+            Returns: row with id or all rows if id is none as list of Measurement objects
         """
         return Measurementsio.get(measurement_id)
 

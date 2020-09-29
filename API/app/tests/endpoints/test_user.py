@@ -9,7 +9,9 @@ class TestUserEndpoint(TestBase):
     def setUp(self):
         super(TestUserEndpoint, self).setUp()
 
-        self.test_user_mapper = User(1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25T00:00:00", "m", 85, 180)
+        self.test_user_mapper = User(
+            1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25T00:00:00", "m", 85, 180
+        )
         self.test_user_dict = {
             'userid': 1,
             'name': "testuser",
@@ -36,7 +38,7 @@ class TestUserEndpoint(TestBase):
             User(1, "testuser", "test@email.com", 'testuser', 'testpassword', "2020-04-25T00:00:00", "m", 85, 180),
             User(2, "testuser2", "test2@email.com", 'testuser2', 'testpassword2', "2020-05-25T00:00:00", "f", 60, 170)
         ]
-        
+
         test_user_list = [
             {
                 'userid': 1,
