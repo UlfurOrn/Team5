@@ -1,18 +1,10 @@
-import psycopg2
-from psycopg2 import extras
-
 from main.services.db_api import DBapi
-from main.repositories.abc_table import AbcTable
-
-# This connects the AbcTable to another designated test database
-AbcTable._conn = psycopg2.connect("dbname=habittest2 user=habittester password=tester123  host=gudjoniv.com")
-AbcTable._conn.autocommit = True
-AbcTable._cur = AbcTable._conn.cursor(cursor_factory=extras.DictCursor)
+from tests.database.test_base import TestBase
 
 
-def test_correct_password():
-    assert DBapi.checkpassword("scowdroy0", "yV3wwHgvnQWe")[0][0]
+class TestPasswordDB(TestBase):
+    def test_correct_password(self):
+        assert DBapi.checkpassword("scowdroy0", "yV3wwHgvnQWe")[0][0]
 
-
-def test_incorrect_password():
-    assert not DBapi.checkpassword("TEST", "INCORRECT")[0][0]
+    def test_incorrect_password(self):
+        assert not DBapi.checkpassword("TEST", "INCORRECT")[0][0]
