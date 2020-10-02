@@ -1,7 +1,7 @@
 from flask import request
 from flask_restplus import Resource
 
-from main.util.mappers.habit import Habit
+from main.util.mappers.habit import HabitMapper
 from main.util.DTO.habit_dto import HabitDTO
 from main.services.db_api import DBapi
 
@@ -28,7 +28,7 @@ class HabitList(Resource):
     @api.expect(_expect, validate=True)
     def post(self):
         data = request.json
-        habit = Habit()
+        habit = HabitMapper()
         habit.set_dict(data)
         return DBapi.habits('POST', data=habit)
 
@@ -50,7 +50,7 @@ class SingleHabit(Resource):
     @api.expect(_expect, validate=True)
     def put(self, habit_id):
         data = request.json
-        habit = Habit()
+        habit = HabitMapper()
         habit.set_dict(data)
         return DBapi.habits('PUT', habit_id, data=habit)
 

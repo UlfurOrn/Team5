@@ -1,7 +1,7 @@
 from main.util.mappers.mapper import Mapper
 
 
-class Habit(Mapper):
+class HabitMapper(Mapper):
     """
         A Mapper class for the Habits table
     """

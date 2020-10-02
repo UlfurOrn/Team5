@@ -3,7 +3,7 @@ from main.util.mappers.user import User
 from psycopg2.extensions import AsIs  # Used to remove '' from SQL strings I insert
 
 
-class Usersio(AbcTable):
+class UsersIO(AbcTable):
     """
         An input-output class for the users table in the Habit tracker database.
         Contains methods for each CRUD operation [GET, POST, PUT, DELETE]

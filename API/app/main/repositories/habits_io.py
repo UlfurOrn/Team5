@@ -1,9 +1,9 @@
 from main.repositories.abc_table import AbcTable
-from main.util.mappers.habit import Habit
+from main.util.mappers.habit import HabitMapper
 from psycopg2.extensions import AsIs  # Used to remove '' from SQL strings I insert
 
 
-class Habitsio(AbcTable):
+class HabitsIO(AbcTable):
     """
         An input-output class for the habits table in the Habit tracker database.
         Contains methods for each CRUD operation [GET, POST, PUT, DELETE]
@@ -19,7 +19,7 @@ class Habitsio(AbcTable):
 
         habits_list = []
         for habit_info in super()._cur.fetchall():
-            habit = Habit(*habit_info)
+            habit = HabitMapper(*habit_info)
             habits_list.append(habit)
 
         return habits_list

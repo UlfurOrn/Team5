@@ -2,7 +2,7 @@ from main.repositories.abc_table import AbcTable
 from main.util.mappers.mcategory import Mcategory
 
 
-class Mcategoriesio(AbcTable):
+class McategoriesIO(AbcTable):
     @classmethod
     def get(cls, mcategory_id):
         """ Takes in an int. Returns row from habits with set id or all rows if id=None """

@@ -2,7 +2,7 @@ from main.repositories.abc_table import AbcTable
 from main.util.mappers.measurement import Measurement
 
 
-class Measurementsio(AbcTable):
+class MeasurementsIO(AbcTable):
     @classmethod
     def get(cls, measurement_id):
         """ Takes in an int. Returns row from habits with set id or all rows if id=None """
