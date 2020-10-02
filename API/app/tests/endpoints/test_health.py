@@ -1,6 +1,6 @@
-from unittest.mock import patch
 
 from tests.endpoints.test_base import TestBase
+
 
 class TestHealthEndpoint(TestBase):
     def setUp(self):

@@ -1,4 +1,3 @@
-import requests
 from unittest.mock import patch
 
 from main.util.mappers.record import Record

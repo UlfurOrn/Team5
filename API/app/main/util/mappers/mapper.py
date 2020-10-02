@@ -1,12 +1,22 @@
-class Mapper():
-    """ 
+class Mapper:
+    """
         This is a mapper super class (or Layer Supertype) for sql-rest transactions that defines five functions.
         __str__ returns a string of the objects for testing purposes
         to_dict returns the class as a dict object for the REST-api to turn into JSON
         set_dict sets the __dict__ variable of the mapper to a json body
         to_sql_update returns a string that can be used in an sql update query
-        to_sql_insert returns a touble of strings that can be used in an sql insert query
+        to_sql_insert returns a tuple of strings that can be used in an sql insert query
     """
+    def __init__(self, *args, **kwargs):
+        self.parse_input(self.KEYS, *args, **kwargs)
+
+    def parse_input(self, keys, *args, **kwargs):
+        if args:
+            for key, value in zip(keys, args):
+                kwargs[key] = value
+
+        self.__dict__ = kwargs
+
     def __str__(self):
         return str(self.__dict__)
 
@@ -18,18 +28,25 @@ class Mapper():
 
     def to_sql_update(self):
         """ Returns a string for an sql update query """
-        ret_str = ""
+        sql_string_list = []
+
         for key, value in self.__dict__.items():
-            if value != None:
-                ret_str += "{} = '{}', ".format(key, value)
-        return ret_str.strip(", ")
-    
+            if value is not None:
+                sql_string_list.append(f"{key} = '{value}'")
+
+        return ", ".join(sql_string_list)
+
     def to_sql_insert(self):
-        """ Returns a touble of strings that can be used in an sql insert query """
-        keys_str = "("
-        values_str = "("
+        """ Returns a tuple of strings that can be used in an sql insert query """
+        key_string_list = []
+        value_string_list = []
+
         for key, value in self.__dict__.items():
-            if value != None:
-                keys_str += "{}, ".format(key)
-                values_str += "'{}', ".format(value)
-        return (keys_str.strip(", ") + ")", values_str.strip(", ") + ")")
+            if value is not None:
+                key_string_list.append(key)
+                value_string_list.append(f"'{value}'")
+
+        key_string = "({})".format(", ".join(key_string_list))
+        value_string = "({})".format(", ".join(value_string_list))
+
+        return key_string, value_string

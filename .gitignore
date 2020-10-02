@@ -202,6 +202,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 pytestdebug.log
+.pytest_cache*
 
 # Translations
 *.mo
@@ -341,3 +342,5 @@ $RECYCLE.BIN/
 
 .idea
 sendgrid.env
+logfile.log*
+logfile_json.log*

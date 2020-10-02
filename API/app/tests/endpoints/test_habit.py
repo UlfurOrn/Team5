@@ -1,8 +1,8 @@
 from unittest.mock import patch
 
-
 from main.util.mappers.habit import Habit
 from tests.endpoints.test_base import TestBase
+
 
 @patch("main.controller.habit_controller.DBapi.habits")
 class TestHabitEndpoint(TestBase):
@@ -11,7 +11,9 @@ class TestHabitEndpoint(TestBase):
         super(TestHabitEndpoint, self).setUp()
 
         self.test_habit_mapper = Habit(1, 1, "TestHabit", "Testing Test Habit", 1)
-        self.test_habit_dict = {"habitid": 1, "userid": 1, "name": "TestHabit", "description": "Testing Test Habit", "measurementid": 1}
+        self.test_habit_dict = {
+            "habitid": 1, "userid": 1, "name": "TestHabit", "description": "Testing Test Habit", "measurementid": 1
+        }
 
     def test_get_single_habit(self, mock_db):
         mock_db.return_value = [self.test_habit_mapper]  # DB returns habit in a list
@@ -24,14 +26,14 @@ class TestHabitEndpoint(TestBase):
 
     def test_get_habit_list(self, mock_db):
         test_habit_list_insert = [
-            Habit(1, 1, "TestHabit1", "Testing Test Habit 1", 1),
-            Habit(2, 1, "TestHabit2", "Testing Test Habit 2", 2),
-            Habit(3, 1, "TestHabit3", "Testing Test Habit 3", 3)
+            Habit(1, 1, "TestHabit1", "Testing Habit 1", 1),
+            Habit(2, 1, "TestHabit2", "Testing Habit 2", 2),
+            Habit(3, 1, "TestHabit3", "Testing Habit 3", 3)
         ]
         test_habit_list = [
-            {"habitid": 1, "userid": 1, "name": "TestHabit1", "description": "Testing Test Habit 1", "measurementid": 1},
-            {"habitid": 2, "userid": 1, "name": "TestHabit2", "description": "Testing Test Habit 2", "measurementid": 2},
-            {"habitid": 3, "userid": 1, "name": "TestHabit3", "description": "Testing Test Habit 3", "measurementid": 3}
+            {"habitid": 1, "userid": 1, "name": "TestHabit1", "description": "Testing Habit 1", "measurementid": 1},
+            {"habitid": 2, "userid": 1, "name": "TestHabit2", "description": "Testing Habit 2", "measurementid": 2},
+            {"habitid": 3, "userid": 1, "name": "TestHabit3", "description": "Testing Habit 3", "measurementid": 3}
         ]
 
         mock_db.return_value = test_habit_list_insert

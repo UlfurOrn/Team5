@@ -1,6 +1,7 @@
 from main.repositories.abc_table import AbcTable
 from main.util.mappers.mcategory import Mcategory
 
+
 class Mcategoriesio(AbcTable):
     @classmethod
     def get(cls, mcategory_id):
@@ -11,7 +12,7 @@ class Mcategoriesio(AbcTable):
             super()._cur.execute("SELECT * FROM mcategories;")
         categ_list = []
         for categ in super()._cur.fetchall():
-            categ_list.append(Mcategory(categ[0], categ[1]))
+            categ_list.append(Mcategory(*categ))
         return categ_list
 
     @classmethod
