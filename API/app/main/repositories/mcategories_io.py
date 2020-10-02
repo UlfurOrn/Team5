@@ -1,5 +1,5 @@
 from main.repositories.abc_table import AbcTable
-from main.util.mappers.mcategory import Mcategory
+from main.util.mappers.mcategorymapper import McategoryMapper
 
 
 class McategoriesIO(AbcTable):
@@ -13,7 +13,7 @@ class McategoriesIO(AbcTable):
 
         category_list = []
         for category_info in super()._cur.fetchall():
-            category = Mcategory(*category_info)
+            category = McategoryMapper(*category_info)
             category_list.append(category)
 
         return category_list

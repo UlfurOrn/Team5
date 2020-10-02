@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from main.util.mappers.user import User
+from main.util.mappers.usermapper import UserMapper
 from tests.endpoints.test_base import TestBase
 
 
@@ -9,7 +9,7 @@ class TestUserEndpoint(TestBase):
     def setUp(self):
         super(TestUserEndpoint, self).setUp()
 
-        self.test_user_mapper = User(
+        self.test_user_mapper = UserMapper(
             1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25T00:00:00", "m", 85, 180
         )
         self.test_user_dict = {
@@ -35,8 +35,8 @@ class TestUserEndpoint(TestBase):
 
     def test_get_user_list(self, mock_db):
         test_user_list_insert = [
-            User(1, "testuser", "test@email.com", 'testuser', 'testpassword', "2020-04-25T00:00:00", "m", 85, 180),
-            User(2, "testuser2", "test2@email.com", 'testuser2', 'testpassword2', "2020-05-25T00:00:00", "f", 60, 170)
+            UserMapper(1, "testuser", "test@email.com", 'testuser', 'testpassword', "2020-04-25T00:00:00", "m", 85, 180),
+            UserMapper(2, "testuser2", "test2@email.com", 'testuser2', 'testpassword2', "2020-05-25T00:00:00", "f", 60, 170)
         ]
 
         test_user_list = [

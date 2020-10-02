@@ -1,7 +1,7 @@
 import pytest
 
 from main.services.db_api import DBapi
-from main.util.mappers.record import Record
+from main.util.mappers.recordmapper import RecordMapper
 from tests.database.test_base import TestBase
 
 
@@ -14,14 +14,14 @@ class TestRecordDB(TestBase):
 
     def test_post_record(self):
         self.begin()
-        new_record = Record(userid=1, habitid=1, amount=10, rdate='2020-06-06', rtime='10:10:10')
+        new_record = RecordMapper(userid=1, habitid=1, amount=10, rdate='2020-06-06', rtime='10:10:10')
         DBapi.records("POST", data=new_record)
         assert len(DBapi.records("GET")) == 5
         self.rollback()
 
     def test_put_record(self):
         self.begin()
-        updated_record = Record(amount=10)
+        updated_record = RecordMapper(amount=10)
         DBapi.records("PUT", 1, updated_record)
         assert DBapi.records("GET", 1)[0].amount == 10
         self.rollback()

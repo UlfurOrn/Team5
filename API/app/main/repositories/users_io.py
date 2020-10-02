@@ -1,5 +1,5 @@
 from main.repositories.abc_table import AbcTable
-from main.util.mappers.user import User
+from main.util.mappers.usermapper import UserMapper
 from psycopg2.extensions import AsIs  # Used to remove '' from SQL strings I insert
 
 
@@ -19,7 +19,7 @@ class UsersIO(AbcTable):
 
         users_list = []
         for user_info in super()._cur.fetchall():
-            user = User(*user_info)
+            user = UserMapper(*user_info)
             users_list.append(user)
 
         return users_list

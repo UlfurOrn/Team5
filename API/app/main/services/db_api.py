@@ -5,8 +5,8 @@ from main.repositories.measurements_io import MeasurementsIO
 from main.repositories.mcategories_io import McategoriesIO
 
 from main.util.mappers.habit import HabitMapper
-from main.util.mappers.user import User
-from main.util.mappers.record import Record
+from main.util.mappers.usermapper import UserMapper
+from main.util.mappers.recordmapper import RecordMapper
 
 
 class DBapi:
@@ -20,7 +20,7 @@ class DBapi:
     DELETE = "DELETE"
 
     @classmethod
-    def users(cls, method: str, user_id: int = None, data: User = None):
+    def users(cls, method: str, user_id: int = None, data: UserMapper = None):
         """
             A gateway to the users table.
             Arguments:
@@ -96,7 +96,7 @@ class DBapi:
             raise Exception("Method not in list of approved methods: GET, POST, PUT, DELETE")
 
     @classmethod
-    def records(cls, method: str, record_id: int = None, data: Record = None):
+    def records(cls, method: str, record_id: int = None, data: RecordMapper = None):
         """
             A gateway to the records table.
             Arguments:

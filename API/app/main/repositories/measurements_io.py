@@ -1,5 +1,5 @@
 from main.repositories.abc_table import AbcTable
-from main.util.mappers.measurement import Measurement
+from main.util.mappers.measurementmapper import MeasurementMapper
 
 
 class MeasurementsIO(AbcTable):
@@ -13,7 +13,7 @@ class MeasurementsIO(AbcTable):
 
         measurements_list = []
         for measurement_info in super()._cur.fetchall():
-            measurement = Measurement(*measurement_info)
+            measurement = MeasurementMapper(*measurement_info)
             measurements_list.append(measurement)
 
         return measurements_list
