@@ -27,8 +27,8 @@ class Usersio(AbcTable):
     @classmethod
     def post(cls, data):
         """ Takes in a dict with a user and saves to the database. Returns nothing """
-        user_touple = data.to_sql_insert()
-        super()._cur.execute("INSERT INTO users %s VALUES %s;", (AsIs(user_touple[0]), AsIs(user_touple[1])))
+        user_tuple = data.to_sql_insert()
+        super()._cur.execute("INSERT INTO users %s VALUES %s;", (AsIs(user_tuple[0]), AsIs(user_tuple[1])))
 
     @classmethod
     def put(cls, user_id, data):

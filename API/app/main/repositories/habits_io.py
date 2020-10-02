@@ -27,8 +27,8 @@ class Habitsio(AbcTable):
     @classmethod
     def post(cls, data):
         """ Takes in a Habit object and saves it to the database. Returns nothing """
-        habit_touple = data.to_sql_insert()
-        super()._cur.execute("INSERT INTO habits %s VALUES %s;", (AsIs(habit_touple[0]), AsIs(habit_touple[1])))
+        habit_tuple = data.to_sql_insert()
+        super()._cur.execute("INSERT INTO habits %s VALUES %s;", (AsIs(habit_tuple[0]), AsIs(habit_tuple[1])))
 
     @classmethod
     def put(cls, habit_id, data):
