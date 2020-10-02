@@ -10,9 +10,12 @@ class Measurementsio(AbcTable):
             super()._cur.execute("SELECT * FROM measurements WHERE measurementid = %s;", (measurement_id,))
         else:
             super()._cur.execute("SELECT * FROM measurements;")
+
         measurements_list = []
-        for measurement in super()._cur.fetchall():
-            measurements_list.append(Measurement(*measurement))
+        for measurement_info in super()._cur.fetchall():
+            measurement = Measurement(*measurement_info)
+            measurements_list.append(measurement)
+
         return measurements_list
 
     @classmethod

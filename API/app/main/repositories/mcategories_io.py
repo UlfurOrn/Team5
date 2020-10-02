@@ -10,10 +10,13 @@ class Mcategoriesio(AbcTable):
             super()._cur.execute("SELECT * FROM mcategories WHERE mcategoryid = %s;", (mcategory_id,))
         else:
             super()._cur.execute("SELECT * FROM mcategories;")
-        categ_list = []
-        for categ in super()._cur.fetchall():
-            categ_list.append(Mcategory(*categ))
-        return categ_list
+
+        category_list = []
+        for category_info in super()._cur.fetchall():
+            category = Mcategory(*category_info)
+            category_list.append(category)
+
+        return category_list
 
     @classmethod
     def post(cls, data):

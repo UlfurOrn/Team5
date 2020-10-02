@@ -16,9 +16,12 @@ class Usersio(AbcTable):
             super()._cur.execute("SELECT * FROM users WHERE userid = %s;", (user_id,))
         else:
             super()._cur.execute("SELECT * FROM users;")
+
         users_list = []
-        for user in super()._cur.fetchall():
-            users_list.append(User(*user))
+        for user_info in super()._cur.fetchall():
+            user = User(*user_info)
+            users_list.append(user)
+
         return users_list
 
     @classmethod

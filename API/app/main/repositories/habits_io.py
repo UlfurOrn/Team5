@@ -16,9 +16,12 @@ class Habitsio(AbcTable):
             super()._cur.execute("SELECT * FROM habits WHERE habitid = %s;", (habit_id,))
         else:
             super()._cur.execute("SELECT * FROM habits;")
+
         habits_list = []
-        for habit in super()._cur.fetchall():
-            habits_list.append(Habit(*habit))
+        for habit_info in super()._cur.fetchall():
+            habit = Habit(*habit_info)
+            habits_list.append(habit)
+
         return habits_list
 
     @classmethod

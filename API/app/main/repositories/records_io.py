@@ -16,9 +16,12 @@ class Recordsio(AbcTable):
             super()._cur.execute("SELECT * FROM records WHERE recordid = %s;", (record_id,))
         else:
             super()._cur.execute("SELECT * FROM records;")
+
         records_list = []
-        for record in super()._cur.fetchall():
-            records_list.append(Record(*record))
+        for record_info in super()._cur.fetchall():
+            record = Record(*record_info)
+            records_list.append(record)
+
         return records_list
 
     @classmethod
