@@ -10,6 +10,12 @@ class TestRecordDB(TestBase):
 
     def test_get_record_list(self):
         assert len(DBapi.records.get()) == 4
+    
+    def test_get_record_by_user(self):
+        assert len(DBapi.records.get(user_id=2)) == 2
+    
+    def test_get_record_by_habit(self):
+        assert len(DBapi.records.get(habit_id=2)) == 2
 
     def test_post_record(self):
         self.begin()

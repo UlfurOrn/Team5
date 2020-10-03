@@ -10,6 +10,9 @@ class TestHabitDB(TestBase):
 
     def test_get_habit_list(self):
         assert len(DBapi.habits.get()) == 4
+    
+    def test_get_habit_by_user(self):
+        assert len(DBapi.habits.get(user_id=2)) == 1
 
     def test_post_habit(self):
         self.begin()
