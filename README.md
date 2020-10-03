@@ -42,7 +42,7 @@
 * [Lecure Aspects](#lecture-aspects)
   * [Sprint 1](#sprint-1)
   * [Sprint 2](#sprint-2)
-  * [Sprrint 3](#sprint-3)
+  * [Sprint 3](#sprint-3)
 * [Team Members](#team-members)
 * [Teacher](#teacher)
 * [TA](#ta)
