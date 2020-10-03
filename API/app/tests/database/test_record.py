@@ -21,7 +21,7 @@ class TestRecordDB(TestBase):
     def test_put_record(self):
         self.begin()
         updated_record = RecordMapper(amount=10)
-        DBapi.recordsþput(1, updated_record)
+        DBapi.records.put(1, updated_record)
         assert DBapi.records.get(1)[0].amount == 10
         self.rollback()
 

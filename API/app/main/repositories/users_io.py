@@ -10,7 +10,7 @@ class UsersIO(AbcTable):
     """
 
     @classmethod
-    def get(cls, user_id):
+    def get(cls, user_id=None):
         """ Takes in an int. Returns row from users with set id or all rows if id=None as list of User objects"""
         if user_id:
             super()._cur.execute("SELECT * FROM users WHERE userid = %s;", (user_id,))
@@ -42,7 +42,7 @@ class UsersIO(AbcTable):
         super()._cur.execute("DELETE FROM users WHERE userid = %s;", (user_id,))
 
     @classmethod
-    def password(cls, username, password):
+    def checkpassword(cls, username, password):
         """ Takes in a username and a password and checks if the username and password match in the database """
         super()._cur.execute("SELECT F_CheckPassword(%s, %s);", (password, username))
         return super()._cur.fetchall()

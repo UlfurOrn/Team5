@@ -10,7 +10,7 @@ class HabitsIO(AbcTable):
     """
 
     @classmethod
-    def get(cls, habit_id):
+    def get(cls, habit_id=None):
         """ Takes in an int. Returns row from habits with set id or all rows if id=None as list of Habit objects"""
         if habit_id:
             super()._cur.execute("SELECT * FROM habits WHERE habitid = %s;", (habit_id,))
