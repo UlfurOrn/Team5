@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Add Record{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    <input type="text" placeholder="Habit ID" name="habit_id" id="habit_id" required><br>
+    <input type="text" placeholder="Amount" name="amount" id="amount" required><br>
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

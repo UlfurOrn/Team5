@@ -88,3 +88,12 @@ def post_habit(api_url, habit):
     if r.status_code != 200:
         print(r.status_code)
         return f'Failed posting habit, code:{r.status_code}'
+
+def post_record(api_url, record):
+    session = requests.Session()
+
+    r = session.post(api_url+'record', json=record)
+
+    if r.status_code != 200:
+        print(r.status_code)
+        return f'Failed postring record, code:{r.status_code}'

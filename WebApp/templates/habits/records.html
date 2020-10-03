@@ -8,4 +8,5 @@
   {% for x in records%}
     <p>{{x}}</p>
     {% endfor %}
+    <a href="{{ url_for('habit.add_record') }}">Add</a>
 {% endblock %}
