@@ -1,12 +1,12 @@
-from main.repositories.users_io import Usersio
-from main.repositories.records_io import Recordsio
-from main.repositories.habits_io import Habitsio
-from main.repositories.measurements_io import Measurementsio
-from main.repositories.mcategories_io import Mcategoriesio
+from main.repositories.users_io import UsersIO
+from main.repositories.records_io import RecordsIO
+from main.repositories.habits_io import HabitsIO
+from main.repositories.measurements_io import MeasurementsIO
+from main.repositories.mcategories_io import McategoriesIO
 
-from main.util.mappers.habit import Habit
-from main.util.mappers.user import User
-from main.util.mappers.record import Record
+from main.util.mappers.habitmapper import HabitMapper
+from main.util.mappers.usermapper import UserMapper
+from main.util.mappers.recordmapper import RecordMapper
 
 
 class PGapi:
@@ -21,7 +21,7 @@ class PGapi:
     DELETE = "DELETE"
 
     @classmethod
-    def users(cls, method: str, user_id: int = None, data: User = None):
+    def users(cls, method: str, user_id: int = None, data: UserMapper = None):
         """
             A gateway to the users table.
             Arguments:
@@ -32,18 +32,18 @@ class PGapi:
                 If method = GET returns list of User objects else returns nothing
         """
         if method == cls.GET:
-            return Usersio.get(user_id)
+            return UsersIO.get(user_id)
 
         elif method == cls.POST:
             if data:
-                Usersio.post(data)
+                UsersIO.post(data)
             else:
                 raise Exception("Missing data")
 
         elif method == cls.PUT:
             if user_id:
                 if data:
-                    Usersio.put(user_id, data)
+                    UsersIO.put(user_id, data)
                 else:
                     raise Exception("Missing data")
             else:
@@ -51,7 +51,7 @@ class PGapi:
 
         elif method == cls.DELETE:
             if user_id:
-                Usersio.delete(user_id)
+                UsersIO.delete(user_id)
             else:
                 raise Exception("Missing id")
 
@@ -59,7 +59,7 @@ class PGapi:
             raise Exception("Method not in list of approved methods: GET, POST, PUT, DELETE")
 
     @classmethod
-    def habits(cls, method: str, habit_id: int = None, data: Habit = None):
+    def habits(cls, method: str, habit_id: int = None, data: HabitMapper = None):
         """
             A gateway to the habits table.
             Arguments:
@@ -70,18 +70,18 @@ class PGapi:
                 If method = GET returns list of Habit objects else returns nothing
         """
         if method == cls.GET:
-            return Habitsio.get(habit_id)
+            return HabitsIO.get(habit_id)
 
         elif method == cls.POST:
             if data:
-                Habitsio.post(data)
+                HabitsIO.post(data)
             else:
                 raise Exception("Missing data")
 
         elif method == cls.PUT:
             if habit_id:
                 if data:
-                    Habitsio.put(habit_id, data)
+                    HabitsIO.put(habit_id, data)
                 else:
                     raise Exception("Missing data")
             else:
@@ -89,7 +89,7 @@ class PGapi:
 
         elif method == cls.DELETE:
             if habit_id:
-                Habitsio.delete(habit_id)
+                HabitsIO.delete(habit_id)
             else:
                 raise Exception("Missing id")
 
@@ -97,7 +97,7 @@ class PGapi:
             raise Exception("Method not in list of approved methods: GET, POST, PUT, DELETE")
 
     @classmethod
-    def records(cls, method: str, record_id: int = None, data: Record = None):
+    def records(cls, method: str, record_id: int = None, data: RecordMapper = None):
         """
             A gateway to the records table.
             Arguments:
@@ -108,18 +108,18 @@ class PGapi:
                 If method = GET returns list of Record objects else returns nothing
         """
         if method == cls.GET:
-            return Recordsio.get(record_id)
+            return RecordsIO.get(record_id)
 
         elif method == cls.POST:
             if data:
-                Recordsio.post(data)
+                RecordsIO.post(data)
             else:
                 raise Exception("Missing data")
 
         elif method == cls.PUT:
             if record_id:
                 if data:
-                    Recordsio.put(record_id, data)
+                    RecordsIO.put(record_id, data)
                 else:
                     raise Exception("Missing data")
             else:
@@ -127,7 +127,7 @@ class PGapi:
 
         elif method == cls.DELETE:
             if record_id:
-                Recordsio.delete(record_id)
+                RecordsIO.delete(record_id)
             else:
                 raise Exception("Missing id")
 
@@ -141,7 +141,7 @@ class PGapi:
             Argument: measurement_id: int- Specifies the id of the object. If none, gets all in GET method
             Returns: row with id or all rows if id is none as list of Measurement objects
         """
-        return Measurementsio.get(measurement_id)
+        return MeasurementsIO.get(measurement_id)
 
     @classmethod
     def mcategories(cls, category_id: int = None):
@@ -150,9 +150,9 @@ class PGapi:
             Argument: category_id: int- Specifies the id of the object. If none, gets all in GET method
             Returns: row with id or all rows if id is none as list of Mcategories objects
         """
-        return Mcategoriesio.get(category_id)
+        return McategoriesIO.get(category_id)
 
     @classmethod
     def checkpassword(cls, username: str, password: str):
         """ Takes in a username and password and checks if they match in the database """
-        return Usersio.password(username, password)
+        return UsersIO.password(username, password)

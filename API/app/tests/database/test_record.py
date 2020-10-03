@@ -2,7 +2,7 @@ import pytest
 
 from main.services.db_api import DBapi
 from main.services.pg_api import PGapi
-from main.util.mappers.record import RecordMapper
+from main.util.mappers.recordmapper import RecordMapper
 from tests.database.test_base import TestBase
 
 DBapi = DBapi(PGapi)

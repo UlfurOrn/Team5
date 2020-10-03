@@ -1,4 +1,4 @@
-from main.util.mappers.habit import HabitMapper
+from main.util.mappers.habitmapper import HabitMapper
 from main.util.mappers.usermapper import UserMapper
 from main.util.mappers.recordmapper import RecordMapper
 
@@ -11,8 +11,7 @@ class DBapi():
     def __init__(self, DatabaseApi):
         self.dbapi = DatabaseApi
 
-    @classmethod
-    def users(cls, method: str, user_id: int = None, data: UserMapper = None):
+    def users(self, method: str, user_id: int = None, data: UserMapper = None):
         """
             A gateway to the users data.
             Arguments:

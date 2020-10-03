@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from main.util.mappers.habit import HabitMapper
+from main.util.mappers.habitmapper import HabitMapper
 from tests.endpoints.test_base import TestBase
 
 

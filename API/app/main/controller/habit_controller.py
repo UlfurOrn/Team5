@@ -1,7 +1,7 @@
 from flask import request
 from flask_restplus import Resource
 
-from main.util.mappers.habit import HabitMapper
+from main.util.mappers.habitmapper import HabitMapper
 from main.util.DTO.habit_dto import HabitDTO
 from main.services.db_api import DBapi
 from main.services.pg_api import PGapi

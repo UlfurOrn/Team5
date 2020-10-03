@@ -1,5 +1,5 @@
 from main.repositories.abc_table import AbcTable
-from main.util.mappers.habit import HabitMapper
+from main.util.mappers.habitmapper import HabitMapper
 from psycopg2.extensions import AsIs  # Used to remove '' from SQL strings I insert
 
 
