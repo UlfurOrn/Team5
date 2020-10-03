@@ -16,6 +16,11 @@ class TestRecordDB(TestBase):
     
     def test_get_record_by_habit(self):
         assert len(DBapi.records.get(habit_id=2)) == 2
+    
+    def test_get_record_for_user_by_date_range(self):
+        assert len(DBapi.records.get(user_id=2, date_start="2020-01-01", date_end="2020-09-10")) == 1
+        assert len(DBapi.records.get(user_id=2, date_start="2020-09-10", date_end="2020-09-11")) == 2
+        assert len(DBapi.records.get(user_id=2, date_start="2020-09-11", date_end="2020-12-31")) == 1
 
     def test_post_record(self):
         self.begin()
