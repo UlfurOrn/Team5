@@ -1,9 +1,9 @@
 from main.repositories.abc_table import AbcTable
-from main.util.mappers.user import User
+from main.util.mappers.usermapper import UserMapper
 from psycopg2.extensions import AsIs  # Used to remove '' from SQL strings I insert
 
 
-class Usersio(AbcTable):
+class UsersIO(AbcTable):
     """
         An input-output class for the users table in the Habit tracker database.
         Contains methods for each CRUD operation [GET, POST, PUT, DELETE]
@@ -16,16 +16,19 @@ class Usersio(AbcTable):
             super()._cur.execute("SELECT * FROM users WHERE userid = %s;", (user_id,))
         else:
             super()._cur.execute("SELECT * FROM users;")
+
         users_list = []
-        for user in super()._cur.fetchall():
-            users_list.append(User(*user))
+        for user_info in super()._cur.fetchall():
+            user = UserMapper(*user_info)
+            users_list.append(user)
+
         return users_list
 
     @classmethod
     def post(cls, data):
         """ Takes in a dict with a user and saves to the database. Returns nothing """
-        user_touple = data.to_sql_insert()
-        super()._cur.execute("INSERT INTO users %s VALUES %s;", (AsIs(user_touple[0]), AsIs(user_touple[1])))
+        user_tuple = data.to_sql_insert()
+        super()._cur.execute("INSERT INTO users %s VALUES %s;", (AsIs(user_tuple[0]), AsIs(user_tuple[1])))
 
     @classmethod
     def put(cls, user_id, data):

@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from main.util.mappers.record import Record
+from main.util.mappers.recordmapper import RecordMapper
 from tests.endpoints.test_base import TestBase
 
 
@@ -10,7 +10,7 @@ class TestRecordEndpoint(TestBase):
     def setUp(self):
         super(TestRecordEndpoint, self).setUp()
 
-        self.test_record_mapper = Record(1, 1, 1, 1234, "2020-01-01T01:01:01")
+        self.test_record_mapper = RecordMapper(1, 1, 1, 1234, "2020-01-01T01:01:01")
         self.test_record_dict = {
                 'recordid': 1,
                 'userid': 1,
@@ -30,9 +30,9 @@ class TestRecordEndpoint(TestBase):
 
     def test_get_record_list(self, mock_db):
         test_record_list_insert = [
-            Record(1, 1, 1, 1234.0, "2020-01-01T01:01:01"),
-            Record(2, 2, 2, 12345.0, "2020-02-02T02:02:02"),
-            Record(3, 3, 3, 123456.0, "2020-03-03T03:03:03")
+            RecordMapper(1, 1, 1, 1234.0, "2020-01-01T01:01:01"),
+            RecordMapper(2, 2, 2, 12345.0, "2020-02-02T02:02:02"),
+            RecordMapper(3, 3, 3, 123456.0, "2020-03-03T03:03:03")
         ]
         test_record_list = [
             {'recordid': 1, 'userid': 1, 'habitid': 1, 'rdate': "2020-01-01T01:01:01", 'amount': 1234.0},

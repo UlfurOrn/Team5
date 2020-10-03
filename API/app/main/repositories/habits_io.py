@@ -1,9 +1,9 @@
 from main.repositories.abc_table import AbcTable
-from main.util.mappers.habit import Habit
+from main.util.mappers.habit import HabitMapper
 from psycopg2.extensions import AsIs  # Used to remove '' from SQL strings I insert
 
 
-class Habitsio(AbcTable):
+class HabitsIO(AbcTable):
     """
         An input-output class for the habits table in the Habit tracker database.
         Contains methods for each CRUD operation [GET, POST, PUT, DELETE]
@@ -16,16 +16,19 @@ class Habitsio(AbcTable):
             super()._cur.execute("SELECT * FROM habits WHERE habitid = %s;", (habit_id,))
         else:
             super()._cur.execute("SELECT * FROM habits;")
+
         habits_list = []
-        for habit in super()._cur.fetchall():
-            habits_list.append(Habit(*habit))
+        for habit_info in super()._cur.fetchall():
+            habit = HabitMapper(*habit_info)
+            habits_list.append(habit)
+
         return habits_list
 
     @classmethod
     def post(cls, data):
         """ Takes in a Habit object and saves it to the database. Returns nothing """
-        habit_touple = data.to_sql_insert()
-        super()._cur.execute("INSERT INTO habits %s VALUES %s;", (AsIs(habit_touple[0]), AsIs(habit_touple[1])))
+        habit_tuple = data.to_sql_insert()
+        super()._cur.execute("INSERT INTO habits %s VALUES %s;", (AsIs(habit_tuple[0]), AsIs(habit_tuple[1])))
 
     @classmethod
     def put(cls, habit_id, data):

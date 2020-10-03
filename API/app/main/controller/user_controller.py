@@ -3,7 +3,7 @@ from flask_restplus import Resource
 
 from main.util.logging.logging_registry import LoggingRegistry
 
-from main.util.mappers.user import User
+from main.util.mappers.usermapper import UserMapper
 from main.services.db_api import DBapi
 from main.util.DTO.user_dto import UserDTO
 from main.util.DTO.habit_dto import HabitDTO
@@ -36,7 +36,7 @@ class UserList(Resource):
     @api.expect(_expect, validate=True)
     def post(self):
         data = request.json
-        user = User()
+        user = UserMapper()
         user.set_dict(data)
         return DBapi.users('POST', data=user)
 
@@ -90,7 +90,7 @@ class SingleUser(Resource):
     @api.expect(_expect)
     def put(self, user_id):
         data = request.json
-        user = User()
+        user = UserMapper()
         user.set_dict(data)
         return DBapi.users('PUT', user_id, data=user)
 

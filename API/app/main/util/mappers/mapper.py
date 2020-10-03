@@ -11,11 +11,12 @@ class Mapper:
         self.parse_input(self.KEYS, *args, **kwargs)
 
     def parse_input(self, keys, *args, **kwargs):
+        info_dict = kwargs
         if args:
             for key, value in zip(keys, args):
-                kwargs[key] = value
+                info_dict[key] = value
 
-        self.__dict__ = kwargs
+        self.__dict__ = info_dict
 
     def __str__(self):
         return str(self.__dict__)

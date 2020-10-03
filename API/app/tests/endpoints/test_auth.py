@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from main.util.mappers.user import User
+from main.util.mappers.usermapper import UserMapper
 from tests.endpoints.test_base import TestBase
 
 
@@ -9,7 +9,7 @@ class TestAuthenticationEndpoint(TestBase):
     def setUp(self):
         super(TestAuthenticationEndpoint, self).setUp()
 
-        self.test_user_mapper = User(
+        self.test_user_mapper = UserMapper(
             1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25", "m", 85, 180
         )
 
