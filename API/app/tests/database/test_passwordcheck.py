@@ -3,7 +3,7 @@ from tests.database.test_base import TestBase
 
 class TestPasswordDB(TestBase):
     def test_correct_password(self):
-        assert DBapi.checkpassword("scowdroy0", "yV3wwHgvnQWe")[0][0]
+        assert DBapi.users.checkpassword("scowdroy0", "yV3wwHgvnQWe")[0][0]
 
     def test_incorrect_password(self):
-        assert not DBapi.checkpassword("TEST", "INCORRECT")[0][0]
+        assert not DBapi.users.checkpassword("TEST", "INCORRECT")[0][0]
