@@ -45,13 +45,11 @@ class UserHabit(Resource):
 
     @api.marshal_list_with(_habit, envelope='habits')
     def get(self, user_id):
-        data = DBapi.habits.get()
+        data = DBapi.habits.get(user_id=user_id)
 
         habit_list = []
         for habit in data:
-            habit_dict = habit.to_dict()
-            if habit_dict["userid"] == int(user_id):
-                habit_list.append(habit_dict)
+            habit_list.append(habit.to_dict())
 
         return habit_list
 
@@ -61,13 +59,11 @@ class UserRecords(Resource):
 
     @api.marshal_list_with(_record, envelope='records')
     def get(self, user_id):
-        data = DBapi.records.get()
+        data = DBapi.records.get(user_id=user_id)
 
         record_list = []
         for record in data:
-            record_dict = record.to_dict()
-            if record_dict["userid"] == int(user_id):
-                record_list.append(record_dict)
+            record_list.append(record.to_dict())
 
         return record_list
 
