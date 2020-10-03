@@ -1,11 +1,8 @@
 import pytest
 
 from main.services.db_api import DBapi
-from main.services.pg_api import PGapi
 from main.util.mappers.usermapper import UserMapper
 from tests.database.test_base import TestBase
-
-DBapi = DBapi(PGapi)
 
 class TestUserDB(TestBase):
     def test_get_single_user(self):
