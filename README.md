@@ -203,6 +203,11 @@ and we created a more basic api for said service.
 * Service Stub:
 For the service stub we created a fake mail service to remove the dependency on the mail service during unit tests.
 
+### Sprint 3
+The Single Responsibility Principle
+
+* The first place where we implement the this principle is in our Mapper classes. Here I'm talking about 
+
 
 <!-- TEAM MEMBERS -->
 ## Team Members
