@@ -1,10 +1,11 @@
 import functools
+import datetime
 
 from .auth import login_required
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 
-from ..services.api_calls import get_user_habits, get_user_records, post_habit
+from ..services.api_calls import get_user_habits, get_user_records, post_habit, post_record
 
 bp = Blueprint('habit', __name__, url_prefix='/habit')
 
@@ -31,7 +32,6 @@ def add_habit():
             'description': description,
             'measurementid': measurement_id
         }
-        print(habit)
 
         error = post_habit(current_app.config["API_URL"], habit)
         
@@ -49,3 +49,30 @@ def userrecords():
         somestatement = True
 
     return render_template('habits/records.html', records=recorddict['records'])
+
+
+@bp.route('/record/add', methods=('GET', 'POST'))
+def add_record():
+    if request.method == 'POST':
+        userid = int(session.get('user_id'))
+        habitid = int(request.form['habit_id'])
+        rdate = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+        amount = int(request.form['amount'])
+
+        error = None
+
+        record = {
+            'userid': userid,
+            'habitid': habitid,
+            'rdate': rdate,
+            'amount': amount
+        }
+
+        error = post_record(current_app.config["API_URL"], record)
+
+        if error is None:
+            return redirect(url_for('habit.userrecords'))
+        
+        flash(error)
+
+    return render_template('habits/add_record.html')
