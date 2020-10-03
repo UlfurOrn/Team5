@@ -10,10 +10,14 @@ class RecordsIO(AbcTable):
     """
 
     @classmethod
-    def get(cls, record_id=None):
+    def get(cls, record_id=None, habit_id=None, user_id=None):
         """ Takes in an int. Returns row from records with set id or all rows if id=None as a list of Record objects """
         if record_id:
             super()._cur.execute("SELECT * FROM records WHERE recordid = %s;", (record_id,))
+        elif habit_id:
+            super()._cur.execute("SELECT * FROM records WHERE habitid = %s;", (habit_id,))
+        elif user_id:
+            super()._cur.execute("SELECT * FROM records WHERE userid = %s;", (user_id,))
         else:
             super()._cur.execute("SELECT * FROM records;")
 
