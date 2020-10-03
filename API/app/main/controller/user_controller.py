@@ -5,12 +5,9 @@ from main.util.logging.logging_registry import LoggingRegistry
 
 from main.util.mappers.usermapper import UserMapper
 from main.services.db_api import DBapi
-from main.services.pg_api import PGapi
 from main.util.DTO.user_dto import UserDTO
 from main.util.DTO.habit_dto import HabitDTO
 from main.util.DTO.record_dto import RecordDTO
-
-DBapi = DBapi(PGapi) # Initialize a new DBapi with PGapi as the database api
 
 logger = LoggingRegistry.get_logger()
 api = UserDTO.api
@@ -25,7 +22,7 @@ class UserList(Resource):
     @api.doc('List all users')
     @api.marshal_list_with(_user, envelope='users')
     def get(self):
-        data = DBapi.users('GET')
+        data = DBapi.users.get()
 
         user_list = []
         for user in data:
@@ -40,7 +37,7 @@ class UserList(Resource):
         data = request.json
         user = UserMapper()
         user.set_dict(data)
-        return DBapi.users('POST', data=user)
+        return DBapi.users.post(user)
 
 
 @api.route("/<user_id>/habit")
@@ -48,7 +45,7 @@ class UserHabit(Resource):
 
     @api.marshal_list_with(_habit, envelope='habits')
     def get(self, user_id):
-        data = DBapi.habits("GET")
+        data = DBapi.habits.get()
 
         habit_list = []
         for habit in data:
@@ -64,7 +61,7 @@ class UserRecords(Resource):
 
     @api.marshal_list_with(_record, envelope='records')
     def get(self, user_id):
-        data = DBapi.records("GET")
+        data = DBapi.records.get()
 
         record_list = []
         for record in data:
@@ -81,7 +78,7 @@ class SingleUser(Resource):
     @api.doc('Get a single user')
     @api.marshal_with(_user)
     def get(self, user_id):
-        data = DBapi.users('GET', user_id)
+        data = DBapi.users.get(user_id)
         if not data:
             return "", 404
         user_dict = data[0].to_dict()
@@ -94,9 +91,9 @@ class SingleUser(Resource):
         data = request.json
         user = UserMapper()
         user.set_dict(data)
-        return DBapi.users('PUT', user_id, data=user)
+        return DBapi.users.put(user_id, user)
 
     @api.doc('Delete a user')
     @api.response(201, 'user successfully deleted.')
     def delete(self, user_id):
-        return DBapi.users('DELETE', user_id)
+        return DBapi.users.delete(user_id)

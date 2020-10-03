@@ -4,20 +4,17 @@ from flask_restplus import Resource
 from main.util.mappers.habitmapper import HabitMapper
 from main.util.DTO.habit_dto import HabitDTO
 from main.services.db_api import DBapi
-from main.services.pg_api import PGapi
 
 api = HabitDTO.api
 _expect = HabitDTO.expect_model
 _habit = HabitDTO.model
-
-DBapi = DBapi(PGapi) # Initialize a new DBapi with PGapi as the database api
 
 @api.route('')
 class HabitList(Resource):
     @api.doc('List all habits')
     @api.marshal_list_with(_habit, envelope='habits')
     def get(self):
-        data = DBapi.habits('GET')
+        data = DBapi.habits.get()
 
         habit_list = []
         for habit in data:
@@ -32,7 +29,7 @@ class HabitList(Resource):
         data = request.json
         habit = HabitMapper()
         habit.set_dict(data)
-        return DBapi.habits('POST', data=habit)
+        return DBapi.habits.post(habit)
 
 
 @api.route('/<habit_id>')
@@ -41,7 +38,7 @@ class SingleHabit(Resource):
     @api.doc('Get a single habit')
     @api.marshal_with(_habit)
     def get(self, habit_id):
-        data = DBapi.habits('GET', habit_id)
+        data = DBapi.habits.get(habit_id)
         if not data:
             return "", 404
         habit_dict = data[0].to_dict()
@@ -54,9 +51,9 @@ class SingleHabit(Resource):
         data = request.json
         habit = HabitMapper()
         habit.set_dict(data)
-        return DBapi.habits('PUT', habit_id, data=habit)
+        return DBapi.habits.put(habit_id, habit)
 
     @api.doc('Delete a habit')
     @api.response(201, 'Habit successfully deleted.')
     def delete(self, habit_id):
-        return DBapi.habits('DELETE', habit_id)
+        return DBapi.habits.delete(habit_id)
