@@ -8,12 +8,12 @@
       <li><span>{{ g.user['username'] }}</span>
       <li><a href="{{ url_for('account.viewAccount') }}">View Account</a></li>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+      <li><a href="{{ url_for('habit.userhabits') }}">habits</a></li>
+      <li><a href="{{ url_for('habit.userrecords') }}">records</a></li>
     {% else %}
       <li><a href="{{ url_for('auth.register') }}">Register</a>
       <li><a href="{{ url_for('auth.login') }}">Log In</a>
     {% endif %}
-    <li><a href="{{ url_for('habit.userhabits') }}">habits</a></li>
-    <li><a href="{{ url_for('habit.userrecords') }}">records</a></li>
   </ul>
 </nav>
 <section class="content">

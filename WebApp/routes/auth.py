@@ -22,8 +22,6 @@ def register():
 
         error = None
 
-        print(type(date_of_birth))
-
         if not username:
             error = 'Username required'
         elif not password:
@@ -82,15 +80,16 @@ def logout():
     session.clear()
     return redirect(url_for('auth.login'))
 
-@bp.before_app_first_request
+@bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
 
-    if  user_id is None:
+    if user_id is None:
         g.user = None
     else:
         # Get the user from the database
-        g.user = get_user_id(current_app.config['API_URL'], user_id)
+        user = get_user_id(current_app.config['API_URL'], user_id)
+        g.user = user
 
 def login_required(view):
     @functools.wraps(view)
