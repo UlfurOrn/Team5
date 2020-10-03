@@ -4,11 +4,13 @@ from flask_restplus import Resource
 from main.util.mappers.habit import Habit
 from main.util.DTO.habit_dto import HabitDTO
 from main.services.db_api import DBapi
+from main.services.pg_api import PGapi
 
 api = HabitDTO.api
 _expect = HabitDTO.expect_model
 _habit = HabitDTO.model
 
+DBapi = DBapi(PGapi) # Initialize a new DBapi with PGapi as the database api
 
 @api.route('')
 class HabitList(Resource):

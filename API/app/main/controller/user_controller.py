@@ -5,10 +5,12 @@ from main.util.logging.logging_registry import LoggingRegistry
 
 from main.util.mappers.user import User
 from main.services.db_api import DBapi
+from main.services.pg_api import PGapi
 from main.util.DTO.user_dto import UserDTO
 from main.util.DTO.habit_dto import HabitDTO
 from main.util.DTO.record_dto import RecordDTO
 
+DBapi = DBapi(PGapi) # Initialize a new DBapi with PGapi as the database api
 
 logger = LoggingRegistry.get_logger()
 api = UserDTO.api

@@ -1,28 +1,19 @@
-from main.repositories.users_io import Usersio
-from main.repositories.records_io import Recordsio
-from main.repositories.habits_io import Habitsio
-from main.repositories.measurements_io import Measurementsio
-from main.repositories.mcategories_io import Mcategoriesio
-
 from main.util.mappers.habit import Habit
 from main.util.mappers.user import User
 from main.util.mappers.record import Record
 
-
-class DBapi:
+class DBapi():
     """
-        A gateway class that interfaces the database operations available for the Habit tracker platform.
-        Each method is a table in the database. So adding a new table requires the addition of a new method.
+        A class that satisfies the Dependency Injection. Takes in a Database api
+        in the constructor which it then uses in alls its functions. Makes it easier
+        to change out different database apis.
     """
-    GET = "GET"
-    POST = "POST"
-    PUT = "PUT"
-    DELETE = "DELETE"
+    def __init__(self, DatabaseApi):
+        self.dbapi = DatabaseApi
 
-    @classmethod
-    def users(cls, method: str, user_id: int = None, data: User = None):
+    def users(self, method: str, user_id: int = None, data: User = None):
         """
-            A gateway to the users table.
+            A gateway to the users data.
             Arguments:
                 method: str - Specifies the method to use [GET, POST, PUT, DELETE]
                 user_id: int - Specifies the id of the object. If none, gets all in GET method
@@ -30,37 +21,11 @@ class DBapi:
             Returns:
                 If method = GET returns list of User objects else returns nothing
         """
-        if method == cls.GET:
-            return Usersio.get(user_id)
+        return self.dbapi.users(method, user_id, data)
 
-        elif method == cls.POST:
-            if data:
-                Usersio.post(data)
-            else:
-                raise Exception("Missing data")
-
-        elif method == cls.PUT:
-            if user_id:
-                if data:
-                    Usersio.put(user_id, data)
-                else:
-                    raise Exception("Missing data")
-            else:
-                raise Exception("Missing id")
-
-        elif method == cls.DELETE:
-            if user_id:
-                Usersio.delete(user_id)
-            else:
-                raise Exception("Missing id")
-
-        else:
-            raise Exception("Method not in list of approved methods: GET, POST, PUT, DELETE")
-
-    @classmethod
-    def habits(cls, method: str, habit_id: int = None, data: Habit = None):
+    def habits(self, method: str, habit_id: int = None, data: Habit = None):
         """
-            A gateway to the habits table.
+            A gateway to the habits data.
             Arguments:
                 method: str - Specifies the method to use [GET, POST, PUT, DELETE]
                 habit_id: int - Specifies the id of the object. If none, gets all in GET method
@@ -68,37 +33,11 @@ class DBapi:
             Returns:
                 If method = GET returns list of Habit objects else returns nothing
         """
-        if method == cls.GET:
-            return Habitsio.get(habit_id)
+        return self.dbapi.habits(method, habit_id, data)
 
-        elif method == cls.POST:
-            if data:
-                Habitsio.post(data)
-            else:
-                raise Exception("Missing data")
-
-        elif method == cls.PUT:
-            if habit_id:
-                if data:
-                    Habitsio.put(habit_id, data)
-                else:
-                    raise Exception("Missing data")
-            else:
-                raise Exception("Missing id")
-
-        elif method == cls.DELETE:
-            if habit_id:
-                Habitsio.delete(habit_id)
-            else:
-                raise Exception("Missing id")
-
-        else:
-            raise Exception("Method not in list of approved methods: GET, POST, PUT, DELETE")
-
-    @classmethod
-    def records(cls, method: str, record_id: int = None, data: Record = None):
+    def records(self, method: str, record_id: int = None, data: Record = None):
         """
-            A gateway to the records table.
+            A gateway to the records data.
             Arguments:
                 method: str - Specifies the method to use [GET, POST, PUT, DELETE]
                 record_id: int - Specifies the id of the object. If none, gets all in GET method
@@ -106,52 +45,24 @@ class DBapi:
             Returns:
                 If method = GET returns list of Record objects else returns nothing
         """
-        if method == cls.GET:
-            return Recordsio.get(record_id)
+        return self.dbapi.records(method, record_id, data)
 
-        elif method == cls.POST:
-            if data:
-                Recordsio.post(data)
-            else:
-                raise Exception("Missing data")
-
-        elif method == cls.PUT:
-            if record_id:
-                if data:
-                    Recordsio.put(record_id, data)
-                else:
-                    raise Exception("Missing data")
-            else:
-                raise Exception("Missing id")
-
-        elif method == cls.DELETE:
-            if record_id:
-                Recordsio.delete(record_id)
-            else:
-                raise Exception("Missing id")
-
-        else:
-            raise Exception("Method not in list of approved methods: GET, POST, PUT, DELETE")
-
-    @classmethod
-    def measurements(cls, measurement_id: int = None):
+    def measurements(self, measurement_id: int = None):
         """
-        A gateway to the measurements table.
+        A gateway to the measurements data.
             Argument: measurement_id: int- Specifies the id of the object. If none, gets all in GET method
             Returns: row with id or all rows if id is none as list of Measurement objects
         """
-        return Measurementsio.get(measurement_id)
+        return self.dbapi.measurements(measurement_id)
 
-    @classmethod
-    def mcategories(cls, category_id: int = None):
+    def mcategories(self, category_id: int = None):
         """
-        A gateway to the mcategories table.
+        A gateway to the mcategories data.
             Argument: category_id: int- Specifies the id of the object. If none, gets all in GET method
             Returns: row with id or all rows if id is none as list of Mcategories objects
         """
-        return Mcategoriesio.get(category_id)
-
-    @classmethod
-    def checkpassword(cls, username: str, password: str):
+        return self.dbapi.mcategories(category_id)
+    
+    def checkpassword(self, username: str, password: str):
         """ Takes in a username and password and checks if they match in the database """
-        return Usersio.password(username, password)
+        return self.dbapi.checkpassword(username, password)

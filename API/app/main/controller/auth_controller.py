@@ -2,11 +2,13 @@ from flask import request
 from flask_restplus import Resource
 
 from main.services.db_api import DBapi
+from main.services.pg_api import PGapi
 from main.util.DTO.auth_dto import AuthDTO
 
 api = AuthDTO.api
 _auth = AuthDTO.auth
 
+DBapi = DBapi(PGapi) # Initialize a new DBapi with PGapi as the database api
 
 @api.route('/login')
 class UserLogin(Resource):

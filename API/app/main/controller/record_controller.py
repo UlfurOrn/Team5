@@ -4,11 +4,13 @@ from flask_restplus import Resource
 from main.util.mappers.record import Record
 from main.util.DTO.record_dto import RecordDTO
 from main.services.db_api import DBapi
+from main.services.pg_api import PGapi
 
 api = RecordDTO.api
 _expect = RecordDTO.expect_model
 _record = RecordDTO.model
 
+DBapi = DBapi(PGapi) # Initialize a new DBapi with PGapi as the database api
 
 @api.route('')
 class RecordList(Resource):

@@ -204,7 +204,7 @@ and we created a more basic api for said service.
 For the service stub we created a fake mail service to remove the dependency on the mail service during unit tests.
 
 ### Sprint 3
-The Single Responsibility Principle
+The Single Responsibility Principle:
 * The first place where we implement this principle is in our Mapper classes. These classes have only one reason to change and that
 reasing is if the underlying tables in the database change. That is if we where to f.x. add a new column to a table or rename an existing
 column we would change it but that is the only reason these classes have to change.
@@ -213,6 +213,12 @@ a table that we want to query from the database.
 * The third place where we implement this principle is in our controller classes for the REST api. These classes/modules have only one
 reason to change which is the addition/removal of a REST api function/route. These classes do not concern themselves with anything else.
 
+The Dependency Injection:
+To get a dependency injection we decided to a little bit of refactoring arround the DBapi. We decided to make a new DBapi class that still has the same
+functions as the original one but it works like a normal class where you instantiate it with a dbapi parameter. We renamed the original DBapi to PGapi.
+This means that the new DBapi class takes in a seperate DBapi parameter and calls all of its functions on that api. This allows us to get a dependency
+injection by allowing us to switch out different database apis by simply changing the parameters. This means a quick and easy switch without changing code
+that depends on it. The only changes we had to make to code using the DBapi was to import the PGapi class and create a variable: DBapi = DBapi(PGapi).
 
 <!-- TEAM MEMBERS -->
 ## Team Members
