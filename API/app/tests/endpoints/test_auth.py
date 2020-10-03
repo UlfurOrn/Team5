@@ -4,7 +4,7 @@ from main.util.mappers.usermapper import UserMapper
 from tests.endpoints.test_base import TestBase
 
 
-@patch("main.controller.user_controller.DBapi.checkpassword")
+@patch("main.controller.auth_controller.DBapi.checkpassword")
 class TestAuthenticationEndpoint(TestBase):
     def setUp(self):
         super(TestAuthenticationEndpoint, self).setUp()
@@ -16,9 +16,9 @@ class TestAuthenticationEndpoint(TestBase):
     def test_login_working(self, mock_db):
         mock_db.return_value = [[True]]
 
-        login_credentails = {'username': self.test_user_mapper.username, 'password': self.test_user_mapper.password}
+        login_credentials = {'username': self.test_user_mapper.username, 'password': self.test_user_mapper.password}
 
-        response = self.app.post("/auth/login", headers=self.valid_header, json=login_credentails)
+        response = self.app.post("/auth/login", headers=self.valid_header, json=login_credentials)
         data = response.json
 
         assert data == "successfully logged in"
@@ -28,9 +28,9 @@ class TestAuthenticationEndpoint(TestBase):
     def test_login_failing(self, mock_db):
         mock_db.return_value = [[False]]
 
-        login_credentails = {'username': self.test_user_mapper.username, 'password': self.test_user_mapper.password}
+        login_credentials = {'username': self.test_user_mapper.username, 'password': self.test_user_mapper.password}
 
-        response = self.app.post("/auth/login", headers=self.valid_header, json=login_credentails)
+        response = self.app.post("/auth/login", headers=self.valid_header, json=login_credentials)
         data = response.json
 
         assert data == "couldn't log in"
