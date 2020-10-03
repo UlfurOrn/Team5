@@ -205,8 +205,13 @@ For the service stub we created a fake mail service to remove the dependency on 
 
 ### Sprint 3
 The Single Responsibility Principle
-
-* The first place where we implement the this principle is in our Mapper classes. Here I'm talking about 
+* The first place where we implement this principle is in our Mapper classes. These classes have only one reason to change and that
+reasing is if the underlying tables in the database change. That is if we where to f.x. add a new column to a table or rename an existing
+column we would change it but that is the only reason these classes have to change.
+* The second place where we implement this principle is in the DBapi class. The only reason this class has to change is if we add/remove 
+a table that we want to query from the database.
+* The third place where we implement this principle is in our controller classes for the REST api. These classes/modules have only one
+reason to change which is the addition/removal of a REST api function/route. These classes do not concern themselves with anything else.
 
 
 <!-- TEAM MEMBERS -->
