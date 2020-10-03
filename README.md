@@ -42,6 +42,7 @@
 * [Lecure Aspects](#lecture-aspects)
   * [Sprint 1](#sprint-1)
   * [Sprint 2](#sprint-2)
+  * [Sprint 3](#sprint-3)
 * [Team Members](#team-members)
 * [Teacher](#teacher)
 * [TA](#ta)
@@ -206,7 +207,7 @@ For the service stub we created a fake mail service to remove the dependency on 
 ### Sprint 3
 The Single Responsibility Principle:
 * The first place where we implement this principle is in our Mapper classes. These classes have only one reason to change and that
-reasing is if the underlying tables in the database change. That is if we where to f.x. add a new column to a table or rename an existing
+reason is if the underlying tables in the database change. That is if we where to, f.x. add a new column to a table or rename an existing
 column we would change it but that is the only reason these classes have to change.
 * The second place where we implement this principle is in the DBapi class. The only reason this class has to change is if we add/remove 
 a table that we want to query from the database.

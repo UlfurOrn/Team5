@@ -1,7 +1,7 @@
 from flask import request
 from flask_restplus import Resource
 
-from main.util.mappers.record import Record
+from main.util.mappers.recordmapper import RecordMapper
 from main.util.DTO.record_dto import RecordDTO
 from main.services.db_api import DBapi
 from main.services.pg_api import PGapi
@@ -30,7 +30,7 @@ class RecordList(Resource):
     @api.expect(_expect, validate=True)
     def post(self):
         data = request.json
-        record = Record()
+        record = RecordMapper()
         record.set_dict(data)
         print(record)
         return DBapi.records('POST', data=record)
@@ -53,7 +53,7 @@ class SingleRecord(Resource):
     @api.expect(_expect, validate=True)
     def put(self, record_id):
         data = request.json
-        record = Record()
+        record = RecordMapper()
         record.set_dict(data)
         return DBapi.records('PUT', record_id, data=record)
 

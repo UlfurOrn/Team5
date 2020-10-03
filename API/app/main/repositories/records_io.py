@@ -1,9 +1,9 @@
 from main.repositories.abc_table import AbcTable
-from main.util.mappers.record import Record
+from main.util.mappers.recordmapper import RecordMapper
 from psycopg2.extensions import AsIs  # Used to remove '' from SQL strings I insert
 
 
-class Recordsio(AbcTable):
+class RecordsIO(AbcTable):
     """
         An input-output class for the records table in the Habit tracker database.
         Contains methods for each CRUD operation [GET, POST, PUT, DELETE]
@@ -16,9 +16,12 @@ class Recordsio(AbcTable):
             super()._cur.execute("SELECT * FROM records WHERE recordid = %s;", (record_id,))
         else:
             super()._cur.execute("SELECT * FROM records;")
+
         records_list = []
-        for record in super()._cur.fetchall():
-            records_list.append(Record(*record))
+        for record_info in super()._cur.fetchall():
+            record = RecordMapper(*record_info)
+            records_list.append(record)
+
         return records_list
 
     @classmethod

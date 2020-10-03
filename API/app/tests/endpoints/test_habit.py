@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from main.util.mappers.habit import Habit
+from main.util.mappers.habit import HabitMapper
 from tests.endpoints.test_base import TestBase
 
 
@@ -10,7 +10,7 @@ class TestHabitEndpoint(TestBase):
     def setUp(self):
         super(TestHabitEndpoint, self).setUp()
 
-        self.test_habit_mapper = Habit(1, 1, "TestHabit", "Testing Test Habit", 1)
+        self.test_habit_mapper = HabitMapper(1, 1, "TestHabit", "Testing Test Habit", 1)
         self.test_habit_dict = {
             "habitid": 1, "userid": 1, "name": "TestHabit", "description": "Testing Test Habit", "measurementid": 1
         }
@@ -26,9 +26,9 @@ class TestHabitEndpoint(TestBase):
 
     def test_get_habit_list(self, mock_db):
         test_habit_list_insert = [
-            Habit(1, 1, "TestHabit1", "Testing Habit 1", 1),
-            Habit(2, 1, "TestHabit2", "Testing Habit 2", 2),
-            Habit(3, 1, "TestHabit3", "Testing Habit 3", 3)
+            HabitMapper(1, 1, "TestHabit1", "Testing Habit 1", 1),
+            HabitMapper(2, 1, "TestHabit2", "Testing Habit 2", 2),
+            HabitMapper(3, 1, "TestHabit3", "Testing Habit 3", 3)
         ]
         test_habit_list = [
             {"habitid": 1, "userid": 1, "name": "TestHabit1", "description": "Testing Habit 1", "measurementid": 1},

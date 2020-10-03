@@ -1,7 +1,7 @@
 from main.util.mappers.mapper import Mapper
 
 
-class Measurement(Mapper):
+class MeasurementMapper(Mapper):
     """
         A Mapper class for the Measurements table
     """

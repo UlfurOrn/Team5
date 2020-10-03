@@ -1,6 +1,6 @@
-from main.util.mappers.habit import Habit
-from main.util.mappers.user import User
-from main.util.mappers.record import Record
+from main.util.mappers.habit import HabitMapper
+from main.util.mappers.usermapper import UserMapper
+from main.util.mappers.recordmapper import RecordMapper
 
 class DBapi():
     """
@@ -11,7 +11,8 @@ class DBapi():
     def __init__(self, DatabaseApi):
         self.dbapi = DatabaseApi
 
-    def users(self, method: str, user_id: int = None, data: User = None):
+    @classmethod
+    def users(cls, method: str, user_id: int = None, data: UserMapper = None):
         """
             A gateway to the users data.
             Arguments:
@@ -23,7 +24,7 @@ class DBapi():
         """
         return self.dbapi.users(method, user_id, data)
 
-    def habits(self, method: str, habit_id: int = None, data: Habit = None):
+    def habits(self, method: str, habit_id: int = None, data: HabitMapper = None):
         """
             A gateway to the habits data.
             Arguments:
@@ -35,7 +36,7 @@ class DBapi():
         """
         return self.dbapi.habits(method, habit_id, data)
 
-    def records(self, method: str, record_id: int = None, data: Record = None):
+    def records(self, method: str, record_id: int = None, data: RecordMapper = None):
         """
             A gateway to the records data.
             Arguments:

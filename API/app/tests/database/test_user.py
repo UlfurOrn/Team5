@@ -2,7 +2,7 @@ import pytest
 
 from main.services.db_api import DBapi
 from main.services.pg_api import PGapi
-from main.util.mappers.user import User
+from main.util.mappers.user import UserMapper
 from tests.database.test_base import TestBase
 
 DBapi = DBapi(PGapi)
@@ -16,14 +16,14 @@ class TestUserDB(TestBase):
 
     def test_post_user(self):
         self.begin()
-        new_user = User(name="testuser", email="testemail", username="testusername", password="PASSWORD")
+        new_user = UserMapper(name="testuser", email="testemail", username="testusername", password="PASSWORD")
         DBapi.users("POST", data=new_user)
         assert len(DBapi.users("GET")) == 6
         self.rollback()
 
     def test_put_user(self):
         self.begin()
-        updated_user = User(name="TESTNAME")
+        updated_user = UserMapper(name="TESTNAME")
         DBapi.users("PUT", 1, updated_user)
         assert DBapi.users("GET", 1)[0].name == "TESTNAME"
         self.rollback()
