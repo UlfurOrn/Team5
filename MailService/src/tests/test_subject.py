@@ -1,5 +1,3 @@
-from unittest.mock import patch
-
 from tests.test_base import TestBase
 
 

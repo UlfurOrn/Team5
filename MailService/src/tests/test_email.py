@@ -1,10 +1,9 @@
-
 from unittest.mock import patch
 
 from tests.test_base import TestBase
 
 
-class TestSubject(TestBase):
+class TestEmail(TestBase):
 
     def test_get_email(self):
         response = self.app.get("/email")
@@ -26,3 +25,21 @@ class TestSubject(TestBase):
         data = response.json
 
         assert data == ""
+        assert response.status_code == 200
+
+    @patch("endpoints.email.mail_service.mail_service.send_email")
+    def test_post_emails_failing(self, mock_get_mail):
+        exception_message = "Failed"
+        mock_get_mail.side_effect = Exception(exception_message)
+
+        test_email = {
+            "emails": [
+                "test@email.com"
+            ]
+        }
+
+        response = self.app.post("/email", headers=self.valid_header, json=test_email)
+        data = response.json
+
+        assert data == exception_message
+        assert response.status_code == 503

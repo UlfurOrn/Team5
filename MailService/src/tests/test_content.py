@@ -1,6 +1,3 @@
-
-from unittest.mock import patch
-
 from tests.test_base import TestBase
 from mail_service.mail_service_stub import MailServiceStub
 
