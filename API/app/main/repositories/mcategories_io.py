@@ -17,15 +17,3 @@ class McategoriesIO(AbcTable):
             category_list.append(category)
 
         return category_list
-
-    @classmethod
-    def post(cls, data):
-        pass
-
-    @classmethod
-    def put(cls, mcategory_id, data):
-        pass
-
-    @classmethod
-    def delete(cls, habitmcategory_id):
-        pass
