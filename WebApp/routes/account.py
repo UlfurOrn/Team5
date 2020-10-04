@@ -2,7 +2,7 @@ import functools
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 
-from ..services.api_calls import save_user, get_user, get_user_id, save_edited_user
+from ..services.api_calls import post_item, get_user, get_user_id, save_edited_user
 
 bp = Blueprint('account', __name__, url_prefix='/account')
 

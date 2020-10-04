@@ -3,7 +3,7 @@ import functools
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from ..services.api_calls import save_user, get_user, get_user_id, user_login
+from ..services.api_calls import post_item, get_user, get_user_id, user_login
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -39,7 +39,7 @@ def register():
                 'height': int(height)
             }
 
-            resp = save_user(current_app.config["API_URL"], user)
+            resp = post_item(current_app.config["API_URL"], user, 'user')
 
             if resp is None:
                 return redirect(url_for('auth.login'))

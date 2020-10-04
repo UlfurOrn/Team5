@@ -6,7 +6,7 @@ from .auth import login_required
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 
-from ..services.api_calls import get_user_habits, get_user_records, post_habit, post_record, put_habit, put_record, delete_item
+from ..services.api_calls import get_user_habits, get_user_records, post_item, delete_item, put_item
 
 bp = Blueprint('habit', __name__, url_prefix='/habit')
 
@@ -38,7 +38,7 @@ def add_habit():
             'measurementid': measurement_id
         }
 
-        error = post_habit(current_app.config["API_URL"], habit)
+        error = post_item(current_app.config["API_URL"], habit, 'habit')
         
         if error is None:
             return redirect(url_for('habit.userhabits'))
@@ -66,7 +66,7 @@ def update_habit(habit):
             'measurementid': measurement_id
         }
 
-        error = put_habit(current_app.config["API_URL"], habit, habitid)
+        error = put_itemm(current_app.config["API_URL"], habit, habitid, 'habit')
 
         if error is None:
             return redirect(url_for('habit.single_habit', habit=habit))
@@ -109,7 +109,7 @@ def add_record():
             'amount': amount
         }
 
-        error = post_record(current_app.config["API_URL"], record)
+        error = post_item(current_app.config["API_URL"], record, 'record')
 
         if error is None:
             return redirect(url_for('habit.userrecords'))
@@ -137,7 +137,7 @@ def update_record(record):
             'amount': amount
         }
 
-        error = put_record(current_app.config["API_URL"], record, recordid)
+        error = put_itemm(current_app.config["API_URL"], record, recordid, 'record')
 
         if error is None:
             return redirect(url_for('habit.single_record', record=record))
