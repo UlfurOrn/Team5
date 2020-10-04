@@ -17,15 +17,3 @@ class MeasurementsIO(AbcTable):
             measurements_list.append(measurement)
 
         return measurements_list
-
-    @classmethod
-    def post(cls, data):
-        pass
-
-    @classmethod
-    def put(cls, measurement_id, data):
-        pass
-
-    @classmethod
-    def delete(cls, measurement_id):
-        pass

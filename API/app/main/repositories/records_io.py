@@ -8,6 +8,8 @@ class RecordsIO(AbcTable):
         An input-output class for the records table in the Habit tracker database.
         Contains methods for each CRUD operation [GET, POST, PUT, DELETE]
     """
+    table = "records"
+    table_key = "recordid"
 
     @classmethod
     def get(cls, record_id=None, habit_id=None, user_id=None, date_start=None, date_end=None):
@@ -29,29 +31,3 @@ class RecordsIO(AbcTable):
             records_list.append(record)
 
         return records_list
-
-    @classmethod
-    def post(cls, data):
-        """
-        Takes in a Record object and saves it to the database.
-        Returns nothing
-        """
-        record_tuple = data.to_sql_insert()
-        super()._cur.execute("INSERT INTO records %s VALUES %s;", (AsIs(record_tuple[0]), AsIs(record_tuple[1])))
-
-    @classmethod
-    def put(cls, record_id, data):
-        """
-        Takes in an int and a Record object with changes and updates those
-        columns in the database. Returns nothing
-        """
-        record_str = data.to_sql_update()
-        super()._cur.execute("UPDATE records SET %s WHERE recordid = %s", (AsIs(record_str), record_id))
-
-    @classmethod
-    def delete(cls, record_id):
-        """
-        Takes in a list of ints. Deletes row with those id's from the database.
-        Returns nothing
-        """
-        super()._cur.execute("DELETE FROM records WHERE recordid = %s;", (record_id,))
