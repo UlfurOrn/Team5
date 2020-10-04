@@ -133,6 +133,12 @@ flask run
 4. Open the link: http://127.0.0.1:5000 in a web browser and try out the WebApp
 
 
+Serve up the WebApp and the REST api at the same time:
+1. run the run.py file in the root directory after previous environment variable setup
+```sh
+python run.py
+```
+
 
 Mail Service:
 
