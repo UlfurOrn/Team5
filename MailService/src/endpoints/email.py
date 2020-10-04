@@ -23,6 +23,9 @@ class EmailEndpoint(Resource):
         data = request.json
         emails = data["emails"]
 
-        mail_service.send_email(emails)
+        try:
+            mail_service.send_email(emails)
+        except Exception as e:
+            return str(e), 503
 
         return "", 200
