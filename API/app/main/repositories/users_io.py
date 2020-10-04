@@ -6,7 +6,9 @@ from psycopg2.extensions import AsIs  # Used to remove '' from SQL strings I ins
 class UsersIO(AbcTable):
     """
         An input-output class for the users table in the Habit tracker database.
-        Contains methods for each CRUD operation [GET, POST, PUT, DELETE]
+        Contains methods for each CRUD operation [GET, POST, PUT, DELETE]. Also
+        provides a function checkpassword that checks if a username-password 
+        combination matches in the database.
     """
     table = "users"
     table_key = "userid"
