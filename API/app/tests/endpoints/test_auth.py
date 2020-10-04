@@ -4,7 +4,7 @@ from main.util.mappers.usermapper import UserMapper
 from tests.endpoints.test_base import TestBase
 
 
-@patch("main.controller.auth_controller.DBapi.checkpassword")
+@patch("main.controller.auth_controller.DBapi.users.checkpassword")
 class TestAuthenticationEndpoint(TestBase):
     def setUp(self):
         super(TestAuthenticationEndpoint, self).setUp()

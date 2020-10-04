@@ -215,11 +215,10 @@ a table that we want to query from the database.
 reason to change which is the addition/removal of a REST api function/route. These classes do not concern themselves with anything else.
 
 The Dependency Injection:
-To get a dependency injection we decided to a little bit of refactoring arround the DBapi. We decided to make a new DBapi class that still has the same
-functions as the original one but it works like a normal class where you instantiate it with a dbapi parameter. We renamed the original DBapi to PGapi.
-This means that the new DBapi class takes in a seperate DBapi parameter and calls all of its functions on that api. This allows us to get a dependency
-injection by allowing us to switch out different database apis by simply changing the parameters. This means a quick and easy switch without changing code
-that depends on it. The only changes we had to make to code using the DBapi was to import the PGapi class and create a variable: DBapi = DBapi(PGapi).
+To get the dependency injection we did a little bit of refactoring. We decided to create a new DBapi class that takes in the 5 IO classes.
+These IO classes get assigned to instance variables named after the tables. This means that each call to f.x. users changes from DBapi.users("GET")
+to DBapi.users.get(). This allows us to change out the DBapi that is used in the REST api by simply changing what IO classes we use allowing for
+a swift transfer between f.x. different databases while still (i.e. with dependency injection).
 
 <!-- TEAM MEMBERS -->
 ## Team Members

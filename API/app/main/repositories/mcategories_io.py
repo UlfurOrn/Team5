@@ -4,7 +4,7 @@ from main.util.mappers.mcategorymapper import McategoryMapper
 
 class McategoriesIO(AbcTable):
     @classmethod
-    def get(cls, mcategory_id):
+    def get(cls, mcategory_id=None):
         """ Takes in an int. Returns row from habits with set id or all rows if id=None """
         if mcategory_id:
             super()._cur.execute("SELECT * FROM mcategories WHERE mcategoryid = %s;", (mcategory_id,))

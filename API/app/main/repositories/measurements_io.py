@@ -4,7 +4,7 @@ from main.util.mappers.measurementmapper import MeasurementMapper
 
 class MeasurementsIO(AbcTable):
     @classmethod
-    def get(cls, measurement_id):
+    def get(cls, measurement_id=None):
         """ Takes in an int. Returns row from habits with set id or all rows if id=None """
         if measurement_id:
             super()._cur.execute("SELECT * FROM measurements WHERE measurementid = %s;", (measurement_id,))

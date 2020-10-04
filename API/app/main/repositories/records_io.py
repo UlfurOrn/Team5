@@ -10,10 +10,16 @@ class RecordsIO(AbcTable):
     """
 
     @classmethod
-    def get(cls, record_id: int):
+    def get(cls, record_id=None, habit_id=None, user_id=None, date_start=None, date_end=None):
         """ Takes in an int. Returns row from records with set id or all rows if id=None as a list of Record objects """
-        if record_id:
+        if user_id and date_start and date_end:
+            super()._cur.execute("SELECT * FROM records WHERE userid = %s AND rdate BETWEEN %s AND %s;", (user_id, date_start, date_end))
+        elif record_id:
             super()._cur.execute("SELECT * FROM records WHERE recordid = %s;", (record_id,))
+        elif habit_id:
+            super()._cur.execute("SELECT * FROM records WHERE habitid = %s;", (habit_id,))
+        elif user_id:
+            super()._cur.execute("SELECT * FROM records WHERE userid = %s;", (user_id,))
         else:
             super()._cur.execute("SELECT * FROM records;")
 
@@ -25,7 +31,7 @@ class RecordsIO(AbcTable):
         return records_list
 
     @classmethod
-    def post(cls, data: dict):
+    def post(cls, data):
         """
         Takes in a Record object and saves it to the database.
         Returns nothing
@@ -34,7 +40,7 @@ class RecordsIO(AbcTable):
         super()._cur.execute("INSERT INTO records %s VALUES %s;", (AsIs(record_tuple[0]), AsIs(record_tuple[1])))
 
     @classmethod
-    def put(cls, record_id: int, data: dict):
+    def put(cls, record_id, data):
         """
         Takes in an int and a Record object with changes and updates those
         columns in the database. Returns nothing
@@ -43,7 +49,7 @@ class RecordsIO(AbcTable):
         super()._cur.execute("UPDATE records SET %s WHERE recordid = %s", (AsIs(record_str), record_id))
 
     @classmethod
-    def delete(cls, record_id: int):
+    def delete(cls, record_id):
         """
         Takes in a list of ints. Deletes row with those id's from the database.
         Returns nothing
