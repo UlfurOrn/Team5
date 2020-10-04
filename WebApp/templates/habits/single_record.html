@@ -8,6 +8,6 @@
     <b>Habit ID:</b> {{ record.habitid }}<br>
     <b>Date:</b> {{ record.rdate }}<br>
     <b>Amount:</b> {{ record.amount }}<br>
-    <a href='#'>Update</a>
-    <a href='#'>Delete</a>
+    <a href="{{ url_for('habit.update_record', record=record) }}">Update</a>
+    <a href="{{ url_for('habit.delete_record', record=record) }}">Delete</a>
 {% endblock %}

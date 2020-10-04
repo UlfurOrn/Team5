@@ -8,6 +8,6 @@
     <b>Name:</b> {{ habit.name }}<br>
     <b>Description:</b> {{ habit.description }}<br>
     <b>Measuement ID:</b> {{ habit.measurementid }}<br>
-    <a href='#'>Update</a>
-    <a href='#'>Delete</a>
+    <a href="{{ url_for('habit.update_habit', habit=habit) }}">Update</a>
+    <a href="{{ url_for('habit.delete_habit', habit=habit) }}">Delete</a>
 {% endblock %}
