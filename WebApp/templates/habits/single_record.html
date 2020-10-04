@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Single Record{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <b>Habit ID:</b> {{ record.habitid }}<br>
+    <b>Date:</b> {{ record.rdate }}<br>
+    <b>Amount:</b> {{ record.amount }}<br>
+    <a href='#'>Update</a>
+    <a href='#'>Delete</a>
+{% endblock %}

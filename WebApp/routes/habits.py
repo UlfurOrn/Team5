@@ -1,5 +1,6 @@
 import functools
 import datetime
+from ast import literal_eval
 
 from .auth import login_required
 
@@ -15,6 +16,10 @@ def userhabits():
     habitdict = get_user_habits(current_app.config['API_URL'], session.get('user_id'))
 
     return render_template('habits/habits.html', habits=habitdict['habits'])
+
+@bp.route('/<habit>', methods=('GET', 'POST'))
+def single_habit(habit):
+    return render_template('/habits/single_habit.html', habit=literal_eval(habit))
 
 @bp.route('/add', methods=('GET', 'POST'))
 def add_habit():
@@ -50,6 +55,9 @@ def userrecords():
 
     return render_template('habits/records.html', records=recorddict['records'])
 
+@bp.route('/records/<record>', methods=('GET', 'POST'))
+def single_record(record):
+    return render_template('/habits/single_record.html', record=literal_eval(record))
 
 @bp.route('/record/add', methods=('GET', 'POST'))
 def add_record():

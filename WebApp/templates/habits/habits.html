@@ -5,8 +5,19 @@
 {% endblock %}
 
 {% block content %}
-  {% for x in habits%}
-    <p>{{x}}</p>
-  {% endfor %}
+  <table style="width:100%">
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Measurement ID</th>
+    </tr>
+    {% for habit in habits %}
+      <tr>
+        <td><a href="{{ url_for('habit.single_habit', habit=habit) }}">{{ habit.name }}</a></td>
+        <td>{{ habit.description }}</td>
+        <td>{{ habit.measurementid }}</td>
+      </tr>
+    {% endfor %}
+  </table>
   <a href="{{ url_for('habit.add_habit') }}">Add</a>
 {% endblock %}
