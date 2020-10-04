@@ -1,5 +1,7 @@
+from mail_service.mail_service_interface import MailServiceInterface
 
-class MailServiceStub:
+
+class MailServiceStub(MailServiceInterface):
 
     FROM_EMAIL = "my.habit.tracker.app@gmail.com"
     MESSAGE = {
@@ -12,7 +14,7 @@ class MailServiceStub:
     def send_email(self, emails):
         pass  # Replace with logging later
 
-    def get_mail(self):
+    def get_email(self):
         return {
             "subject": self.MESSAGE["subject"],
             "content": self.MESSAGE["content"]

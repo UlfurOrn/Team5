@@ -1,24 +1,16 @@
-
-from unittest.mock import patch
-
 from tests.test_base import TestBase
-from tests.mail_service_stub import MailServiceStub
+from mail_service.mail_service_stub import MailServiceStub
 
 
-@patch("endpoints.content.MailService")
 class TestContent(TestBase):
 
-    def test_get_content(self, mock_mail_service):
-        mock_mail_service.return_value = MailServiceStub()
-
+    def test_get_content(self):
         response = self.app.get("/content")
         data = response.json
 
         assert data["content"] == "content"
 
-    def test_put_content(self, mock_mail_service):
-        mock_mail_service.return_value = MailServiceStub()
-
+    def test_put_content(self):
         test_content = {
             "content": "Test Content"
         }

@@ -7,6 +7,9 @@ from endpoints.email import api as email_ns
 from endpoints.content import api as content_ns
 from endpoints.subject import api as subject_ns
 
+from mail_service.mail_service import mail_service
+from mail_service.mail_service_stub import MailServiceStub
+
 
 class TestBase(unittest.TestCase):
     def setUp(self):
@@ -26,3 +29,5 @@ class TestBase(unittest.TestCase):
         self.valid_header = {
             "Content-Type": "application/json"
         }
+
+        mail_service.mail_service = MailServiceStub()

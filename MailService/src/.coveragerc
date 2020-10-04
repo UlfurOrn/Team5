@@ -1,3 +1,6 @@
 # Don't unittest mail service since it is replaced with a service stub
 [run]
-omit = mail_service.py, tests*
+omit =
+    *mail_service_sendgrid.py,  # Omit because we test service stub
+    *mail_service_interface.py,  # Omit because this is an interface
+    tests*
