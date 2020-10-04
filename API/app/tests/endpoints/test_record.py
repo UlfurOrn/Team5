@@ -4,7 +4,6 @@ from main.util.mappers.recordmapper import RecordMapper
 from tests.endpoints.test_base import TestBase
 
 
-@patch("main.controller.record_controller.DBapi.records")
 class TestRecordEndpoint(TestBase):
 
     def setUp(self):
@@ -19,6 +18,7 @@ class TestRecordEndpoint(TestBase):
                 'amount': 1234
             }
 
+    @patch("main.controller.record_controller.DBapi.records.get")
     def test_get_single_record(self, mock_db):
         mock_db.return_value = [self.test_record_mapper]  # DB returns record in a list
 
@@ -26,8 +26,9 @@ class TestRecordEndpoint(TestBase):
         data = response.json
 
         assert data == self.test_record_dict
-        mock_db.assert_called_once_with('GET', "1")
+        mock_db.assert_called_once_with("1")
 
+    @patch("main.controller.record_controller.DBapi.records.get")
     def test_get_record_list(self, mock_db):
         test_record_list_insert = [
             RecordMapper(1, 1, 1, 1234.0, "2020-01-01T01:01:01"),
@@ -48,8 +49,9 @@ class TestRecordEndpoint(TestBase):
         assert data == {
             "records": test_record_list
         }
-        mock_db.assert_called_once_with("GET")
+        mock_db.assert_called_once_with()
 
+    @patch("main.controller.record_controller.DBapi.records.post")
     def test_post_record(self, mock_db):
         mock_db.return_value = None
 
@@ -59,6 +61,7 @@ class TestRecordEndpoint(TestBase):
         assert data is None
         mock_db.assert_called_once()
 
+    @patch("main.controller.record_controller.DBapi.records.put")
     def test_put_record(self, mock_db):
         mock_db.return_value = None
 
@@ -68,6 +71,7 @@ class TestRecordEndpoint(TestBase):
         assert data is None
         mock_db.assert_called_once()
 
+    @patch("main.controller.record_controller.DBapi.records.delete")
     def test_delete_record(self, mock_db):
         mock_db.return_value = None
 
@@ -75,4 +79,4 @@ class TestRecordEndpoint(TestBase):
         data = response.json
 
         assert data is None
-        mock_db.assert_called_once_with("DELETE", "1")
+        mock_db.assert_called_once_with("1")
