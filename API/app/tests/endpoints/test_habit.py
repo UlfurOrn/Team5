@@ -4,7 +4,6 @@ from main.util.mappers.habitmapper import HabitMapper
 from tests.endpoints.test_base import TestBase
 
 
-@patch("main.controller.habit_controller.DBapi.habits")
 class TestHabitEndpoint(TestBase):
 
     def setUp(self):
@@ -15,6 +14,7 @@ class TestHabitEndpoint(TestBase):
             "habitid": 1, "userid": 1, "name": "TestHabit", "description": "Testing Test Habit", "measurementid": 1
         }
 
+    @patch("main.controller.habit_controller.DBapi.habits.get")
     def test_get_single_habit(self, mock_db):
         mock_db.return_value = [self.test_habit_mapper]  # DB returns habit in a list
 
@@ -22,8 +22,9 @@ class TestHabitEndpoint(TestBase):
         data = response.json
 
         assert data == self.test_habit_dict
-        mock_db.assert_called_once_with('GET', "1")
+        mock_db.assert_called_once_with("1")
 
+    @patch("main.controller.habit_controller.DBapi.habits.get")
     def test_get_habit_list(self, mock_db):
         test_habit_list_insert = [
             HabitMapper(1, 1, "TestHabit1", "Testing Habit 1", 1),
@@ -44,8 +45,9 @@ class TestHabitEndpoint(TestBase):
         assert data == {
             "habits": test_habit_list
         }
-        mock_db.assert_called_once_with("GET")
+        mock_db.assert_called_once_with()
 
+    @patch("main.controller.habit_controller.DBapi.habits.post")
     def test_post_habit(self, mock_db):
         mock_db.return_value = None
 
@@ -55,6 +57,7 @@ class TestHabitEndpoint(TestBase):
         assert data is None
         mock_db.assert_called_once()
 
+    @patch("main.controller.habit_controller.DBapi.habits.put")
     def test_put_habit(self, mock_db):
         mock_db.return_value = None
 
@@ -64,6 +67,7 @@ class TestHabitEndpoint(TestBase):
         assert data is None
         mock_db.assert_called_once()
 
+    @patch("main.controller.habit_controller.DBapi.habits.delete")
     def test_delete_habit(self, mock_db):
         mock_db.return_value = None
 
@@ -71,4 +75,4 @@ class TestHabitEndpoint(TestBase):
         data = response.json
 
         assert data is None
-        mock_db.assert_called_once_with("DELETE", "1")
+        mock_db.assert_called_once_with("1")
