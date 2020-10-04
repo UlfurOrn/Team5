@@ -5,7 +5,7 @@ from tests.test_base import TestBase
 from mail_service.mail_service_stub import MailServiceStub
 
 
-@patch("endpoints.content.MailService")
+@patch("endpoints.content.mail_service")
 class TestContent(TestBase):
 
     def test_get_content(self, mock_mail_service):
