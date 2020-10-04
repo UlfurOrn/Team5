@@ -41,14 +41,6 @@ def get_user_id(api_url, user_id):
 
     return r.json()
 
-def save_user(api_url, user):
-    session = requests.Session()
-    
-    r = session.post(api_url + 'user', json=user)
-    
-    if r.status_code != 200:
-        return f'Cannot connect to API {r.status_code}'
-
 def save_edited_user(api_url, user_id,user):
     session = requests.Session()
 
@@ -66,8 +58,7 @@ def get_user_habits(api_url, user_id):
         print('Cannot connect to API:', r.status_code)
         return None
 
-    habits = r.json()
-    return habits
+    return r.json()
 
 def get_user_records(api_url, user_id):
     session = requests.Session()
@@ -80,39 +71,21 @@ def get_user_records(api_url, user_id):
 
     return r.json()
 
-def post_habit(api_url, habit):
+def post_item(api_url, item, type):
     session = requests.Session()
 
-    r = session.post(api_url+'habit', json=habit)
+    r = session.post(api_url + type, json=item)
 
     if r.status_code != 200:
-        print(r.status_code)
-        return f'Failed posting habit, code:{r.status_code}'
+        return f'Failed post request, code:{r.status_code}'
 
-def post_record(api_url, record):
+def put_item(api_url, item, itemid, type):
     session = requests.Session()
 
-    r = session.post(api_url+'record', json=record)
+    f = session.put(api_url + type + '/' + str(itemid), json=item)
 
     if r.status_code != 200:
-        print(r.status_code)
-        return f'Failed posting record, code:{r.status_code}'
-
-def put_habit(api_url, habit, habitid):
-    session = requests.Session()
-
-    r = session.put(api_url+'habit/'+str(habitid), json=habit)
-
-    if r.status_code != 200:
-        return f'Failed put habit, code:{r.status_code}'
-
-def put_record(api_url, record, recordid):
-    session = requests.Session()
-
-    r = session.put(api_url+'record/'+str(recordid), json=record)
-
-    if r.status_code != 200:
-        return f'Failed put record, code:{r.status_code}'
+        return f'Failed put request, code:{r.status_code}'
 
 def delete_item(api_url, itemid, type):
     session = requests.Session()
@@ -120,4 +93,4 @@ def delete_item(api_url, itemid, type):
     r = session.delete(api_url + type + '/' + str(itemid))
 
     if r.status_code != 200:
-        return f'Failed to delete item, code:{r.status_code}'
+        return f'Failed delete request, code:{r.status_code}'

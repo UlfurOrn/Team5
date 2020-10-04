@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 
-def create_app():
+def create_app(test_config=None):
     # Create and configure app
     app = Flask(__name__, instance_relative_config=True)
     
@@ -10,6 +10,9 @@ def create_app():
         API_URL = 'http://127.0.0.1:8000/',
         SECRET_KEY = 'dev',
     )
+
+    if test_config:
+        app.config.update(test_config)
 
     try:
         os.makedirs(app.instance_path)
