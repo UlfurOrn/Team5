@@ -218,7 +218,9 @@ The Dependency Injection:
 To get the dependency injection we did a little bit of refactoring. We decided to create a new DBapi class that takes in the 5 IO classes.
 These IO classes get assigned to instance variables named after the tables. This means that each call to f.x. users changes from DBapi.users("GET")
 to DBapi.users.get(). This allows us to change out the DBapi that is used in the REST api by simply changing what IO classes we use allowing for
-a swift transfer between f.x. different databases while still (i.e. with dependency injection).
+a swift transfer between f.x. different databases while still maintaining the same code that uses the DBapi (i.e. with dependency injection). We do
+realize that this depends on the IO classes to implement the same types of interfaces which is just something that needs to be done when implementing
+new IO classes.
 
 <!-- TEAM MEMBERS -->
 ## Team Members
