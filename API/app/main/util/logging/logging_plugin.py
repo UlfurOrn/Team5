@@ -13,10 +13,16 @@ class LoggingPlugin:
     def get_logger(cls):
         if LOGGING_TYPE == "DEV":
             fileConfig(cls.LOGGING_DEV_CONFIG)
-            logging.Logger.setLevel(logging.DEBUG)
 
         elif LOGGING_TYPE == "LIVE":
             fileConfig(cls.LOGGING_LIVE_CONFIG)
-            logging.Logger.setLevel(logging.WARNING)
 
-        return logging.getLogger()
+        logger = logging.getLogger()
+
+        if LOGGING_TYPE == "DEV":
+            logger.setLevel("DEBUG")
+
+        elif LOGGING_TYPE == "LIVE":
+            logger.setLevel("WARNING")
+
+        return logger
