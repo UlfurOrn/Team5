@@ -9,6 +9,7 @@ api = HabitDTO.api
 _expect = HabitDTO.expect_model
 _habit = HabitDTO.model
 
+
 @api.route('')
 class HabitList(Resource):
     @api.doc('List all habits')
@@ -57,3 +58,17 @@ class SingleHabit(Resource):
     @api.response(201, 'Habit successfully deleted.')
     def delete(self, habit_id):
         return DBapi.habits.delete(habit_id)
+
+
+@api.route("/<habit_id>/record")
+class UserRecords(Resource):
+
+    @api.marshal_list_with(_record, envelope='records')
+    def get(self, habit_id):
+        data = DBapi.records.get(habit_id=habit_id)
+
+        record_list = []
+        for record in data:
+            record_list.append(record.to_dict())
+
+        return record_list
