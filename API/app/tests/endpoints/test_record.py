@@ -49,7 +49,7 @@ class TestRecordEndpoint(TestBase):
         assert data == {
             "records": test_record_list
         }
-        mock_db.assert_called_once_with()
+        mock_db.assert_called_once()
 
     @patch("main.controller.record_controller.DBapi.records.post")
     def test_post_record(self, mock_db):

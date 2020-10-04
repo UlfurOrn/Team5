@@ -45,7 +45,7 @@ class TestHabitEndpoint(TestBase):
         assert data == {
             "habits": test_habit_list
         }
-        mock_db.assert_called_once_with()
+        mock_db.assert_called_once()
 
     @patch("main.controller.habit_controller.DBapi.habits.post")
     def test_post_habit(self, mock_db):
