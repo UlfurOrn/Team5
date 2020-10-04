@@ -161,8 +161,8 @@ python app.py
 
 <!-- TESTING -->
 ## Testing
-The current code coverage of the repository is **97%**
-
+### API testing
+The current code coverage of the API is **97%**. The tests should be run from with in API/app with the commands below
 * Running the unit tests, with coverage
 ```sh
 coverage run -m pytest
@@ -171,6 +171,8 @@ coverage run -m pytest
 ```sh
 coverage report -m
 ```
+
+### WebApp testing
 
 
 <!-- LECTURE ASPECTS -->
