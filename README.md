@@ -173,7 +173,8 @@ coverage report -m
 ```
 
 ### WebApp testing
-Our current code coverage of the WebApp is **x%**. To run the tests you should be positioned in the root directory and run:
+Our current code coverage of the WebApp is **59%**. To run the tests you should be positioned in the root directory and run:
+Before running these tests you need to first start both the REST API and the WebApp. See instructions above.
 * Running the unit tests, with coverage
 ```sh
 coverage run -m pytest WebAppTests
