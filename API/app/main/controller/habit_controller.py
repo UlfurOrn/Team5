@@ -3,11 +3,13 @@ from flask_restplus import Resource
 
 from main.util.mappers.habitmapper import HabitMapper
 from main.util.DTO.habit_dto import HabitDTO
+from main.util.DTO.record_dto import RecordDTO
 from main.services.db_api import DBapi
 
 api = HabitDTO.api
 _expect = HabitDTO.expect_model
 _habit = HabitDTO.model
+_record = RecordDTO.model
 
 
 @api.route('')
