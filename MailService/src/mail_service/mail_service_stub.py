@@ -1,5 +1,7 @@
+from mail_service.mail_service_interface import MailServiceInterface
 
-class MailServiceStub:
+
+class MailServiceStub(MailServiceInterface):
 
     FROM_EMAIL = "my.habit.tracker.app@gmail.com"
     MESSAGE = {
