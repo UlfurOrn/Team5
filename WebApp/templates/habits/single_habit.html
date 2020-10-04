@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Single Habit{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <b>Name:</b> {{ habit.name }}<br>
+    <b>Description:</b> {{ habit.description }}<br>
+    <b>Measuement ID:</b> {{ habit.measurementid }}<br>
+    <a href='#'>Update</a>
+    <a href='#'>Delete</a>
+{% endblock %}
