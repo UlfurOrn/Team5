@@ -26,7 +26,7 @@ class MailServiceSendgrid(MailServiceInterface):
         message.to = emails
         sg.send(message)
 
-    def get_mail(self):
+    def get_email(self):
         subject = self.MESSAGE.subject
         content = self.MESSAGE.contents[0]
         content = content.get()["value"]

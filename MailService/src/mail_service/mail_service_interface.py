@@ -8,7 +8,7 @@ class MailServiceInterface(ABC):
         pass
 
     @classmethod
-    def get_mail(cls):
+    def get_email(cls):
         pass
 
     @classmethod

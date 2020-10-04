@@ -14,7 +14,7 @@ class EmailEndpoint(Resource):
     @api.marshal_with(email_model)
     def get(self):
         """View subject and content of the email"""
-        return mail_service.get_mail()
+        return mail_service.get_email()
 
     @api.expect(email_expect, validate=True)
     def post(self):

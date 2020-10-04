@@ -4,14 +4,14 @@ from mail_service.mail_service_sendgrid import MailServiceSendgrid
 
 class MailService(MailServiceInterface):
 
-    def __init__(self, mail_service):
-        self.mail_service = mail_service()
+    def __init__(self, mail_service_class):
+        self.mail_service = mail_service_class()
 
     def send_email(self, emails):
         self.mail_service.send_email(emails)
 
-    def get_mail(self):
-        return self.mail_service.get_mail()
+    def get_email(self):
+        return self.mail_service.get_email()
 
     def get_subject(self):
         return self.mail_service.get_subject()

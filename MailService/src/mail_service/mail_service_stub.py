@@ -14,7 +14,7 @@ class MailServiceStub(MailServiceInterface):
     def send_email(self, emails):
         pass  # Replace with logging later
 
-    def get_mail(self):
+    def get_email(self):
         return {
             "subject": self.MESSAGE["subject"],
             "content": self.MESSAGE["content"]
