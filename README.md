@@ -173,7 +173,15 @@ coverage report -m
 ```
 
 ### WebApp testing
-
+Our current code coverage of the WebApp is **x%**. To run the tests you should be positioned in the root directory and run:
+* Running the unit tests, with coverage
+```sh
+coverage run -m pytest WebAppTests
+```
+* Getting the coverage report
+```sh
+coverage report -m
+```
 
 <!-- LECTURE ASPECTS -->
 ## Lecture Aspects
