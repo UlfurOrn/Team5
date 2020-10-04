@@ -1,6 +1,8 @@
 import logging
 from logging.config import fileConfig
 
+LOGGING_TYPE = "DEV"
+
 
 class LoggingPlugin:
 
@@ -9,5 +11,12 @@ class LoggingPlugin:
 
     @classmethod
     def get_logger(cls):
-        fileConfig(cls.LOGGING_CONFIG)
+        if LOGGING_TYPE == "DEV":
+            fileConfig(cls.LOGGING_DEV_CONFIG)
+            logging.Logger.setLevel(logging.DEBUG)
+
+        elif LOGGING_TYPE == "LIVE":
+            fileConfig(cls.LOGGING_LIVE_CONFIG)
+            logging.Logger.setLevel(logging.WARNING)
+
         return logging.getLogger()
