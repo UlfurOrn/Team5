@@ -1,9 +1,12 @@
 import os
+
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
+from mail_service.mail_service_interface import MailServiceInterface
 
-class MailService:
+
+class MailServiceSendgrid(MailServiceInterface):
 
     API_KEY = os.environ.get("SENDGRID_API_KEY")
     FROM_EMAIL = "my.habit.tracker.app@gmail.com"
