@@ -49,14 +49,25 @@ class SingleRecord(Resource):
 
     @api.response(201, 'Record successfully updated.')
     @api.doc('Edit a record')
+    @api.marshal_with(_record)
     @api.expect(_expect, validate=True)
     def put(self, record_id):
+        data = DBapi.records.get(record_id)
+        if not data:
+            raise NotFound(f"Record with id {record_id} not found")
+
         data = request.json
         record = RecordMapper()
         record.set_dict(data)
-        return DBapi.records.put(record_id, record)
+        DBapi.records.put(record_id, record)
+
+        return DBapi.records.get(record_id)[0], 201
 
     @api.doc('Delete a record')
-    @api.response(201, 'Record successfully deleted.')
+    @api.response(204, 'Record successfully deleted.')
     def delete(self, record_id):
-        return DBapi.records.delete(record_id)
+        data = DBapi.records.get(record_id)
+        if not data:
+            raise NotFound(f"Record with id {record_id} not found")
+        DBapi.records.delete(record_id)
+        return "", 204
