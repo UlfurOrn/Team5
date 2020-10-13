@@ -52,8 +52,7 @@ class SingleRecord(Resource):
     @api.marshal_with(_record)
     @api.expect(_expect, validate=True)
     def put(self, record_id):
-        data = DBapi.records.get(record_id)
-        if not data:
+        if not DBapi.records.get(record_id):
             raise NotFound(f"Record with id {record_id} not found")
 
         data = request.json
@@ -66,8 +65,8 @@ class SingleRecord(Resource):
     @api.doc('Delete a record')
     @api.response(204, 'Record successfully deleted.')
     def delete(self, record_id):
-        data = DBapi.records.get(record_id)
-        if not data:
+        if not DBapi.records.get(record_id):
             raise NotFound(f"Record with id {record_id} not found")
+
         DBapi.records.delete(record_id)
         return "", 204
