@@ -9,6 +9,7 @@ from main.controller.auth_controller import api as auth_ns
 
 
 app = Flask(__name__)
+app.config['ERROR_404_HELP'] = False  # Remove extra message from 404 errors
 
 api.add_namespace(record_ns)
 api.add_namespace(habit_ns)
