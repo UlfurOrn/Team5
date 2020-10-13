@@ -9,6 +9,7 @@ api = RecordDTO.api
 _expect = RecordDTO.expect_model
 _record = RecordDTO.model
 
+
 @api.route('')
 class RecordList(Resource):
     @api.doc('List all records')
@@ -29,7 +30,6 @@ class RecordList(Resource):
         data = request.json
         record = RecordMapper()
         record.set_dict(data)
-        print(record)
         return DBapi.records.post(record)
 
 
