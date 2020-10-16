@@ -239,6 +239,21 @@ a swift transfer between f.x. different databases while still maintaining the sa
 realize that this depends on the IO classes to implement the same types of interfaces which is just something that needs to be done when implementing
 new IO classes.
 
+### Sprint 4
+Conway´s Law: 
+* Our team has a unique structure to it. We are a team of eight, we split our tasks in a way where one team member does database work, another works on the REST API, a few members on the Flask web application, another few on design for our website, and the rest on lecture aspects, amongst giving their opinions on improvements on various things in our system. This kind of team structure has resulted in a system where our database, REST API, and web application function as individual systems, while still offering an outside perspective when implementing each service for our system.
+* The communication amongst our team can sometimes be quite difficult, with the current status of the world we must communicate solely online.This has proven to have it’s challenges, it would be much easier to meet together in-person to discuss our problems, help each other with our tasks, create diagrams and documents and so on.
+* We do however, not believe this has had a large impact on our specific system, perhaps working on our project took slightly more time than it should have, we could have, for example, implemented more functionality to our system, but in reality we probably would have just finished out tasks sooner in the sprint, resulting in not having to crunch the final weekend to get the last few tasks done.
+
+Components:
+
+Non-Functional requirements and constraints:
+
+Logs:
+
+Risk management:
+
+
 <!-- TEAM MEMBERS -->
 ## Team Members
 
