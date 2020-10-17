@@ -8,16 +8,21 @@
 
   <div class="login-container">
 
-    <div id="login-img"><img src="/WebApp/images/fruits.jpg" alt="Fruit"></div>
+    <div id="login-img"><img src="../static/images/fruits.jpg" alt="Fruit"></div>
 
     <div id="login">
-      <h1>{% block title %}Log In{% endblock %}</h1>
+      <img id="logo" src="../static/images/habittracker.png" alt="Fruit">
       
       <form method="post" class="login-form">
         <input type="text" placeholder="username" name="username" id="username" required><br>
         <input type="password" placeholder="password" name="password" id="password" required><br>
+        {% for message in get_flashed_messages() %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
         <input id="login-btn" type="submit" value="Log In">
       </form>
+
+      <a id="register-link" href="{{ url_for('auth.register') }}">Register</a>
     </div>
 
   </div>

@@ -2,17 +2,27 @@ nav {
     display: none;
 }
 
+#logo {
+    width: 200px;
+}
+
 .login-container {
+    text-align: center;
     display: flex;
-    margin-top: 200px;
+    margin-top: 120px;
 }
 
 #login-img {
-    width: 40%;
+    width: 50%;
+}
+
+#login-img > img {
+    width: 100%;
 }
 
 #login {
-    width: 60%;
+    padding: 120px 0px 0px 40px;
+    width: 50%;
 }
 
 input[type=text], input[type=password] {
@@ -36,8 +46,23 @@ input[type=text], input[type=password] {
     height: 40px;
     border-radius: 4px;
     margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 #login-btn:hover {
     background-color: #F78395;
+}
+
+#register-link {
+    padding: 10px 30px 10px 30px;
+    color: #696969;
+    text-decoration: none;
+    border: 2px solid #65944e;
+    border-radius: 4px;
+}
+
+#register-link:hover {
+    background-color: #bacd96;
+    border: none;
+    color: white;
 }
