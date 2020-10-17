@@ -60,10 +60,16 @@ def get_user_habits(api_url, user_id):
 
     return r.json()
 
-def get_user_records(api_url, user_id):
+def get_user_records(api_url, user_id=None, habit_id=None):
     session = requests.Session()
 
-    r = session.get(api_url+"user/"+str(user_id)+'/record')
+    if habit_id:
+        r = session.get(api_url+"habit/"+str(habit_id)+'/record')
+    elif user_id:
+        r = session.get(api_url+"user/"+str(user_id)+'/record')
+    else:
+        print('Need to provide user_id or habit_id')
+        return None
 
     if r.status_code != 200:
         print('Cannot connect to API:', r.status_code)
@@ -82,7 +88,7 @@ def post_item(api_url, item, type):
 def put_item(api_url, item, itemid, type):
     session = requests.Session()
 
-    f = session.put(api_url + type + '/' + str(itemid), json=item)
+    r = session.put(api_url + type + '/' + str(itemid), json=item)
 
     if r.status_code != 200:
         return f'Failed put request, code:{r.status_code}'
@@ -94,3 +100,14 @@ def delete_item(api_url, itemid, type):
 
     if r.status_code != 200:
         return f'Failed delete request, code:{r.status_code}'
+
+def get_measurements(api_url):
+    session = requests.Session()
+
+    r = session.get(api_url+'measurement')
+
+    if r.status_code != 200:
+        print('Cannot connect to API:', r.status_code)
+        return None
+
+    return r.json()
