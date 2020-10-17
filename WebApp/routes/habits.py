@@ -6,7 +6,7 @@ from .auth import login_required
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 
-from ..services.api_calls import get_user_habits, get_user_records, post_item, delete_item, put_item
+from ..services.api_calls import get_user_habits, get_user_records, post_item, delete_item, put_item, get_measurements
 
 bp = Blueprint('habit', __name__, url_prefix='/habit')
 
@@ -26,11 +26,12 @@ def single_habit(habit):
 
 @bp.route('/add', methods=('GET', 'POST'))
 def add_habit():
+    measurements = get_measurements(current_app.config['API_URL'])['measurements']
     if request.method == 'POST':
         userid = int(session.get('user_id'))
         name = request.form['name']
         description = request.form['description']
-        measurement_id = int(request.form['measurement_id'])
+        measurement_id = int(request.form['measurement'])
 
         error = None
 
@@ -48,7 +49,7 @@ def add_habit():
         
         flash(error)
 
-    return render_template('habits/add_habit.html')
+    return render_template('habits/add_habit.html', measurements=measurements)
 
 @bp.route('/<habit>/update', methods=('GET', 'POST'))
 def update_habit(habit):

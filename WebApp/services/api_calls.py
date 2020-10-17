@@ -100,3 +100,14 @@ def delete_item(api_url, itemid, type):
 
     if r.status_code != 200:
         return f'Failed delete request, code:{r.status_code}'
+
+def get_measurements(api_url):
+    session = requests.Session()
+
+    r = session.get(api_url+'measurement')
+
+    if r.status_code != 200:
+        print('Cannot connect to API:', r.status_code)
+        return None
+        
+    return r.json()
