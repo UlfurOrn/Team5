@@ -246,23 +246,40 @@ Conway´s Law:
 * We do however, not believe this has had a large impact on our specific system, perhaps working on our project took slightly more time than it should have, we could have, for example, implemented more functionality to our system, but in reality we probably would have just finished out tasks sooner in the sprint, resulting in not having to crunch the final weekend to get the last few tasks done.
 
 Components:
-* The first component is the Database. The current database we are using is a PostgreSQL 12.2 running on a Ubuntu 18.04.4 machine. This component is easily replaceable requiering only the change of the database IO classes in the DBapi. The database component is responisble for storing all the data of the system like the users, records and habits as well as storing the users passwords and offering a way to verify passwords.
-* The second component Mail service. This component is an individual and easily replaceable component that simply handles sending out emails for the system. Changing out this component is not hard since it is not tigtly coupled with other components.
+* The first component is the Database. The current database we are using is a PostgreSQL 12.2 running on a Ubuntu 18.04.4 machine. This component is easily replaceable requiring only 
+the change of the database IO classes in the DBapi. The database component is responisble for storing all the data of the system like the users, records and habits as well as storing 
+the users passwords and offering a way to verify passwords.
+* The second component is the Mail service. This component is an individual and easily replaceable component that simply handles sending out emails for the system. Changing out this 
+component is not hard since it is not tigtly coupled with other components.
 
 Non-Functional requirements and constraints:
 
 Logs:
 
-Risk management:
-For risk management we went through the 4 steps of risk identification using the diagrams from the previous sprint. From our observations we found X parts of the system with high risk. From these observations we identified that the Database, REST api and Hosting had the biggest risk involved. These components all rely on each other and if one fails the whole system will not be accessible by anyone.
-* The database is at great risk since we only have one database which many REST apis and WebServices can rely on. This means that it is easy to create a new node that hosts the REST and the Website but the database is only one and if it fails everything will fail. 
-    * The first high risk event is the event of a hard-drive failure. This would cause all the data to be lost and the service would effectively seize to exist if real world users relied on it. To mitigate this risk the server running the database would need to utilize either a Raid 1 or Raid 4/5 for redundancy.
-    * The second high risk factor is the possibility of a lost connection or power-outage to the server. In case of a power-outage a good UPS would help to stop the possiblity of the server going down. The connection issue and the power-issue can also be solved by utilizing another backup server somewhere else in the world, preferably not in the same country/city, that would always run alongside the main server. This would mean that in the case of an outage on the main the backup could hold the connection up. This would also mean that the backup server could help with query requests to reduce latency and wait times between queries.
+Risk management:__
+For risk management we went through the 4 steps of risk identification using the diagrams from the previous sprint. From our observations we found X parts of the system with high 
+risk. From these observations we identified that the Database, REST api and Hosting had the biggest risk involved. These components all rely on each other and if one fails the whole 
+system will not be accessible by anyone.
+* The database is at great risk since we only have one database which many REST apis and WebServices can rely on. This means that it is easy to create a new node that hosts the REST 
+and the Website but the database is only one and if it fails everything will fail. 
+    * The first high risk event is the event of a hard-drive failure. This would cause all the data to be lost and the service would effectively seize to exist if real world users 
+    relied on it. To mitigate this risk the server running the database would need to utilize either a Raid 1 or Raid 4/5 for redundancy.
+    * The second high risk factor is the possibility of a lost connection or power-outage to the server. In case of a power-outage a good UPS would help to stop the possiblity of the 
+    server going down. The connection issue and the power-issue can also be solved by utilizing another backup server somewhere else in the world, preferably not in the same country/
+    city, that would always run alongside the main server. This would mean that in the case of an outage on the main the backup could hold the connection up. This would also mean 
+    that the backup server could help with query requests to reduce latency and wait times between queries.
 * The REST api has a relatively high risk of being misuesed and abused. Since it is a connection to the database, getting access to the REST api could be very usefull to an attacker. 
-    * The highest risk of the REST api is the possibility of abuse to get information or alter information in the database a user should not be able to get or do. To mitigate this risk we need to implement an authentication method for the REST api where a logged in person can only send requests to the REST api for their own data. This mitigates the risk of someone easily sending a REST request on another persons data.
-    * The second way to reduce the potential of missuse is hosting the REST api on a secure server somewhere. Meaning that if we secure the REST api to its full potential we also need to secure the machine it is running on.
-* The third and final highest risk we identified is the Hosting of the service. In this sprint we started hosting the website and so it is good to look at ways to minimize downtime if the server hosting the website fails.
-    * The risk involved in hosting is always to maintain a steady uptime of the website. If the uptime is low the users will leave and find another service. To mitigate this risk we decided to use Docker. We utilize docker by making preset docker containers of the REST api and the website allowing us to host it easily on multiple machines. The docker containers contain our code as well as all dependencies and allow us to quickly bring up new website hosts if others where to fail. More information can be seen in the Docker chapter below.
+    * The highest risk of the REST api is the possibility of abuse to get information or alter information in the database a user should not be able to get or do. To mitigate this 
+    risk we need to implement an authentication method for the REST api where a logged in person can only send requests to the REST api for their own data. This mitigates the risk of 
+    someone easily sending a REST request on another persons data.
+    * The second way to reduce the potential of missuse is hosting the REST api on a secure server somewhere. Meaning that if we secure the REST api to its full potential we also 
+    need to secure the machine it is running on.
+* The third and final highest risk we identified is the Hosting of the service. In this sprint we started hosting the website and so it is good to look at ways to minimize downtime 
+if the server hosting the website fails.
+    * The risk involved in hosting is always to maintain a steady uptime of the website. If the uptime is low the users will leave and find another service. To mitigate this risk we 
+    decided to use Docker. We utilize docker by making preset docker containers of the REST api and the website allowing us to host it easily on multiple machines. The docker 
+    containers contain our code as well as all dependencies and allow us to quickly bring up new website hosts if others where to fail. More information can be seen in the Docker 
+    chapter below.
 
 
 <!-- TEAM MEMBERS -->
