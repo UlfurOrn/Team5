@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-
+{% block style %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='habits.css') }}">
+{% endblock %}
 {% block header %}
   <h1>{% block title %}User Habits{% endblock %}</h1>
 {% endblock %}
