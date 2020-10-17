@@ -6,28 +6,32 @@ from .auth import login_required
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 
-from ..services.api_calls import get_user_habits, get_user_records, post_item, delete_item, put_item
+from ..services.api_calls import get_user_habits, get_user_records, post_item, delete_item, put_item, get_measurements
 
 bp = Blueprint('habit', __name__, url_prefix='/habit')
 
 # User habits view
 @bp.route('/', methods=('GET','POST'))
 def userhabits():
-    habitdict = get_user_habits(current_app.config['API_URL'], session.get('user_id'))
+    habitdict = get_user_habits(current_app.config['API_URL'], user_id=session.get('user_id'))
 
     return render_template('habits/habits.html', habits=habitdict['habits'])
 
 @bp.route('/<habit>', methods=('GET', 'POST'))
 def single_habit(habit):
-    return render_template('/habits/single_habit.html', habit=literal_eval(habit))
+    habit = literal_eval(habit)
+    linked_records = get_user_records(current_app.config['API_URL'], habit_id=habit['habitid'])
+    
+    return render_template('/habits/single_habit.html', habit=habit, records=linked_records['records'])
 
 @bp.route('/add', methods=('GET', 'POST'))
 def add_habit():
+    measurements = get_measurements(current_app.config['API_URL'])['measurements']
     if request.method == 'POST':
         userid = int(session.get('user_id'))
         name = request.form['name']
         description = request.form['description']
-        measurement_id = int(request.form['measurement_id'])
+        measurement_id = int(request.form['measurement'])
 
         error = None
 
@@ -45,17 +49,18 @@ def add_habit():
         
         flash(error)
 
-    return render_template('habits/add_habit.html')
+    return render_template('habits/add_habit.html', measurements=measurements)
 
 @bp.route('/<habit>/update', methods=('GET', 'POST'))
 def update_habit(habit):
+    measurements = get_measurements(current_app.config['API_URL'])['measurements']
     habit = literal_eval(habit)
     if request.method == 'POST':
         habitid = habit['habitid']
         userid = int(session.get('user_id'))
         name = request.form['name']
         description = request.form['description']
-        measurement_id = int(request.form['measurement_id'])
+        measurement_id = int(request.form['measurement'])
 
         error = None
 
@@ -69,11 +74,12 @@ def update_habit(habit):
         error = put_item(current_app.config["API_URL"], habit, habitid, 'habit')
 
         if error is None:
+            habit['habitid'] = habitid
             return redirect(url_for('habit.single_habit', habit=habit))
 
         flash(error)
 
-    return render_template('/habits/update_habit.html', habit=habit)
+    return render_template('/habits/update_habit.html', habit=habit, measurements=measurements)
 
 @bp.route('/<habit>/delete', methods=('GET','POST'))
 def delete_habit(habit):
