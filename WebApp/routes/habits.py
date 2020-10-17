@@ -21,7 +21,7 @@ def userhabits():
 def single_habit(habit):
     habit = literal_eval(habit)
     linked_records = get_user_records(current_app.config['API_URL'], habit_id=habit['habitid'])
-    print(linked_records)
+    
     return render_template('/habits/single_habit.html', habit=habit, records=linked_records['records'])
 
 @bp.route('/add', methods=('GET', 'POST'))
@@ -53,13 +53,14 @@ def add_habit():
 
 @bp.route('/<habit>/update', methods=('GET', 'POST'))
 def update_habit(habit):
+    measurements = get_measurements(current_app.config['API_URL'])['measurements']
     habit = literal_eval(habit)
     if request.method == 'POST':
         habitid = habit['habitid']
         userid = int(session.get('user_id'))
         name = request.form['name']
         description = request.form['description']
-        measurement_id = int(request.form['measurement_id'])
+        measurement_id = int(request.form['measurement'])
 
         error = None
 
@@ -70,14 +71,15 @@ def update_habit(habit):
             'measurementid': measurement_id
         }
 
-        error = put_itemm(current_app.config["API_URL"], habit, habitid, 'habit')
+        error = put_item(current_app.config["API_URL"], habit, habitid, 'habit')
 
         if error is None:
+            habit['habitid'] = habitid
             return redirect(url_for('habit.single_habit', habit=habit))
 
         flash(error)
 
-    return render_template('/habits/update_habit.html', habit=habit)
+    return render_template('/habits/update_habit.html', habit=habit, measurements=measurements)
 
 @bp.route('/<habit>/delete', methods=('GET','POST'))
 def delete_habit(habit):

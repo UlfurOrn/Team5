@@ -88,7 +88,7 @@ def post_item(api_url, item, type):
 def put_item(api_url, item, itemid, type):
     session = requests.Session()
 
-    f = session.put(api_url + type + '/' + str(itemid), json=item)
+    r = session.put(api_url + type + '/' + str(itemid), json=item)
 
     if r.status_code != 200:
         return f'Failed put request, code:{r.status_code}'
@@ -109,5 +109,5 @@ def get_measurements(api_url):
     if r.status_code != 200:
         print('Cannot connect to API:', r.status_code)
         return None
-        
+
     return r.json()
