@@ -1,5 +1,5 @@
 from main.repositories.abc_table import AbcTable
-from main.util.mappers.mcategorymapper import McategoryMapper
+from main.util.mappers.categorymapper import McategoryMapper
 
 
 class McategoriesIO(AbcTable):

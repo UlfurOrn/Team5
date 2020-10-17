@@ -1,7 +1,7 @@
 from flask import request
 from flask_restplus import Resource
 
-from main.util.mappers.mcategorymapper import McategoryMapper
+from main.util.mappers.categorymapper import McategoryMapper
 from main.util.DTO.category_dto import CategoryDTO
 from main.services.db_api import DBapi
 
