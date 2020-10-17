@@ -1,37 +1,36 @@
 from flask import request
 from flask_restplus import Resource
 
-from main.util.mappers.habitmapper import HabitMapper
-from main.util.DTO.habit_dto import HabitDTO
-from main.util.DTO.record_dto import RecordDTO
+from main.util.mappers.measurementmapper import MeasurementMapper
+from main.util.DTO.measurement_dto import MeasurementDTO
 from main.services.db_api import DBapi
 
-api = HabitDTO.api
-_habit = HabitDTO.model
+api = MeasurementDTO.api
+_measurement = MeasurementDTO.model
 
 
 @api.route('')
-class HabitList(Resource):
+class MeasurementList(Resource):
     @api.doc('List all measurements')
-    @api.marshal_list_with(_habit, envelope='habits')
+    @api.marshal_list_with(_measurement, envelope='measurements')
     def get(self):
-        data = DBapi.habits.get()
+        data = DBapi.measurements.get()
 
-        habit_list = []
-        for habit in data:
-            habit_list.append(habit.to_dict())
+        measurement_list = []
+        for measurement in data:
+            measurement_list.append(measurement.to_dict())
 
-        return habit_list
+        return measurement_list
 
 
 @api.route('/<measurement_id>')
-@api.response(404, 'Habit not found.')
-class SingleHabit(Resource):
-    @api.doc('Get a single habit')
-    @api.marshal_with(_habit)
-    def get(self, habit_id):
-        data = DBapi.habits.get(habit_id)
+@api.response(404, 'Measurement not found.')
+class SingleMeasurement(Resource):
+    @api.doc('Get a single measurement')
+    @api.marshal_with(_measurement)
+    def get(self, measurement_id):
+        data = DBapi.measurements.get(measurement_id)
         if not data:
             return "", 404
-        habit_dict = data[0].to_dict()
-        return habit_dict
+        measurement_dict = data[0].to_dict()
+        return measurement_dict
