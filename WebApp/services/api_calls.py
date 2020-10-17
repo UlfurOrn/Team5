@@ -60,10 +60,16 @@ def get_user_habits(api_url, user_id):
 
     return r.json()
 
-def get_user_records(api_url, user_id):
+def get_user_records(api_url, user_id=None, habit_id=None):
     session = requests.Session()
 
-    r = session.get(api_url+"user/"+str(user_id)+'/record')
+    if habit_id:
+        r = session.get(api_url+"habit/"+str(habit_id)+'/record')
+    elif user_id:
+        r = session.get(api_url+"user/"+str(user_id)+'/record')
+    else:
+        print('Need to provide user_id or habit_id')
+        return None
 
     if r.status_code != 200:
         print('Cannot connect to API:', r.status_code)

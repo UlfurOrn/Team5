@@ -13,13 +13,16 @@ bp = Blueprint('habit', __name__, url_prefix='/habit')
 # User habits view
 @bp.route('/', methods=('GET','POST'))
 def userhabits():
-    habitdict = get_user_habits(current_app.config['API_URL'], session.get('user_id'))
+    habitdict = get_user_habits(current_app.config['API_URL'], user_id=session.get('user_id'))
 
     return render_template('habits/habits.html', habits=habitdict['habits'])
 
 @bp.route('/<habit>', methods=('GET', 'POST'))
 def single_habit(habit):
-    return render_template('/habits/single_habit.html', habit=literal_eval(habit))
+    habit = literal_eval(habit)
+    linked_records = get_user_records(current_app.config['API_URL'], habit_id=habit['habitid'])
+    print(linked_records)
+    return render_template('/habits/single_habit.html', habit=habit, records=linked_records['records'])
 
 @bp.route('/add', methods=('GET', 'POST'))
 def add_habit():
