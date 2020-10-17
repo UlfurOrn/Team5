@@ -1,15 +1,25 @@
 {% extends 'base.html' %}
-
-{% block header %}
-  <h1>{% block title %}Log In{% endblock %}</h1>
+{% block style %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Log In">
-  </form>
+
+  <div class="login-container">
+
+    <div id="login-img"><img src="/WebApp/images/fruits.jpg" alt="Fruit"></div>
+
+    <div id="login">
+      <h1>{% block title %}Log In{% endblock %}</h1>
+      
+      <form method="post" class="login-form">
+        <input type="text" placeholder="username" name="username" id="username" required><br>
+        <input type="password" placeholder="password" name="password" id="password" required><br>
+        <input id="login-btn" type="submit" value="Log In">
+      </form>
+    </div>
+
+  </div>
+
 {% endblock %}
