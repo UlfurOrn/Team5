@@ -38,12 +38,10 @@ def get_user_id(api_url, user_id):
     if r.status_code != 200:
         print('Cannot connect to API:', r.status_code)
         return None
-
     return r.json()
 
 def save_edited_user(api_url, user_id,user):
     session = requests.Session()
-
     r = session.put(api_url + 'user/'+str(user_id), json=user)
     
     if r.status_code != 200:

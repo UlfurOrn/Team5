@@ -66,7 +66,7 @@ def update_habit(habit):
             'measurementid': measurement_id
         }
 
-        error = put_itemm(current_app.config["API_URL"], habit, habitid, 'habit')
+        error = put_item(current_app.config["API_URL"], habit, habitid, 'habit')
 
         if error is None:
             return redirect(url_for('habit.single_habit', habit=habit))
