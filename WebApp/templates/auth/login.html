@@ -19,7 +19,7 @@
         {% for message in get_flashed_messages() %}
           <div class="flash">{{ message }}</div>
         {% endfor %}
-        <input id="login-btn" type="submit" value="Log In">
+        <input class="auth-btn" type="submit" value="Log In">
       </form>
 
       <a id="register-link" href="{{ url_for('auth.register') }}">Register</a>
