@@ -1,7 +1,60 @@
-body {
+body{
     font-family: Arial, Helvetica, sans-serif;
 }
-.content {
+h1{
+    font-size: 16px;
+}
+
+.content{
     margin: auto;
     max-width: 1000px;
 }
+nav { 
+    display: flex; 
+    align-items: center; 
+    border-bottom: 0.5px solid #376e85;
+}
+nav ul { 
+    display: flex; 
+    list-style: none; 
+    margin: 5px; 
+    padding: 0; 
+}
+
+nav li {
+    float: right;
+    display: inline;
+}
+
+nav h1 { 
+    flex: auto; 
+    margin: 0; 
+    font-size: 18px;
+    color: #3f4446;
+}
+
+nav span{
+    font-weight: bold;
+    color: #376e85;
+    padding: 18px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+nav a:link, a:visited {
+    background-color: #376e85;
+    color: white;
+    width: 120px;
+    padding: 18px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+  
+nav a:hover, a:active {
+    background-color: #52a2c2;
+  }
