@@ -256,7 +256,7 @@ Non-Functional requirements and constraints:
 
 Logs:
 
-Risk management:__
+Risk management:  
 For risk management we went through the 4 steps of risk identification using the diagrams from the previous sprint. From our observations we found X parts of the system with high 
 risk. From these observations we identified that the Database, REST api and Hosting had the biggest risk involved. These components all rely on each other and if one fails the whole 
 system will not be accessible by anyone.
