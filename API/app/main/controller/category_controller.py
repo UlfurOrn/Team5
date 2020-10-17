@@ -5,7 +5,7 @@ from main.util.mappers.categorymapper import CategoryMapper
 from main.util.DTO.category_dto import CategoryDTO
 from main.services.db_api import DBapi
 
-api = McategoryDTO.api
+api = CategoryDTO.api
 _category = CategoryDTO.model
 
 
