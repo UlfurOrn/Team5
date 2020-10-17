@@ -60,7 +60,7 @@ class SingleRecord(Resource):
         record.set_dict(data)
         DBapi.records.put(record_id, record)
 
-        return DBapi.records.get(record_id)[0], 201
+        return DBapi.records.get(record_id)[0].to_dict(), 201
 
     @api.doc('Delete a record')
     @api.response(204, 'Record successfully deleted.')

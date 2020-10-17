@@ -69,7 +69,8 @@ class SingleHabit(Resource):
         if not DBapi.habits.get(habit_id):
             raise NotFound(f"Habit with id {habit_id} not found")
 
-        return DBapi.habits.delete(habit_id)
+        DBapi.habits.delete(habit_id)
+        return "", 204
 
 
 @api.response(404, 'Habit not found.')
