@@ -22,8 +22,6 @@ def editAccount():
     elif request.method == 'POST':
         details = get_user_id(current_app.config['API_URL'], user_id)
 
-        print(request.form['gender'])
-
         if (request.form['fullname'] == ""):
             name = details['name']
         else:
