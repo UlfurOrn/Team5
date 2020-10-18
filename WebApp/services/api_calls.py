@@ -88,7 +88,7 @@ def put_item(api_url, item, itemid, type):
 
     r = session.put(api_url + type + '/' + str(itemid), json=item)
 
-    if r.status_code != 200:
+    if r.status_code != 201:
         return f'Failed put request, code:{r.status_code}'
 
 def delete_item(api_url, itemid, type):
