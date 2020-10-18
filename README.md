@@ -254,7 +254,24 @@ the users passwords and offering a way to verify passwords.
 * The second component is the Mail service. This component is an individual and easily replaceable component that simply handles sending out emails for the system. Changing out this 
 component is not hard since it is not tigtly coupled with other components.
 
-Non-Functional requirements and constraints:
+Non-Functional requirements:
+
+Num | Non Functional Requirement | Priority 
+--- | --- | --- 
+1 | The system shall handle 10000 users at once | A 
+2 | The response time shall be under 0.5 seconds | A 
+3 | The front end shall communicate with the backend | A 
+4 | The system shall be easy to use and understand | A 
+5 | A user shall be able to make an account via email | A 
+6 | The system shall fulfil general security standards | A 
+7 | The user’s password shall be hashed in the database| A 
+8 | The system shall store the user’s information securely | A 
+9 | The system shall maintain the user’s habits and records | A 
+10 | The system shall be functional both on mobile and on a web browser | B 
+
+Constraints:
+Flask has some known issues, for example the flask-RESTplus extension is unmaintained and may become a constraint to our system in the future. We address this by using an older version of werkzeug for flask restplus to function properly. In the future we might want to migrate our system to using flask-RESTX which is a maintained project forked from the flask-RESTplus repo by the community.
+The system is currently hosted by Guðjón’s at-home server.
 
 Logs:  
 We are currently handeling logs of the active systems that is the WebApp requests, the REST api and the Database. These logs are simply auto generated for us when the applications 
