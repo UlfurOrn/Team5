@@ -6,11 +6,10 @@
 
 {% block header %}
   <h1>{% block title %}User Habits{% endblock %}</h1>
+  <a id="add-habit-link" href="{{ url_for('habit.add_habit') }} ">+</a>
 {% endblock %}
 
 {% block content %}
-
-  <a id="add-habit-link" href="{{ url_for('habit.add_habit') }} ">Add</a>
 
   {% for habit in habits %}
     <div ng-controller="myController" class="container">
@@ -27,5 +26,4 @@
       </div>
     </div>
   {% endfor %}
-
 {% endblock %}
