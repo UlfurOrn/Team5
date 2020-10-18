@@ -4,6 +4,11 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
 {% endblock %}
 
+{% block header %}
+  <h1>{% block title %}My Account{% endblock %}</h1>
+  <li><a href="{{ url_for('account.editAccount') }}">Edit Account</a></li>
+{% endblock %}
+
 {% block content %}
 
   <div class="account-container">

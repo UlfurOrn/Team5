@@ -43,6 +43,9 @@
   * [Sprint 1](#sprint-1)
   * [Sprint 2](#sprint-2)
   * [Sprint 3](#sprint-3)
+  * [Sprint 4](#sprint-4)
+* [Website](#website)
+* [Docker](#docker)
 * [Team Members](#team-members)
 * [Teacher](#teacher)
 * [TA](#ta)
@@ -246,12 +249,103 @@ Conway´s Law:
 * We do however, not believe this has had a large impact on our specific system, perhaps working on our project took slightly more time than it should have, we could have, for example, implemented more functionality to our system, but in reality we probably would have just finished out tasks sooner in the sprint, resulting in not having to crunch the final weekend to get the last few tasks done.
 
 Components:
+* The first component is the Database. The current database we are using is a PostgreSQL 12.2 running on a Ubuntu 18.04.4 machine. This component is easily replaceable requiring only 
+the change of the database IO classes in the DBapi. The database component is responisble for storing all the data of the system like the users, records and habits as well as storing 
+the users passwords and offering a way to verify passwords.
+* The second component is the Mail service. This component is an individual and easily replaceable component that simply handles sending out emails for the system. Changing out this 
+component is not hard since it is not tigtly coupled with other components.
 
-Non-Functional requirements and constraints:
+Non-Functional requirements:
 
-Logs:
+Num | Non Functional Requirement | Priority 
+--- | --- | --- 
+1 | The system shall handle 10000 users at once | A 
+2 | The response time shall be under 0.5 seconds | A 
+3 | The front end shall communicate with the backend | A 
+4 | The system shall be easy to use and understand | A 
+5 | If some parts of out system fails, the users info should be maintained and kept safe | A 
+6 | The system shall fulfil general security standards | A 
+7 | The user’s password shall be hashed in the database| A 
+8 | The system shall store the user’s information securely | A 
+9 | The system shall maintain the user’s habits and records | A 
+10 | The system shall be functional both on mobile and on a web browser | B 
 
-Risk management:
+Constraints:
+Flask has some known issues, for example the flask-RESTplus extension is unmaintained and may become a constraint to our system in the future. We address this by using an older version of werkzeug for flask restplus to function properly. In the future we might want to migrate our system to using flask-RESTX which is a maintained project forked from the flask-RESTplus repo by the community.
+The system is currently hosted by Guðjón’s at-home server.
+
+Logs:  
+We are currently handeling logs of the active systems that is the WebApp requests, the REST api and the Database. These logs are simply auto generated for us when the applications 
+run and they are all currently stored on the server that is hosting the Database and the Website. Here below are the 5 components we would like to monitor in more depth.
+* The first component we would like to monitor is the Server that hosts the database. This server is a fundimental to the whole service and so it is paramount that is stayes up and 
+running. The metrics we would like to monitor are the hardware loads, network usage, power consumption and error rates. These metrics would give us a good idea of how our database 
+server is being used, how much it costs us and would give us errors about network issues or the server going offline.
+* The second component we would monitor is the database. Here the metrics would be number of queries, query logs, average response time, data usage and number of rows in the tables. 
+These metrics would help us get a good look at the time people need to wait, the highs and lows of traffic and it would also give us time to prepare for the event that the data usage 
+goes over our available data as well as give us insight into the ammount of data in the database like number of users. The query logs would then also enable us to look at suspicious 
+activities.
+* The third component is the REST api. Here we would like to get metrics for the number of requests, number of individual users, logs of requests and average respons time. These 
+metrics allow us to catch potential missuse of the system for example one individual sending many requsts in a short time frame as well as give us an idea of the load on the system.
+* The fourth component would be the servers or the docker containers hosting the Webapp. Here we would monitor the load of each server/container to enable us to increase or decrease 
+the number of servers hosting the website/REST api to give the users a good experience with latency and to save money in hosting costs.
+* The fifth and final component would be the Website itself. Here we could utilize Google Analytics or other similar applications to monitor how the users interact with our website. 
+The main metrics of interest would be average time per page, where users click, locations of users, demographic and user interactions on the website. These metrics would help us make 
+the website as user friendly and possible and to get it fit for the users of the website.
+
+Risk management:  
+For risk management we went through the 4 steps of risk identification using the diagrams from the previous sprint. From our observations we found X parts of the system with high 
+risk. From these observations we identified that the Database, REST api and Hosting had the biggest risk involved. These components all rely on each other and if one fails the whole 
+system will not be accessible by anyone.
+* The database is at great risk since we only have one database which many REST apis and WebServices can rely on. This means that it is easy to create a new node that hosts the REST 
+and the Website but the database is only one and if it fails everything will fail. 
+    * The first high risk event is the event of a hard-drive failure. This would cause all the data to be lost and the service would effectively seize to exist if real world users 
+    relied on it. To mitigate this risk the server running the database would need to utilize either a Raid 1 or Raid 4/5 for redundancy.
+    * The second high risk factor is the possibility of a lost connection or power-outage to the server. In case of a power-outage a good UPS would help to stop the possiblity of the 
+    server going down. The connection issue and the power-issue can also be solved by utilizing another backup server somewhere else in the world, preferably not in the same country/
+    city, that would always run alongside the main server. This would mean that in the case of an outage on the main the backup could hold the connection up. This would also mean 
+    that the backup server could help with query requests to reduce latency and wait times between queries.
+* The REST api has a relatively high risk of being misuesed and abused. Since it is a connection to the database, getting access to the REST api could be very usefull to an attacker. 
+    * The highest risk of the REST api is the possibility of abuse to get information or alter information in the database a user should not be able to get or do. To mitigate this 
+    risk we need to implement an authentication method for the REST api where a logged in person can only send requests to the REST api for their own data. This mitigates the risk of 
+    someone easily sending a REST request on another persons data.
+    * The second way to reduce the potential of missuse is hosting the REST api on a secure server somewhere. Meaning that if we secure the REST api to its full potential we also 
+    need to secure the machine it is running on.
+* The third and final highest risk we identified is the Hosting of the service. In this sprint we started hosting the website and so it is good to look at ways to minimize downtime 
+if the server hosting the website fails.
+    * The risk involved in hosting is always to maintain a steady uptime of the website. If the uptime is low the users will leave and find another service. To mitigate this risk we 
+    decided to use Docker. We utilize docker by making preset docker containers of the REST api and the website allowing us to host it easily on multiple machines. The docker 
+    containers contain our code as well as all dependencies and allow us to quickly bring up new website hosts if others where to fail. More information can be seen in the Docker 
+    chapter below.
+
+
+## Website
+In the 4th sprint we decided to start hosting the website. We hosted it on the same server that currently runs the database and the link to the website is https://habittracker.gudjoniv.com/. For the hosting part we decided to implement a systemd daemon for the REST api and the WebApp to enable easy monitoring and to allow for easier setup for the docker containers that would enable fast setup of a new host.
+
+
+## Docker
+For the 4th sprint we also decided to make a docker container for the hosting of the website. The docker container currently contains the git repository, an apache2 service with 
+configuration to get connections from habittracker.gudjoniv.com and systemd configuration files to run the REST api and the WebApp. To get the docker container simply enter:
+1. Get the docker container
+```sh
+docker run -d -p 8080:80 gudjoniv/habittracker-host tail -f /dev/null
+```
+2. Enter and setup
+```sh
+docker exec <container_id>  
+systemctl start apache2
+systemctl start rest
+systemctl start webapp
+```
+3. View webpage in browser at localhost:8080
+
+We are not sure this is going to work 100% since Guðjón was the only one doing this part and for some reasing WSL2 that provides linux on windows does not have Systemd enabled so 
+running the systemctl functions did not work. This container also only contains apache2 config for http and not https since we have yet to test out with Docker if we can just copy 
+and paste the keys and ssl configuration. This docker container was more of a proof of concept and a test of how we could utilize docker to our advantage and lower our risk involved 
+in hosting on a single server. This docker container also enables us to quickly respond to demand.  
+Few things to note are that f.x. tail -f /dev/null in the end of command 1 is to make sure docker does not exit a soon as it starts up. Also if you have problems running with the 
+systemctl commands you can also do service apache2 start and then run the run.py from within /home/Team5 with the environment variable FLASK_APP=WebApp set. This variable is already 
+set for root but for some reason flask run does not work unless you manually set it before. We will see in the next and final sprint if we will continue to improve this docker 
+container or not.
 
 
 <!-- TEAM MEMBERS -->

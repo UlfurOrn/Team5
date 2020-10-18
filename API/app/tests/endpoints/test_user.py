@@ -9,29 +9,31 @@ class TestUserEndpoint(TestBase):
         super(TestUserEndpoint, self).setUp()
 
         self.test_user_mapper = UserMapper(
-            1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25T00:00:00", "m", 85, 180
+            1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25", "m", 85, 180
         )
         self.test_user_dict = {
             'userid': 1,
             'name': "testuser",
             'email': "testuser@email.com",
-            'dob': "2020-04-25",
             'username': 'testuser',
             'password': 'testpassword',
+            'dob': "2020-04-25",
             'gender': "m",
             'weight': 85,
             'height': 180
         }
 
+    @patch("main.controller.user_controller.check_id")
     @patch("main.controller.user_controller.DBapi.users.get")
-    def test_get_single_user(self, mock_db):
+    def test_get_single_user(self, mock_db, mock_check):
         mock_db.return_value = [self.test_user_mapper]
 
         response = self.app.get("user/1")
         data = response.json
 
         assert data == self.test_user_dict
-        mock_db.assert_called_once_with('1')
+        mock_check.assert_called_once_with(1)
+        mock_db.assert_called_once_with(1)
 
     @patch("main.controller.user_controller.DBapi.users.get")
     def test_get_user_list(self, mock_db):
@@ -85,22 +87,57 @@ class TestUserEndpoint(TestBase):
         assert data is None
         mock_db.assert_called_once()
 
+    @patch("main.controller.user_controller.check_id")
+    @patch("main.controller.user_controller.DBapi.users.get")
     @patch("main.controller.user_controller.DBapi.users.put")
-    def test_put_user(self, mock_db):
-        mock_db.return_value = None
+    def test_put_user(self, mock_db, mock_get, mock_check):
+        mock_get.return_value = [self.test_user_mapper]
 
         response = self.app.put("/user/1", headers=self.valid_header, json=self.test_user_dict)
         data = response.json
 
-        assert data is None
+        assert data == self.test_user_dict
+        assert response.status_code == 201
+
+        mock_check.assert_called_once_with(1)
+        mock_get.assert_called_once_with(1)
         mock_db.assert_called_once()
 
+    @patch("main.controller.user_controller.check_id")
     @patch("main.controller.user_controller.DBapi.users.delete")
-    def test_delete_user(self, mock_db):
-        mock_db.return_value = None
-
+    def test_delete_user(self, mock_db, mock_check):
         response = self.app.delete("/user/1", headers=self.valid_header)
         data = response.json
 
-        assert data is None
-        mock_db.assert_called_once_with("1")
+        assert data == ""
+        assert response.status_code == 200
+        mock_check.assert_called_once_with(1)
+        mock_db.assert_called_once_with(1)
+
+    def test_bad_request_exception(self):
+        response_list = [
+            self.app.get("user/0", headers=self.valid_header),
+            self.app.put("user/0", headers=self.valid_header, json=self.test_user_dict),
+            self.app.delete("user/0", headers=self.valid_header),
+            self.app.get("user/0/habit", headers=self.valid_header),
+            self.app.get("user/0/record", headers=self.valid_header)
+        ]
+
+        for response in response_list:
+            assert response.json["message"] == "User id must be higher than 0"
+            assert response.status_code == 400
+
+    @patch("main.controller.user_controller.DBapi.users.get")
+    def test_not_found_exception(self, mock_get):
+        mock_get.return_value = False
+        response_list = [
+            self.app.get("user/1", headers=self.valid_header),
+            self.app.put("user/1", headers=self.valid_header, json=self.test_user_dict),
+            self.app.delete("user/1", headers=self.valid_header),
+            self.app.get("user/1/habit", headers=self.valid_header),
+            self.app.get("user/1/record", headers=self.valid_header)
+        ]
+
+        for response in response_list:
+            assert response.json["message"] == "User with id 1 not found"
+            assert response.status_code == 404

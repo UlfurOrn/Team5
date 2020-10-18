@@ -11,5 +11,40 @@
     <b>Description:</b> {{ habit.description }}<br>
     <b>Measuement ID:</b> {{ habit.measurementid }}<br>
     <a href="{{ url_for('habit.update_habit', habit=habit) }}">Update</a>
-    <a href="{{ url_for('habit.delete_habit', habit=habit) }}">Delete</a>
+    <!-- <a href="{{ url_for('habit.delete_habit', habit=habit) }}">Delete</a> -->
+    <button onclick="document.getElementById('confirmDelete').style.display='block'" class="modalbtn">Delete</button>
+    <h3>Records</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in records %}
+          <tr>
+            <td>{{ record['rdate'] }}</td>
+            <td>{{ record['amount'] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{{ url_for('habit.add_record') }}">Add</a>
+
+    <!-- Confirm deletion Modal -->
+    <div id="confirmDelete", class="modal">
+      <span onclick="document.getElementById('confirmDelete').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <form class="modal-content">
+        <div class="container">
+          <h1>Delete Habit</h1>
+          <p>Are you sure you want to delete this habit?</p>
+
+          <div class="clearfix">
+            <button type="button" onclick="document.getElementById('confirmDelete').style.display='none'" class="cancelbtn">Cancel</button>
+            <a href="{{ url_for('habit.delete_habit', habit=habit) }}">Delete</a>
+          </div>
+        </div>
+      </form>
+    </div>
 {% endblock %}

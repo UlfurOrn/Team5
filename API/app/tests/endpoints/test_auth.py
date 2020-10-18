@@ -6,33 +6,47 @@ from tests.endpoints.test_base import TestBase
 
 @patch("main.controller.auth_controller.DBapi.users.checkpassword")
 class TestAuthenticationEndpoint(TestBase):
-    def setUp(self):
-        super(TestAuthenticationEndpoint, self).setUp()
 
-        self.test_user_mapper = UserMapper(
-            1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25", "m", 85, 180
-        )
+    def get_login(self, username, password):
+        return {
+            "username": username,
+            "password": password
+        }
 
-    def test_login_working(self, mock_db):
+    def test_valid_authentication(self, mock_db):
         mock_db.return_value = [[True]]
 
-        login_credentials = {'username': self.test_user_mapper.username, 'password': self.test_user_mapper.password}
+        username = "Valid Username"
+        password = "Valid Password"
+        login_credentials = self.get_login(username, password)
 
         response = self.app.post("/auth/login", headers=self.valid_header, json=login_credentials)
         data = response.json
 
-        assert data == "successfully logged in"
+        assert data == "Login Successful"
         assert response.status_code == 200
-        mock_db.assert_called_once()
+        mock_db.assert_called_once_with(username, password)
 
-    def test_login_failing(self, mock_db):
+    def test_login_forbidden(self, mock_db):
         mock_db.return_value = [[False]]
 
-        login_credentials = {'username': self.test_user_mapper.username, 'password': self.test_user_mapper.password}
+        username = "Invalid Username"
+        password = "Invalid Password"
+        login_credentials = self.get_login(username, password)
 
         response = self.app.post("/auth/login", headers=self.valid_header, json=login_credentials)
         data = response.json
 
-        assert data == "couldn't log in"
-        assert response.status_code == 404
-        mock_db.assert_called_once()
+        assert data["message"] == "Invalid username or password"
+        assert response.status_code == 403
+        mock_db.assert_called_once_with(username, password)
+
+    def test_login_unauthorized(self, mock_db):
+        login_credentials = self.get_login("", "")
+
+        response = self.app.post("/auth/login", headers=self.valid_header, json=login_credentials)
+        data = response.json
+
+        assert data["message"] == "Missing username and password"
+        assert response.status_code == 401
+        mock_db.assert_not_called()

@@ -5,18 +5,27 @@
 {% endblock %}
 
 {% block content %}
-  
-  <div class="single-records-container">
-    <h1>{% block title %}Single Record{% endblock %}</h1>
-    
-    <div class="single-record">
-      <b>Habit ID:</b> {{ record.habitid }}<br>
-      <b>Date:</b> {{ record.rdate }}<br>
-      <b>Amount:</b> {{ record.amount }}<br>
-    </div>
 
-    <a id="update" href="{{ url_for('habit.update_record', record=record) }}">Update</a>
-    <a id="delete" href="{{ url_for('habit.delete_record', record=record) }}">Delete</a>
-  </div>
+    <b>Habit ID:</b> {{ record.habitid }}<br>
+    <b>Date:</b> {{ record.rdate }}<br>
+    <b>Amount:</b> {{ record.amount }}<br>
+    <a href="{{ url_for('habit.update_record', record=record) }}">Update</a>
+    <button onclick="document.getElementById('confirmDelete').style.display='block'" class="modalbtn">Delete</button>
+
+    <!-- Confirm deletion Modal -->
+    <div id="confirmDelete", class="modal">
+      <span onclick="document.getElementById('confirmDelete').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <form class="modal-content">
+        <div class="container">
+          <h1>Delete Record</h1>
+          <p>Are you sure you want to delete this record?</p>
+
+          <div class="clearfix">
+            <button type="button" onclick="document.getElementById('confirmDelete').style.display='none'" class="cancelbtn">Cancel</button>
+            <a href="{{ url_for('habit.delete_record', record=record) }}">Delete</a>
+          </div>
+        </div>
+      </form>
+    </div>
 
 {% endblock %}

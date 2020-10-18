@@ -10,7 +10,11 @@
 <form method="post">
     <input type="text" placeholder="Name" name="name" id="name" required><br>
     <input type="description" placeholder="Description" name="description" id="desciption" required><br>
-    <input type="measurement_id", placeholder="Measurement ID", name="measurement_id", id="measurement_id" required>
+    <select name="measurement", id="measurement">
+      {% for measurement in measurements %}
+        <option value="{{ measurement['measurementid'] }}">{{ measurement["name"] }}</option>
+      {% endfor %}
+    </select>
     <input type="submit" value="Submit">
 </form>
 {% endblock %}

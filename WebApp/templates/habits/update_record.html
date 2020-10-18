@@ -8,12 +8,16 @@
 
 {% block content %}
 <form method="post">
-    <label for="habitid">Habit ID:</label>
     <input type="text" value="{{ record.habitid }}" name="habitid" id="habitid" required><br>
     <label for="date">Date:</label>
     <input type="text" value="{{ record.rdate }}" name="date" id="date" required><br>
     <label for="amount">Amount:</label>
     <input type="text", value="{{ record.amount }}", name="amount", id="amount" required>
+    <!-- <select name="habit_id", id="habit_id">
+      {% for habit in habits %}
+        <option value="{{ habit['habitid'] }}">{{ habit['name'] }}</option>
+      {% endfor %}
+    </select> -->
     <input type="submit" value="Update">
 </form>
 {% endblock %}

@@ -16,17 +16,61 @@ def viewAccount():
 
 @bp.route('/edit', methods=('GET','POST'))
 def editAccount():
-    user_id = 2
+    user_id = session.get('user_id')
     if request.method == 'GET':
         details = get_user_id(current_app.config['API_URL'], user_id)
     elif request.method == 'POST':
         details = get_user_id(current_app.config['API_URL'], user_id)
-        name = request.form['fullname']
+
+        if (request.form['fullname'] == ""):
+            name = details['name']
+        else:
+            name = request.form['fullname']
+
+        if (request.form['email'] == ""):
+            email= details['email']
+        else:
+            email = request.form['email']
+
+        if (request.form['dateOfBirth']==''):
+            dob = details['dob']
+        else:
+            dob = request.form['dateOfBirth']
+
+        if (request.form['weight'] == ''):
+            weight = details['weight']
+        else:
+            weight = request.form['weight']
+
+        if (request.form['height']==''):
+            height = details['height']
+        else:
+            height = request.form['height']
+
+        #try:
+        #    if (request.form['gender']==None):
+        #        gender = details['gender']
+        #    else:
+        #        gender = request.form['gender']
+        #except:
+         #   gender = request.form['gender']
+
+        
+        
+       
+        
+       
+
         error = None
         if error is None:
             print(f'Changing name to api: {current_app.config["API_URL"]}')
             user = {
                 'name': name,
+                'email':email,
+                'dob':dob,
+                'weight':weight,
+                'height':height
+                #'gender':gender
             }
             resp = save_edited_user(current_app.config["API_URL"], user_id,user)
             if resp is None:

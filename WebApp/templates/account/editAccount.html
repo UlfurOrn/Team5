@@ -8,7 +8,18 @@
 
 {% block content %}
 <form method="POST">
-  <input type="text" placeholder={{account.name}} name="fullname" id="fullname" required><br>
+  <input type="text" placeholder="Full name" name="fullname" id="fullname"><br>
+  <input type="email" placeholder="Email" name="email" id="email"><br>
+  <input type="date" placeholder="Date of Birth" name="dateOfBirth" id="dateOfBirth"><br>
+  <label for="female">Female</label><br>
+  <input type="radio" id="female" name="gender" value="F">
+  <label for="male">Male</label><br>
+  <input type="radio" id="male" name="gender" value="M">
+  <label for="other">Other</label><br>
+  <input type="radio" id="other" name="gender" value="O">
+  <input type="number" placeholder="Weight (kg)" name="weight" id="weight"><br>
+  <input type="number" placeholder="Height (cm)" name="height" id="height" ><br>
+
   <input type="submit" value="Save">
 </form>
 {% endblock %}

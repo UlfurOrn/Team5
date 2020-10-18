@@ -1,7 +1,7 @@
 from main.util.mappers.mapper import Mapper
 
 
-class McategoryMapper(Mapper):
+class CategoryMapper(Mapper):
     """
         A Mapper class for the MCategories table
     """
