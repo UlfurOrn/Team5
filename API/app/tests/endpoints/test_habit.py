@@ -85,3 +85,29 @@ class TestHabitEndpoint(TestBase):
         assert response.status_code == 200
         mock_check.assert_called_once_with(1)
         mock_db.assert_called_once_with(1)
+
+    def test_bad_request_exception(self):
+        response_list = [
+            self.app.get("habit/0", headers=self.valid_header),
+            self.app.put("habit/0", headers=self.valid_header, json=self.test_habit_dict),
+            self.app.delete("habit/0", headers=self.valid_header),
+            self.app.get("habit/0/record", headers=self.valid_header)
+        ]
+
+        for response in response_list:
+            assert response.json["message"] == "Habit id must be higher than 0"
+            assert response.status_code == 400
+
+    @patch("main.controller.habit_controller.DBapi.habits.get")
+    def test_not_found_exception(self, mock_get):
+        mock_get.return_value = False
+        response_list = [
+            self.app.get("habit/1", headers=self.valid_header),
+            self.app.put("habit/1", headers=self.valid_header, json=self.test_habit_dict),
+            self.app.delete("habit/1", headers=self.valid_header),
+            self.app.get("habit/1/record", headers=self.valid_header)
+        ]
+
+        for response in response_list:
+            assert response.json["message"] == "Habit with id 1 not found"
+            assert response.status_code == 404

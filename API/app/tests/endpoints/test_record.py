@@ -89,3 +89,27 @@ class TestRecordEndpoint(TestBase):
         assert response.status_code == 200
         mock_check.assert_called_once_with(1)
         mock_db.assert_called_once_with(1)
+
+    def test_bad_request_exception(self):
+        response_list = [
+            self.app.get("record/0", headers=self.valid_header),
+            self.app.put("record/0", headers=self.valid_header, json=self.test_record_dict),
+            self.app.delete("record/0", headers=self.valid_header)
+        ]
+
+        for response in response_list:
+            assert response.json["message"] == "Record id must be higher than 0"
+            assert response.status_code == 400
+
+    @patch("main.controller.record_controller.DBapi.records.get")
+    def test_not_found_exception(self, mock_get):
+        mock_get.return_value = False
+        response_list = [
+            self.app.get("record/1", headers=self.valid_header),
+            self.app.put("record/1", headers=self.valid_header, json=self.test_record_dict),
+            self.app.delete("record/1", headers=self.valid_header)
+        ]
+
+        for response in response_list:
+            assert response.json["message"] == "Record with id 1 not found"
+            assert response.status_code == 404

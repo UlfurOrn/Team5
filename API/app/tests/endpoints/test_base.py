@@ -20,6 +20,8 @@ class TestBase(unittest.TestCase):
         super(TestBase, self).setUp()
 
         app = Flask(__name__)
+        app.config['ERROR_404_HELP'] = False  # Remove extra message from 404 errors
+
         api = Api()
 
         api.add_namespace(record_ns)
