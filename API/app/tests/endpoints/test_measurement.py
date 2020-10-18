@@ -8,8 +8,9 @@ class TestMeasurementEndpoint(TestBase):
     def setUp(self):
         super(TestMeasurementEndpoint, self).setUp()
 
+    @patch("main.controller.measurement_controller.check_id")
     @patch("main.controller.measurement_controller.DBapi.measurements.get")
-    def test_get_single_measurement(self, mock_db):
+    def test_get_single_measurement(self, mock_db, mock_check):
         test_measurement = {
             "measurementid": 1,
             "name": "Kilometers",
@@ -24,7 +25,8 @@ class TestMeasurementEndpoint(TestBase):
         data = response.json
 
         assert data == test_measurement
-        mock_db.assert_called_once_with('1')
+        mock_check.assert_called_once_with(1)
+        mock_db.assert_called_once_with(1)
 
     @patch("main.controller.measurement_controller.DBapi.measurements.get")
     def test_get_measurement_list(self, mock_db):

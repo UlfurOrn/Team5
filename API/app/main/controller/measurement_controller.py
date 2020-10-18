@@ -1,6 +1,7 @@
 from flask import request
 from flask_restplus import Resource
 
+from main.util.DTO.error_message import error_message
 from main.util.mappers.measurementmapper import MeasurementMapper
 from main.util.DTO.measurement_dto import MeasurementDTO
 from main.services.db_api import DBapi
@@ -23,14 +24,22 @@ class MeasurementList(Resource):
         return measurement_list
 
 
-@api.route('/<measurement_id>')
-@api.response(404, 'Measurement not found.')
+@api.route('/<int:measurement_id>')
+@api.response(400, 'BadRequest', error_message)
+@api.response(404, 'Measurement not found.', error_message)
 class SingleMeasurement(Resource):
     @api.doc('Get a single measurement')
     @api.marshal_with(_measurement)
     def get(self, measurement_id):
+        check_id(measurement_id)
+
         data = DBapi.measurements.get(measurement_id)
-        if not data:
-            return "", 404
         measurement_dict = data[0].to_dict()
         return measurement_dict
+
+
+def check_id(measurement_id):
+    if measurement_id <= 0:
+        raise BadRequest("Measurement id must be higher than 0")
+    if not DBapi.measurements.get(measurement_id):
+        raise NotFound(f"Measurement with id {measurement_id} not found")
