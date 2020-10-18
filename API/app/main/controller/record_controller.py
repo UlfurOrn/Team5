@@ -1,6 +1,6 @@
 from flask import request
 from flask_restplus import Resource
-from werkzeug.exceptions import NotFound
+from werkzeug.exceptions import BadRequest, NotFound
 
 from main.util.DTO.error_message import error_message
 from main.util.mappers.recordmapper import RecordMapper
@@ -36,6 +36,7 @@ class RecordList(Resource):
 
 
 @api.route('/<int:record_id>')
+@api.response(400, "BadRequest", error_message)
 @api.response(404, "Record not found.", error_message)
 class SingleRecord(Resource):
     @api.doc('Get a single record')

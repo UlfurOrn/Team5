@@ -113,4 +113,3 @@ class TestUserEndpoint(TestBase):
         assert response.status_code == 200
         mock_check.assert_called_once_with(1)
         mock_db.assert_called_once_with(1)
-

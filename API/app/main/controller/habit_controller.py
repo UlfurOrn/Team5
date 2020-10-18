@@ -1,6 +1,6 @@
 from flask import request
 from flask_restplus import Resource
-from werkzeug.exceptions import NotFound
+from werkzeug.exceptions import BadRequest, NotFound
 
 from main.util.DTO.error_message import error_message
 from main.util.mappers.habitmapper import HabitMapper
@@ -38,7 +38,8 @@ class HabitList(Resource):
 
 
 @api.route('/<int:habit_id>')
-@api.response(404, 'Habit not found.')
+@api.response(400, "BadRequest", error_message)
+@api.response(404, 'Habit not found.', error_message)
 class SingleHabit(Resource):
     @api.doc('Get a single habit')
     @api.marshal_with(_habit)
@@ -71,8 +72,9 @@ class SingleHabit(Resource):
         return "", 200
 
 
-@api.response(404, 'Habit not found.')
 @api.route("/<int:habit_id>/record")
+@api.response(400, "BadRequest", error_message)
+@api.response(404, 'Habit not found.', error_message)
 class UserRecords(Resource):
 
     @api.marshal_list_with(_record, envelope='records')

@@ -43,6 +43,7 @@ class UserList(Resource):
 
 
 @api.route('/<int:user_id>')
+@api.response(400, "BadRequest", error_message)
 @api.response(404, 'User not found.', error_message)
 class SingleUser(Resource):
     @api.doc('Get a single user')
@@ -77,6 +78,8 @@ class SingleUser(Resource):
 
 
 @api.route("/<int:user_id>/habit")
+@api.response(400, "BadRequest", error_message)
+@api.response(404, 'User not found.', error_message)
 class UserHabits(Resource):
 
     @api.marshal_list_with(_habit, envelope='habits')
@@ -93,6 +96,8 @@ class UserHabits(Resource):
 
 
 @api.route("/<int:user_id>/record")
+@api.response(400, "BadRequest", error_message)
+@api.response(404, 'User not found.', error_message)
 class UserRecords(Resource):
 
     @api.marshal_list_with(_record, envelope='records')
