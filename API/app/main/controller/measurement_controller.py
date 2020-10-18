@@ -1,5 +1,6 @@
 from flask import request
 from flask_restplus import Resource
+from werkzeug.exceptions import BadRequest, NotFound
 
 from main.util.DTO.error_message import error_message
 from main.util.mappers.measurementmapper import MeasurementMapper

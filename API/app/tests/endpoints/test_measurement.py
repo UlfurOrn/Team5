@@ -59,3 +59,17 @@ class TestMeasurementEndpoint(TestBase):
             "measurements": test_measurement_list
         }
         mock_db.assert_called_once()
+
+    def test_bad_request_exception(self):
+        response = self.app.get("measurement/0", headers=self.valid_header)
+
+        assert response.json["message"] == "Measurement id must be higher than 0"
+        assert response.status_code == 400
+
+    @patch("main.controller.measurement_controller.DBapi.measurements.get")
+    def test_not_found_exception(self, mock_get):
+        mock_get.return_value = False
+        response = self.app.get("measurement/1", headers=self.valid_header)
+
+        assert response.json["message"] == "Measurement with id 1 not found"
+        assert response.status_code == 404
