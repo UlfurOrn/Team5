@@ -6,7 +6,6 @@
 
 {% block header %}
   <h1>{% block title %}My Account{% endblock %}</h1>
-  <li><a href="{{ url_for('account.editAccount') }}">Edit Account</a></li>
 {% endblock %}
 
 {% block content %}
@@ -25,7 +24,7 @@
         <p>Height: <b>{{account.height}}</b></p>
       </div>
 
-      <a id="edit-acc-link" href="">Edit Account</a>
+      <a id="edit-acc-link" href="{{ url_for('account.editAccount') }}">Edit Account</a>
 
     </div>
 
