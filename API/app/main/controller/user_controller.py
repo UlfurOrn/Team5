@@ -55,8 +55,8 @@ class SingleUser(Resource):
         user_dict = data[0].to_dict()
         return user_dict
 
-    @api.response(201, 'User successfully updated.')
     @api.doc('Edit a user')
+    @api.response(201, 'User successfully updated.')
     @api.expect(_expect)
     def put(self, user_id):
         check_id(user_id)
