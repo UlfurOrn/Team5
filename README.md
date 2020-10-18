@@ -44,7 +44,7 @@
   * [Sprint 2](#sprint-2)
   * [Sprint 3](#sprint-3)
   * [Sprint 4](#sprint-4)
-* [Hosting](#hosting)
+* [Website](#website)
 * [Team Members](#team-members)
 * [Teacher](#teacher)
 * [TA](#ta)
@@ -300,7 +300,7 @@ if the server hosting the website fails.
     chapter below.
 
 
-## Hosting
+## Website
 In the 4th sprint we decided to start hosting the website. We hosted it on the same server that currently runs the database and the link to the website is https://habittracker.gudjoniv.com/. For the hosting part we decided to implement a systemd daemon for the REST api and the WebApp to enable easy monitoring and to allow for easier setup for the docker containers that would enable fast setup of a new host.
 
 
