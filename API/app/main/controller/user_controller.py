@@ -1,6 +1,6 @@
 from flask import request
 from flask_restplus import Resource
-from werkzeug.exceptions import NotFound
+from werkzeug.exceptions import BadRequest, NotFound
 
 from main.util.logging.logging_registry import LoggingRegistry
 
@@ -48,9 +48,9 @@ class SingleUser(Resource):
     @api.doc('Get a single user')
     @api.marshal_with(_user)
     def get(self, user_id):
+        check_id(user_id)
+
         data = DBapi.users.get(user_id)
-        if not data:
-            raise NotFound(f"User with id {user_id} not found")
         user_dict = data[0].to_dict()
         return user_dict
 
@@ -58,8 +58,7 @@ class SingleUser(Resource):
     @api.doc('Edit a user')
     @api.expect(_expect)
     def put(self, user_id):
-        if not DBapi.users.get(user_id):
-            raise NotFound(f"User with id {user_id} not found")
+        check_id(user_id)
 
         data = request.json
         user = UserMapper()
@@ -71,8 +70,7 @@ class SingleUser(Resource):
     @api.doc('Delete a user')
     @api.response(200, 'User successfully deleted.')
     def delete(self, user_id):
-        if not DBapi.users.get(user_id):
-            raise NotFound(f"User with id {user_id} not found")
+        check_id(user_id)
 
         DBapi.users.delete(user_id)
         return "", 200
@@ -83,8 +81,7 @@ class UserHabits(Resource):
 
     @api.marshal_list_with(_habit, envelope='habits')
     def get(self, user_id):
-        if not DBapi.users.get(user_id):
-            raise NotFound(f"User with id {user_id} not found")
+        check_id(user_id)
 
         data = DBapi.habits.get(user_id=user_id)
 
@@ -100,8 +97,7 @@ class UserRecords(Resource):
 
     @api.marshal_list_with(_record, envelope='records')
     def get(self, user_id):
-        if not DBapi.users.get(user_id):
-            raise NotFound(f"User with id {user_id} not found")
+        check_id(user_id)
 
         data = DBapi.records.get(user_id=user_id)
 
@@ -110,3 +106,10 @@ class UserRecords(Resource):
             record_list.append(record.to_dict())
 
         return record_list
+
+
+def check_id(user_id):
+    if user_id <= 0:
+        raise BadRequest("User id must be higher than 0")
+    if not DBapi.users.get(user_id):
+        raise NotFound(f"User with id {user_id} not found")
