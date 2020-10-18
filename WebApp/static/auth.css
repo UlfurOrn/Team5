@@ -1,3 +1,26 @@
+html{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    font-size: 20px;
+    color: grey;
+    opacity: 0.8;
+}
+h3{
+    color: grey;
+    padding-left: 5px;
+}
+p{
+    color: grey;
+    font-size:20px;
+    padding-left: 5px;
+
+}
+.content{
+    margin: auto;
+    max-width: 1000px;
+}
 nav {
     display: none;
 }
