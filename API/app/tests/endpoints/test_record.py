@@ -71,6 +71,7 @@ class TestRecordEndpoint(TestBase):
         data = response.json
 
         assert data == self.test_record_dict
+        assert response.status_code == 201
         mock_db.assert_called_once()
 
     @patch("main.controller.record_controller.DBapi.records.get")

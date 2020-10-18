@@ -22,7 +22,7 @@ class TestHabitEndpoint(TestBase):
         data = response.json
 
         assert data == self.test_habit_dict
-        mock_db.assert_called_once_with("1")
+        mock_db.assert_called_once_with(1)
 
     @patch("main.controller.habit_controller.DBapi.habits.get")
     def test_get_habit_list(self, mock_db):
@@ -57,14 +57,17 @@ class TestHabitEndpoint(TestBase):
         assert data is None
         mock_db.assert_called_once()
 
+    @patch("main.controller.habit_controller.DBapi.habits.get")
     @patch("main.controller.habit_controller.DBapi.habits.put")
-    def test_put_habit(self, mock_db):
+    def test_put_habit(self, mock_db, mock_get):
+        mock_get.return_value = [self.test_habit_mapper]
         mock_db.return_value = None
 
         response = self.app.put("/habit/1", headers=self.valid_header, json=self.test_habit_dict)
         data = response.json
 
-        assert data is None
+        assert data == self.test_habit_dict
+        assert response.status_code == 201
         mock_db.assert_called_once()
 
     @patch("main.controller.habit_controller.DBapi.habits.delete")
@@ -74,5 +77,6 @@ class TestHabitEndpoint(TestBase):
         response = self.app.delete("/habit/1", headers=self.valid_header)
         data = response.json
 
-        assert data is None
-        mock_db.assert_called_once_with("1")
+        assert data == ""
+        assert response.status_code == 200
+        mock_db.assert_called_once_with(1)

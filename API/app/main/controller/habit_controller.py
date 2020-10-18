@@ -61,16 +61,16 @@ class SingleHabit(Resource):
         habit.set_dict(data)
         DBapi.habits.put(habit_id, habit)
 
-        return DBapi.habits.get(habit_id)[0].to_dict()
+        return DBapi.habits.get(habit_id)[0].to_dict(), 201
 
     @api.doc('Delete a habit')
-    @api.response(201, 'Habit successfully deleted.')
+    @api.response(200, 'Habit successfully deleted.')
     def delete(self, habit_id):
         if not DBapi.habits.get(habit_id):
             raise NotFound(f"Habit with id {habit_id} not found")
 
         DBapi.habits.delete(habit_id)
-        return "", 204
+        return "", 200
 
 
 @api.response(404, 'Habit not found.')
