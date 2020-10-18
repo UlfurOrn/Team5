@@ -8,8 +8,9 @@ class TestCategoryEndpoint(TestBase):
     def setUp(self):
         super(TestCategoryEndpoint, self).setUp()
 
+    @patch("main.controller.category_controller.check_id")
     @patch("main.controller.category_controller.DBapi.mcategories.get")
-    def test_get_single_category(self, mock_db):
+    def test_get_single_category(self, mock_db, mock_check):
         test_category = {
             "mcategoryid": 1,
             "name": "Distance"
@@ -22,7 +23,8 @@ class TestCategoryEndpoint(TestBase):
         data = response.json
 
         assert data == test_category
-        mock_db.assert_called_once_with('1')
+        mock_check.assert_called_once_with(1)
+        mock_db.assert_called_once_with(1)
 
     @patch("main.controller.category_controller.DBapi.mcategories.get")
     def test_get_category_list(self, mock_db):
