@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
-
-{% block header %}
-  <h1>{% block title %}Single Record{% endblock %}</h1>
+{% block style %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='records.css') }}">
 {% endblock %}
 
 {% block content %}
+
     <b>Habit ID:</b> {{ record.habitid }}<br>
     <b>Date:</b> {{ record.rdate }}<br>
     <b>Amount:</b> {{ record.amount }}<br>
@@ -26,4 +27,5 @@
         </div>
       </form>
     </div>
+
 {% endblock %}

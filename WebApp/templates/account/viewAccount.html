@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block style %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endblock %}
 
 {% block header %}
   <h1>{% block title %}My Account{% endblock %}</h1>
@@ -6,11 +10,29 @@
 {% endblock %}
 
 {% block content %}
-  <p>Name: {{account.name}}</p>
-  <p>Username: {{account.username}}</p>
-  <p>Email: {{account.email}}</p>
-  <p>Date of Birth: {{account.dob}}</p>
-  <p>Gender: {{account.gender}}</p>
-  <p>Weight: {{account.weight}}</p>
-  <p>Height: {{account.height}}</p>
+
+  <div class="account-container">
+    
+    <div id="account">
+      
+      <div id="account-info">
+        <p>Name: <b>{{account.name}}</b></p>
+        <p>Username: <b>{{account.username}}</b></p>
+        <p>Email: <b>{{account.email}}</b></p>
+        <p>Date of Birth: <b>{{account.dob}}</b></p>
+        <p>Gender: <b>{{account.gender}}</b></p>
+        <p>Weight: <b>{{account.weight}}</b></p>
+        <p>Height: <b>{{account.height}}</b></p>
+      </div>
+
+      <a id="edit-acc-link" href="">Edit Account</a>
+
+    </div>
+
+    <div id="account-img">
+      <img src="../static/images/milkandfruit.jpg" alt="Fruit Bowl">
+    </div>
+
+  </div>
+
 {% endblock %}
