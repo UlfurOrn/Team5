@@ -6,17 +6,17 @@ from tests.endpoints.test_base import TestBase
 
 @patch("main.controller.auth_controller.DBapi.users.checkpassword")
 class TestAuthenticationEndpoint(TestBase):
-    def setUp(self):
-        super(TestAuthenticationEndpoint, self).setUp()
 
-        self.test_user_mapper = UserMapper(
-            1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25", "m", 85, 180
-        )
+    def get_login(self, username, password):
+        return {
+            "username": username,
+            "password": password
+        }
 
-    def test_login_working(self, mock_db):
+    def test_valid_authentication(self, mock_db):
         mock_db.return_value = [[True]]
 
-        login_credentials = {'username': self.test_user_mapper.username, 'password': self.test_user_mapper.password}
+        login_credentials = self.get_login("Valid Username", "Valid Password")
 
         response = self.app.post("/auth/login", headers=self.valid_header, json=login_credentials)
         data = response.json
