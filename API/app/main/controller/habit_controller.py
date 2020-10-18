@@ -92,4 +92,4 @@ def check_id(habit_id):
     if habit_id <= 0:
         raise BadRequest("Habit id must be higher than 0")
     if not DBapi.habits.get(habit_id):
-        raise NotFound(f"habit with id {habit_id} not found")
+        raise NotFound(f"Habit with id {habit_id} not found")
