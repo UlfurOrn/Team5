@@ -5,6 +5,16 @@
 {% endblock %}
 
 {% block content %}
+  <form method="post">
+    <label for="start_date">Start Datetime:</label>
+    <input type="date" name="start_date" id="start_date">
+    <input type="time" name="start_time" id="start_time"><br>
+    <label for="end_date">End Datetime:</label>
+    <input type="date" name="end_date", id="end_date">
+    <input type="time" name="end_time", id="end_time"><br>
+    <input type="submit" value="Submit">
+  </form>
+
   <table style="width:100%">
     <tr>
       <th>Habit ID</th>
