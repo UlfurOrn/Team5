@@ -323,7 +323,7 @@ In the 4th sprint we decided to start hosting the website. We hosted it on the s
 
 
 ## Docker
-For this sprint we also decided to make a docker container for the hosting of the website. The docker container currently contains the git repository, an apache2 service with 
+For the 4th sprint we also decided to make a docker container for the hosting of the website. The docker container currently contains the git repository, an apache2 service with 
 configuration to get connections from habittracker.gudjoniv.com and systemd configuration files to run the REST api and the WebApp. To get the docker container simply enter:
 1. Get the docker container
 ```sh
@@ -341,7 +341,11 @@ systemctl start webapp
 We are not sure this is going to work 100% since Guðjón was the only one doing this part and for some reasing WSL2 that provides linux on windows does not have Systemd enabled so 
 running the systemctl functions did not work. This container also only contains apache2 config for http and not https since we have yet to test out with Docker if we can just copy 
 and paste the keys and ssl configuration. This docker container was more of a proof of concept and a test of how we could utilize docker to our advantage and lower our risk involved 
-in hosting on a single server. This docker container also enables us to quickly respond to demand.
+in hosting on a single server. This docker container also enables us to quickly respond to demand.  
+Few things to note are that f.x. tail -f /dev/null in the end of command 1 is to make sure docker does not exit a soon as it starts up. Also if you have problems running with the 
+systemctl commands you can also do service apache2 start and then run the run.py from within /home/Team5 with the environment variable FLASK_APP=WebApp set. This variable is already 
+set for root but for some reason flask run does not work unless you manually set it before. We will see in the next and final sprint if we will continue to improve this docker 
+container or not.
 
 
 <!-- TEAM MEMBERS -->
