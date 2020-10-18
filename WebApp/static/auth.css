@@ -1,0 +1,79 @@
+nav {
+    display: none;
+}
+
+#logo {
+    width: 200px;
+}
+
+.login-container {
+    text-align: center;
+    display: flex;
+    margin-top: 120px;
+}
+
+#login-img {
+    width: 50%;
+}
+
+#login-img > img {
+    width: 100%;
+}
+
+#login {
+    padding: 120px 0px 0px 40px;
+    width: 50%;
+}
+
+input[type=text], input[type=password], input[type=password], input[type=email], input[type=date], input[type=number] {
+    box-sizing: border-box;
+    padding-left: 15px;
+    background-color: #E8E8E8;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 4px;
+    margin: 10px 0px 10px 0px;
+}
+
+.auth-btn {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    width: 100%;
+    background-color: #FFA8B6;
+    border: none;
+    height: 40px;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.auth-btn:hover {
+    background-color: #F78395;
+}
+
+#register-link {
+    padding: 10px 30px 10px 30px;
+    color: #696969;
+    text-decoration: none;
+    border: 2px solid #65944e;
+    border-radius: 4px;
+}
+
+#register-link:hover {
+    background-color: #bacd96;
+    border: none;
+    color: white;
+}
+
+.register {
+    padding-top: 120px;
+    margin: auto;
+    width: 50%;
+}
+
+.radio-label {
+    color: #696969;
+    font-size: 15px;
+}
