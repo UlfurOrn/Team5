@@ -257,12 +257,22 @@ component is not hard since it is not tigtly coupled with other components.
 Non-Functional requirements and constraints:
 
 Logs:  
-We are currently handeling logs of the active systems that is the WebApp requests, the REST api and the Database. These logs are simply auto generated for us when the applications run and they are all currently stored on the server that is hosting the Database and the Website. Here below are the 5 components we would like to monitor in more depth.
-* The first component we would like to monitor is the Server that hosts the database. This server is a fundimental to the whole service and so it is paramount that is stayes up and running. The metrics we would like to monitor are the hardware loads, network usage, power consumption and error rates. These metrics would give us a good idea of how our database server is being used, how much it costs us and would give us errors about network issues or the server going offline.
-* The second component we would monitor is the database. Here the metrics would be number of queries, query logs, average response time, data usage and number of rows in the tables. These metrics would help us get a good look at the time people need to wait, the highs and lows of traffic and it would also give us time to prepare for the event that the data usage goes over our available data as well as give us insight into the ammount of data in the database like number of users. The query logs would then also enable us to look at suspicious activities.
-* The third component is the REST api. Here we would like to get metrics for the number of requests, number of individual users, logs of requests and average respons time. These metrics allow us to catch potential missuse of the system for example one individual sending many requsts in a short time frame as well as give us an idea of the load on the system.
-* The fourth component would be the servers or the docker containers hosting the Webapp. Here we would monitor the load of each server/container to enable us to increase or decrease the number of servers hosting the website/REST api to give the users a good experience with latency and to save money in hosting costs.
-* The fifth and final component would be the Website itself. Here we could utilize Google Analytics or other similar applications to monitor how the users interact with our website. The main metrics of interest would be average time per page, where users click, locations of users, demographic and user interactions on the website. These metrics would help us make the website as user friendly and possible and to get it fit for the users of the website.
+We are currently handeling logs of the active systems that is the WebApp requests, the REST api and the Database. These logs are simply auto generated for us when the applications 
+run and they are all currently stored on the server that is hosting the Database and the Website. Here below are the 5 components we would like to monitor in more depth.
+* The first component we would like to monitor is the Server that hosts the database. This server is a fundimental to the whole service and so it is paramount that is stayes up and 
+running. The metrics we would like to monitor are the hardware loads, network usage, power consumption and error rates. These metrics would give us a good idea of how our database 
+server is being used, how much it costs us and would give us errors about network issues or the server going offline.
+* The second component we would monitor is the database. Here the metrics would be number of queries, query logs, average response time, data usage and number of rows in the tables. 
+These metrics would help us get a good look at the time people need to wait, the highs and lows of traffic and it would also give us time to prepare for the event that the data usage 
+goes over our available data as well as give us insight into the ammount of data in the database like number of users. The query logs would then also enable us to look at suspicious 
+activities.
+* The third component is the REST api. Here we would like to get metrics for the number of requests, number of individual users, logs of requests and average respons time. These 
+metrics allow us to catch potential missuse of the system for example one individual sending many requsts in a short time frame as well as give us an idea of the load on the system.
+* The fourth component would be the servers or the docker containers hosting the Webapp. Here we would monitor the load of each server/container to enable us to increase or decrease 
+the number of servers hosting the website/REST api to give the users a good experience with latency and to save money in hosting costs.
+* The fifth and final component would be the Website itself. Here we could utilize Google Analytics or other similar applications to monitor how the users interact with our website. 
+The main metrics of interest would be average time per page, where users click, locations of users, demographic and user interactions on the website. These metrics would help us make 
+the website as user friendly and possible and to get it fit for the users of the website.
 
 Risk management:  
 For risk management we went through the 4 steps of risk identification using the diagrams from the previous sprint. From our observations we found X parts of the system with high 
