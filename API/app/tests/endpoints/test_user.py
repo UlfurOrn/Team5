@@ -118,7 +118,9 @@ class TestUserEndpoint(TestBase):
         response_list = [
             self.app.get("user/0", headers=self.valid_header),
             self.app.put("user/0", headers=self.valid_header, json=self.test_user_dict),
-            self.app.delete("user/0", headers=self.valid_header)
+            self.app.delete("user/0", headers=self.valid_header),
+            self.app.get("user/0/habit", headers=self.valid_header),
+            self.app.get("user/0/record", headers=self.valid_header)
         ]
 
         for response in response_list:
@@ -131,7 +133,9 @@ class TestUserEndpoint(TestBase):
         response_list = [
             self.app.get("user/1", headers=self.valid_header),
             self.app.put("user/1", headers=self.valid_header, json=self.test_user_dict),
-            self.app.delete("user/1", headers=self.valid_header)
+            self.app.delete("user/1", headers=self.valid_header),
+            self.app.get("user/1/habit", headers=self.valid_header),
+            self.app.get("user/1/record", headers=self.valid_header)
         ]
 
         for response in response_list:

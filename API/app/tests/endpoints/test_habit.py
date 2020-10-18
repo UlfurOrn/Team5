@@ -90,7 +90,8 @@ class TestHabitEndpoint(TestBase):
         response_list = [
             self.app.get("habit/0", headers=self.valid_header),
             self.app.put("habit/0", headers=self.valid_header, json=self.test_habit_dict),
-            self.app.delete("habit/0", headers=self.valid_header)
+            self.app.delete("habit/0", headers=self.valid_header),
+            self.app.get("habit/0/record", headers=self.valid_header)
         ]
 
         for response in response_list:
@@ -103,7 +104,8 @@ class TestHabitEndpoint(TestBase):
         response_list = [
             self.app.get("habit/1", headers=self.valid_header),
             self.app.put("habit/1", headers=self.valid_header, json=self.test_habit_dict),
-            self.app.delete("habit/1", headers=self.valid_header)
+            self.app.delete("habit/1", headers=self.valid_header),
+            self.app.get("habit/1/record", headers=self.valid_header)
         ]
 
         for response in response_list:
