@@ -68,10 +68,15 @@ class TestHabitEndpoint(TestBase):
 
         assert data == self.test_habit_dict
         assert response.status_code == 201
+
+        assert mock_get.call_count == 2
+        mock_get.assert_called_with(1)
         mock_db.assert_called_once()
 
+    @patch("main.controller.habit_controller.DBapi.habits.get")
     @patch("main.controller.habit_controller.DBapi.habits.delete")
-    def test_delete_habit(self, mock_db):
+    def test_delete_habit(self, mock_db, mock_get):
+        mock_get.return_value = True
         mock_db.return_value = None
 
         response = self.app.delete("/habit/1", headers=self.valid_header)
@@ -79,4 +84,5 @@ class TestHabitEndpoint(TestBase):
 
         assert data == ""
         assert response.status_code == 200
+        mock_get.assert_called_once_with(1)
         mock_db.assert_called_once_with(1)

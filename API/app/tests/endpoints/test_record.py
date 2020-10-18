@@ -72,6 +72,9 @@ class TestRecordEndpoint(TestBase):
 
         assert data == self.test_record_dict
         assert response.status_code == 201
+
+        assert mock_get.call_count == 2
+        mock_get.assert_called_with(1)
         mock_db.assert_called_once()
 
     @patch("main.controller.record_controller.DBapi.records.get")

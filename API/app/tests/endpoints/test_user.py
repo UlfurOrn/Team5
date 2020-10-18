@@ -9,15 +9,15 @@ class TestUserEndpoint(TestBase):
         super(TestUserEndpoint, self).setUp()
 
         self.test_user_mapper = UserMapper(
-            1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25T00:00:00", "m", 85, 180
+            1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25", "m", 85, 180
         )
         self.test_user_dict = {
             'userid': 1,
             'name': "testuser",
             'email': "testuser@email.com",
-            'dob': "2020-04-25",
             'username': 'testuser',
             'password': 'testpassword',
+            'dob': "2020-04-25",
             'gender': "m",
             'weight': 85,
             'height': 180
@@ -31,7 +31,7 @@ class TestUserEndpoint(TestBase):
         data = response.json
 
         assert data == self.test_user_dict
-        mock_db.assert_called_once_with('1')
+        mock_db.assert_called_once_with(1)
 
     @patch("main.controller.user_controller.DBapi.users.get")
     def test_get_user_list(self, mock_db):
@@ -85,22 +85,33 @@ class TestUserEndpoint(TestBase):
         assert data is None
         mock_db.assert_called_once()
 
+    @patch("main.controller.user_controller.DBapi.users.get")
     @patch("main.controller.user_controller.DBapi.users.put")
-    def test_put_user(self, mock_db):
+    def test_put_user(self, mock_db, mock_get):
+        mock_get.return_value = [self.test_user_mapper]
         mock_db.return_value = None
 
         response = self.app.put("/user/1", headers=self.valid_header, json=self.test_user_dict)
         data = response.json
 
-        assert data is None
+        assert data == self.test_user_dict
+        assert response.status_code == 201
+
+        assert mock_get.call_count == 2
+        mock_get.assert_called_with(1)
         mock_db.assert_called_once()
 
+    @patch("main.controller.user_controller.DBapi.users.get")
     @patch("main.controller.user_controller.DBapi.users.delete")
-    def test_delete_user(self, mock_db):
+    def test_delete_user(self, mock_db, mock_get):
+        mock_get.return_value = True
         mock_db.return_value = None
 
         response = self.app.delete("/user/1", headers=self.valid_header)
         data = response.json
 
-        assert data is None
-        mock_db.assert_called_once_with("1")
+        assert data == ""
+        assert response.status_code == 200
+        mock_get.assert_called_once_with(1)
+        mock_db.assert_called_once_with(1)
+

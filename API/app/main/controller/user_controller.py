@@ -68,7 +68,7 @@ class UserRecords(Resource):
         return record_list
 
 
-@api.route('/<user_id>')
+@api.route('/<int:user_id>')
 @api.response(404, 'User not found.')
 class SingleUser(Resource):
     @api.doc('Get a single user')
@@ -84,12 +84,21 @@ class SingleUser(Resource):
     @api.doc('Edit a user')
     @api.expect(_expect)
     def put(self, user_id):
+        if not DBapi.users.get(user_id):
+            raise NotFound(f"User with id {user_id} not found")
+
         data = request.json
         user = UserMapper()
         user.set_dict(data)
-        return DBapi.users.put(user_id, user)
+        DBapi.users.put(user_id, user)
+
+        return DBapi.users.get(user_id)[0].to_dict(), 201
 
     @api.doc('Delete a user')
     @api.response(201, 'user successfully deleted.')
     def delete(self, user_id):
-        return DBapi.users.delete(user_id)
+        if not DBapi.users.get(user_id):
+            raise NotFound(f"User with id {user_id} not found")
+
+        DBapi.users.delete(user_id)
+        return "", 200
