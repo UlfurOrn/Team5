@@ -113,3 +113,27 @@ class TestUserEndpoint(TestBase):
         assert response.status_code == 200
         mock_check.assert_called_once_with(1)
         mock_db.assert_called_once_with(1)
+
+    def test_bad_request_exception(self):
+        response_list = [
+            self.app.get("user/0", headers=self.valid_header),
+            self.app.put("user/0", headers=self.valid_header, json=self.test_user_dict),
+            self.app.delete("user/0", headers=self.valid_header)
+        ]
+
+        for response in response_list:
+            assert response.json["message"] == "User id must be higher than 0"
+            assert response.status_code == 400
+
+    @patch("main.controller.user_controller.DBapi.users.get")
+    def test_not_found_exception(self, mock_get):
+        mock_get.return_value = False
+        response_list = [
+            self.app.get("user/1", headers=self.valid_header),
+            self.app.put("user/1", headers=self.valid_header, json=self.test_user_dict),
+            self.app.delete("user/1", headers=self.valid_header)
+        ]
+
+        for response in response_list:
+            assert response.json["message"] == "User with id 1 not found"
+            assert response.status_code == 404
