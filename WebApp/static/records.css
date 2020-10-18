@@ -20,7 +20,7 @@ h1 {
     color: black !important;
 }
 
-#add-link {
+#add-link, #update, #delete {
     padding: 10px 30px 10px 30px;
     color: #696969;
     text-decoration: none;
@@ -28,8 +28,19 @@ h1 {
     border-radius: 4px;
 }
 
-#add-link:hover {
+#add-link:hover, #update, #delete {
     background-color: #bacd96;
     border: none;
     color: white;
+}
+
+.single-records-container {
+    padding: 20px;
+    margin-top: 100px;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.single-record {
+    margin-bottom: 50px;
 }

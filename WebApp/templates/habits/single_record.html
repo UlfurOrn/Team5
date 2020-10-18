@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
 {% block style %}
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-{% endblock %}
-{% block header %}
-  <h1>{% block title %}Single Record{% endblock %}</h1>
+  <link rel="stylesheet" href="{{ url_for('static', filename='records.css') }}">
 {% endblock %}
 
 {% block content %}
-    <b>Habit ID:</b> {{ record.habitid }}<br>
-    <b>Date:</b> {{ record.rdate }}<br>
-    <b>Amount:</b> {{ record.amount }}<br>
-    <a href="{{ url_for('habit.update_record', record=record) }}">Update</a>
-    <a href="{{ url_for('habit.delete_record', record=record) }}">Delete</a>
+  
+  <div class="single-records-container">
+    <h1>{% block title %}Single Record{% endblock %}</h1>
+    
+    <div class="single-record">
+      <b>Habit ID:</b> {{ record.habitid }}<br>
+      <b>Date:</b> {{ record.rdate }}<br>
+      <b>Amount:</b> {{ record.amount }}<br>
+    </div>
+
+    <a id="update" href="{{ url_for('habit.update_record', record=record) }}">Update</a>
+    <a id="delete" href="{{ url_for('habit.delete_record', record=record) }}">Delete</a>
+  </div>
+
 {% endblock %}
