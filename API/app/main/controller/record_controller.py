@@ -36,7 +36,7 @@ class RecordList(Resource):
 
 
 @api.route('/<int:record_id>')
-@api.response(404, 'Record not found.', error_message)
+@api.response(400, "NotFound", error_message)
 class SingleRecord(Resource):
     @api.doc('Get a single record')
     @api.marshal_with(_record)
@@ -63,10 +63,10 @@ class SingleRecord(Resource):
         return DBapi.records.get(record_id)[0].to_dict(), 201
 
     @api.doc('Delete a record')
-    @api.response(204, 'Record successfully deleted.')
+    @api.response(200, 'Record successfully deleted.')
     def delete(self, record_id):
         if not DBapi.records.get(record_id):
             raise NotFound(f"Record with id {record_id} not found")
 
         DBapi.records.delete(record_id)
-        return "", 204
+        return "", 200

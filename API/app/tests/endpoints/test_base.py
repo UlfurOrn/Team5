@@ -34,13 +34,15 @@ class TestBase(unittest.TestCase):
             "Content-Type": "application/json"
         }
 
+        # Create mock logger
         mock_logger = Mock()
 
+        # Create mock logger methods
         mock_logger.debug()
         mock_logger.info()
         mock_logger.exception()
         mock_logger.critical()
-
         mock_logger.reset_mock()
 
+        # Override normal logger with mock logger
         LoggingRegistry.LOGGER = mock_logger

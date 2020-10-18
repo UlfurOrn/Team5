@@ -26,7 +26,7 @@ class TestRecordEndpoint(TestBase):
         data = response.json
 
         assert data == self.test_record_dict
-        mock_db.assert_called_once_with("1")
+        mock_db.assert_called_once_with(1)
 
     @patch("main.controller.record_controller.DBapi.records.get")
     def test_get_record_list(self, mock_db):
@@ -61,22 +61,28 @@ class TestRecordEndpoint(TestBase):
         assert data is None
         mock_db.assert_called_once()
 
+    @patch("main.controller.record_controller.DBapi.records.get")
     @patch("main.controller.record_controller.DBapi.records.put")
-    def test_put_record(self, mock_db):
+    def test_put_record(self, mock_db, mock_get):
+        mock_get.return_value = [self.test_record_mapper]
         mock_db.return_value = None
 
         response = self.app.put("record/1", headers=self.valid_header, json=self.test_record_dict)
         data = response.json
 
-        assert data is None
+        assert data == self.test_record_dict
         mock_db.assert_called_once()
 
+    @patch("main.controller.record_controller.DBapi.records.get")
     @patch("main.controller.record_controller.DBapi.records.delete")
-    def test_delete_record(self, mock_db):
+    def test_delete_record(self, mock_db, mock_get):
+        mock_get.return_value = True
         mock_db.return_value = None
 
         response = self.app.delete("record/1", headers=self.valid_header)
         data = response.json
 
-        assert data is None
-        mock_db.assert_called_once_with("1")
+        assert data == ""
+        assert response.status_code == 200
+        mock_get.assert_called_once_with(1)
+        mock_db.assert_called_once_with(1)
