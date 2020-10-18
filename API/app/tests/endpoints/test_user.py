@@ -23,14 +23,16 @@ class TestUserEndpoint(TestBase):
             'height': 180
         }
 
+    @patch("main.controller.user_controller.check_id")
     @patch("main.controller.user_controller.DBapi.users.get")
-    def test_get_single_user(self, mock_db):
+    def test_get_single_user(self, mock_db, mock_check):
         mock_db.return_value = [self.test_user_mapper]
 
         response = self.app.get("user/1")
         data = response.json
 
         assert data == self.test_user_dict
+        mock_check.assert_called_once_with(1)
         mock_db.assert_called_once_with(1)
 
     @patch("main.controller.user_controller.DBapi.users.get")
@@ -85,11 +87,11 @@ class TestUserEndpoint(TestBase):
         assert data is None
         mock_db.assert_called_once()
 
+    @patch("main.controller.user_controller.check_id")
     @patch("main.controller.user_controller.DBapi.users.get")
     @patch("main.controller.user_controller.DBapi.users.put")
-    def test_put_user(self, mock_db, mock_get):
+    def test_put_user(self, mock_db, mock_get, mock_check):
         mock_get.return_value = [self.test_user_mapper]
-        mock_db.return_value = None
 
         response = self.app.put("/user/1", headers=self.valid_header, json=self.test_user_dict)
         data = response.json
@@ -97,21 +99,18 @@ class TestUserEndpoint(TestBase):
         assert data == self.test_user_dict
         assert response.status_code == 201
 
-        assert mock_get.call_count == 2
-        mock_get.assert_called_with(1)
+        mock_check.assert_called_once_with(1)
+        mock_get.assert_called_once_with(1)
         mock_db.assert_called_once()
 
-    @patch("main.controller.user_controller.DBapi.users.get")
+    @patch("main.controller.user_controller.check_id")
     @patch("main.controller.user_controller.DBapi.users.delete")
-    def test_delete_user(self, mock_db, mock_get):
-        mock_get.return_value = True
-        mock_db.return_value = None
-
+    def test_delete_user(self, mock_db, mock_check):
         response = self.app.delete("/user/1", headers=self.valid_header)
         data = response.json
 
         assert data == ""
         assert response.status_code == 200
-        mock_get.assert_called_once_with(1)
+        mock_check.assert_called_once_with(1)
         mock_db.assert_called_once_with(1)
 

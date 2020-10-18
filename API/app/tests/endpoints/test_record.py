@@ -18,14 +18,16 @@ class TestRecordEndpoint(TestBase):
                 'amount': 1234
             }
 
+    @patch("main.controller.record_controller.check_id")
     @patch("main.controller.record_controller.DBapi.records.get")
-    def test_get_single_record(self, mock_db):
+    def test_get_single_record(self, mock_db, mock_check):
         mock_db.return_value = [self.test_record_mapper]  # DB returns record in a list
 
         response = self.app.get("record/1", headers=self.valid_header)
         data = response.json
 
         assert data == self.test_record_dict
+        mock_check.assert_called_once_with(1)
         mock_db.assert_called_once_with(1)
 
     @patch("main.controller.record_controller.DBapi.records.get")
@@ -61,11 +63,11 @@ class TestRecordEndpoint(TestBase):
         assert data is None
         mock_db.assert_called_once()
 
+    @patch("main.controller.record_controller.check_id")
     @patch("main.controller.record_controller.DBapi.records.get")
     @patch("main.controller.record_controller.DBapi.records.put")
-    def test_put_record(self, mock_db, mock_get):
+    def test_put_record(self, mock_db, mock_get, mock_check):
         mock_get.return_value = [self.test_record_mapper]
-        mock_db.return_value = None
 
         response = self.app.put("record/1", headers=self.valid_header, json=self.test_record_dict)
         data = response.json
@@ -73,20 +75,17 @@ class TestRecordEndpoint(TestBase):
         assert data == self.test_record_dict
         assert response.status_code == 201
 
-        assert mock_get.call_count == 2
-        mock_get.assert_called_with(1)
+        mock_check.assert_called_once_with(1)
+        mock_get.assert_called_once_with(1)
         mock_db.assert_called_once()
 
-    @patch("main.controller.record_controller.DBapi.records.get")
+    @patch("main.controller.record_controller.check_id")
     @patch("main.controller.record_controller.DBapi.records.delete")
-    def test_delete_record(self, mock_db, mock_get):
-        mock_get.return_value = True
-        mock_db.return_value = None
-
+    def test_delete_record(self, mock_db, mock_check):
         response = self.app.delete("record/1", headers=self.valid_header)
         data = response.json
 
         assert data == ""
         assert response.status_code == 200
-        mock_get.assert_called_once_with(1)
+        mock_check.assert_called_once_with(1)
         mock_db.assert_called_once_with(1)
