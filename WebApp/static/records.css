@@ -1,0 +1,35 @@
+h1 {
+    color: black;
+}
+
+.records-container {
+    margin-top: 100px;
+    padding: 3%;
+    color: black;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.records {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.rec-link {
+    color: black !important;
+}
+
+#add-link {
+    padding: 10px 30px 10px 30px;
+    color: #696969;
+    text-decoration: none;
+    border: 2px solid #65944e;
+    border-radius: 4px;
+}
+
+#add-link:hover {
+    background-color: #bacd96;
+    border: none;
+    color: white;
+}
