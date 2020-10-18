@@ -1,6 +1,8 @@
 from flask import request
 from flask_restplus import Resource
+from werkzeug.exceptions import BadRequest, NotFound
 
+from main.util.DTO.error_message import error_message
 from main.util.mappers.recordmapper import RecordMapper
 from main.util.DTO.record_dto import RecordDTO
 from main.services.db_api import DBapi
@@ -8,6 +10,7 @@ from main.services.db_api import DBapi
 api = RecordDTO.api
 _expect = RecordDTO.expect_model
 _record = RecordDTO.model
+
 
 @api.route('')
 class RecordList(Resource):
@@ -29,32 +32,47 @@ class RecordList(Resource):
         data = request.json
         record = RecordMapper()
         record.set_dict(data)
-        print(record)
         return DBapi.records.post(record)
 
 
-@api.route('/<record_id>')
-@api.response(404, 'Record not found.')
+@api.route('/<int:record_id>')
+@api.response(400, "BadRequest", error_message)
+@api.response(404, "Record not found.", error_message)
 class SingleRecord(Resource):
     @api.doc('Get a single record')
     @api.marshal_with(_record)
     def get(self, record_id):
+        check_id(record_id)
+
         data = DBapi.records.get(record_id)
-        if not data:
-            return "", 404
         record_dict = data[0].to_dict()
         return record_dict
 
     @api.response(201, 'Record successfully updated.')
     @api.doc('Edit a record')
+    @api.marshal_with(_record)
     @api.expect(_expect, validate=True)
     def put(self, record_id):
+        check_id(record_id)
+
         data = request.json
         record = RecordMapper()
         record.set_dict(data)
-        return DBapi.records.put(record_id, record)
+        DBapi.records.put(record_id, record)
+
+        return DBapi.records.get(record_id)[0].to_dict(), 201
 
     @api.doc('Delete a record')
-    @api.response(201, 'Record successfully deleted.')
+    @api.response(200, 'Record successfully deleted.')
     def delete(self, record_id):
-        return DBapi.records.delete(record_id)
+        check_id(record_id)
+
+        DBapi.records.delete(record_id)
+        return "", 200
+
+
+def check_id(record_id):
+    if record_id <= 0:
+        raise BadRequest("Record id must be higher than 0")
+    if not DBapi.records.get(record_id):
+        raise NotFound(f"Record with id {record_id} not found")

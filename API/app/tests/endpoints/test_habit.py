@@ -14,15 +14,17 @@ class TestHabitEndpoint(TestBase):
             "habitid": 1, "userid": 1, "name": "TestHabit", "description": "Testing Test Habit", "measurementid": 1
         }
 
+    @patch("main.controller.habit_controller.check_id")
     @patch("main.controller.habit_controller.DBapi.habits.get")
-    def test_get_single_habit(self, mock_db):
+    def test_get_single_habit(self, mock_db, mock_check):
         mock_db.return_value = [self.test_habit_mapper]  # DB returns habit in a list
 
         response = self.app.get("habit/1", headers=self.valid_header)
         data = response.json
 
         assert data == self.test_habit_dict
-        mock_db.assert_called_once_with("1")
+        mock_check.assert_called_once_with(1)
+        mock_db.assert_called_once_with(1)
 
     @patch("main.controller.habit_controller.DBapi.habits.get")
     def test_get_habit_list(self, mock_db):
@@ -57,22 +59,29 @@ class TestHabitEndpoint(TestBase):
         assert data is None
         mock_db.assert_called_once()
 
+    @patch("main.controller.habit_controller.check_id")
+    @patch("main.controller.habit_controller.DBapi.habits.get")
     @patch("main.controller.habit_controller.DBapi.habits.put")
-    def test_put_habit(self, mock_db):
-        mock_db.return_value = None
+    def test_put_habit(self, mock_db, mock_get, mock_check):
+        mock_get.return_value = [self.test_habit_mapper]
 
         response = self.app.put("/habit/1", headers=self.valid_header, json=self.test_habit_dict)
         data = response.json
 
-        assert data is None
+        assert data == self.test_habit_dict
+        assert response.status_code == 201
+
+        mock_check.assert_called_once_with(1)
+        mock_get.assert_called_once_with(1)
         mock_db.assert_called_once()
 
+    @patch("main.controller.habit_controller.check_id")
     @patch("main.controller.habit_controller.DBapi.habits.delete")
-    def test_delete_habit(self, mock_db):
-        mock_db.return_value = None
-
+    def test_delete_habit(self, mock_db, mock_check):
         response = self.app.delete("/habit/1", headers=self.valid_header)
         data = response.json
 
-        assert data is None
-        mock_db.assert_called_once_with("1")
+        assert data == ""
+        assert response.status_code == 200
+        mock_check.assert_called_once_with(1)
+        mock_db.assert_called_once_with(1)

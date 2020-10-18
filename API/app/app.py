@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restplus import Api
+from main.util.api import api
 
 from main.controller.record_controller import api as record_ns
 from main.controller.habit_controller import api as habit_ns
@@ -11,7 +11,7 @@ from main.controller.category_controller import api as category_ns
 
 
 app = Flask(__name__)
-api = Api()
+app.config['ERROR_404_HELP'] = False  # Remove extra message from 404 errors
 
 api.add_namespace(record_ns)
 api.add_namespace(habit_ns)
