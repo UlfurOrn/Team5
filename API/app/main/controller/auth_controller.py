@@ -35,6 +35,6 @@ class UserLogin(Resource):
         pass_resp = DBapi.users.checkpassword(username, password)
 
         if pass_resp[0][0]:
-            return "successfully logged in", 200
+            return "Login Successful", 200
         else:
             raise Forbidden("Invalid username or password")
