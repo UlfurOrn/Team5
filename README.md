@@ -45,6 +45,7 @@
   * [Sprint 3](#sprint-3)
   * [Sprint 4](#sprint-4)
 * [Website](#website)
+* [Docker](#docker)
 * [Team Members](#team-members)
 * [Teacher](#teacher)
 * [TA](#ta)
@@ -319,6 +320,28 @@ if the server hosting the website fails.
 
 ## Website
 In the 4th sprint we decided to start hosting the website. We hosted it on the same server that currently runs the database and the link to the website is https://habittracker.gudjoniv.com/. For the hosting part we decided to implement a systemd daemon for the REST api and the WebApp to enable easy monitoring and to allow for easier setup for the docker containers that would enable fast setup of a new host.
+
+
+## Docker
+For this sprint we also decided to make a docker container for the hosting of the website. The docker container currently contains the git repository, an apache2 service with 
+configuration to get connections from habittracker.gudjoniv.com and systemd configuration files to run the REST api and the WebApp. To get the docker container simply enter:
+1. Get the docker container
+```sh
+docker run -d -p 8080:80 gudjoniv/habittracker-host tail -f /dev/null
+```
+2. Enter and setup
+```sh
+docker exec <container_id>  
+systemctl start apache2
+systemctl start rest
+systemctl start webapp
+```
+3. View webpage in browser at localhost:8080
+
+We are not sure this is going to work 100% since Guðjón was the only one doing this part and for some reasing WSL2 that provides linux on windows does not have Systemd enabled so 
+running the systemctl functions did not work. This container also only contains apache2 config for http and not https since we have yet to test out with Docker if we can just copy 
+and paste the keys and ssl configuration. This docker container was more of a proof of concept and a test of how we could utilize docker to our advantage and lower our risk involved 
+in hosting on a single server. This docker container also enables us to quickly respond to demand.
 
 
 <!-- TEAM MEMBERS -->
