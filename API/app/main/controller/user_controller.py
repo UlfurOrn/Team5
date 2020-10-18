@@ -1,8 +1,10 @@
 from flask import request
 from flask_restplus import Resource
+from werkzeug.exceptions import NotFound
 
 from main.util.logging.logging_registry import LoggingRegistry
 
+from main.util.DTO.error_message import error_message
 from main.util.mappers.usermapper import UserMapper
 from main.services.db_api import DBapi
 from main.util.DTO.user_dto import UserDTO
@@ -40,43 +42,15 @@ class UserList(Resource):
         return DBapi.users.post(user)
 
 
-@api.route("/<user_id>/habit")
-class UserHabit(Resource):
-
-    @api.marshal_list_with(_habit, envelope='habits')
-    def get(self, user_id):
-        data = DBapi.habits.get(user_id=user_id)
-
-        habit_list = []
-        for habit in data:
-            habit_list.append(habit.to_dict())
-
-        return habit_list
-
-
-@api.route("/<user_id>/record")
-class UserRecords(Resource):
-
-    @api.marshal_list_with(_record, envelope='records')
-    def get(self, user_id):
-        data = DBapi.records.get(user_id=user_id)
-
-        record_list = []
-        for record in data:
-            record_list.append(record.to_dict())
-
-        return record_list
-
-
 @api.route('/<int:user_id>')
-@api.response(404, 'User not found.')
+@api.response(404, 'User not found.', error_message)
 class SingleUser(Resource):
     @api.doc('Get a single user')
     @api.marshal_with(_user)
     def get(self, user_id):
         data = DBapi.users.get(user_id)
         if not data:
-            return "", 404
+            raise NotFound(f"User with id {user_id} not found")
         user_dict = data[0].to_dict()
         return user_dict
 
@@ -95,10 +69,44 @@ class SingleUser(Resource):
         return DBapi.users.get(user_id)[0].to_dict(), 201
 
     @api.doc('Delete a user')
-    @api.response(201, 'user successfully deleted.')
+    @api.response(200, 'User successfully deleted.')
     def delete(self, user_id):
         if not DBapi.users.get(user_id):
             raise NotFound(f"User with id {user_id} not found")
 
         DBapi.users.delete(user_id)
         return "", 200
+
+
+@api.route("/<int:user_id>/habit")
+class UserHabits(Resource):
+
+    @api.marshal_list_with(_habit, envelope='habits')
+    def get(self, user_id):
+        if not DBapi.users.get(user_id):
+            raise NotFound(f"User with id {user_id} not found")
+
+        data = DBapi.habits.get(user_id=user_id)
+
+        habit_list = []
+        for habit in data:
+            habit_list.append(habit.to_dict())
+
+        return habit_list
+
+
+@api.route("/<int:user_id>/record")
+class UserRecords(Resource):
+
+    @api.marshal_list_with(_record, envelope='records')
+    def get(self, user_id):
+        if not DBapi.users.get(user_id):
+            raise NotFound(f"User with id {user_id} not found")
+
+        data = DBapi.records.get(user_id=user_id)
+
+        record_list = []
+        for record in data:
+            record_list.append(record.to_dict())
+
+        return record_list

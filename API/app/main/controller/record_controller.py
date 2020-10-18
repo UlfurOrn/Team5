@@ -36,7 +36,7 @@ class RecordList(Resource):
 
 
 @api.route('/<int:record_id>')
-@api.response(400, "NotFound", error_message)
+@api.response(404, "Record not found.", error_message)
 class SingleRecord(Resource):
     @api.doc('Get a single record')
     @api.marshal_with(_record)

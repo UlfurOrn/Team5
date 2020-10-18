@@ -74,7 +74,7 @@ class SingleHabit(Resource):
 
 
 @api.response(404, 'Habit not found.')
-@api.route("/<habit_id>/record")
+@api.route("/<int:habit_id>/record")
 class UserRecords(Resource):
 
     @api.marshal_list_with(_record, envelope='records')
