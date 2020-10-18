@@ -1,6 +1,9 @@
 .account-container {
+    background-color: white;
+    padding: 50px;
     display: flex;
     margin-top: 100px;
+    border-radius: 4px;
 }
 
 #account {
@@ -17,9 +20,13 @@
 
 #account-info {
     background-color: #FFA8B6;
-    padding: 20px 0px 20px 50px;
+    padding: 5% 10% 5% 10%;
     margin: 0px 20px 100px 0px;
     border-radius: 4px;
+}
+
+p {
+    margin-bottom: 30px;
 }
 
 #edit-acc-link {

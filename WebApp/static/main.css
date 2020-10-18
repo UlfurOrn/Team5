@@ -26,10 +26,10 @@ p{
     max-width: 1000px;
 }
 nav { 
+    padding: 20px 20px 20px 30px;
     display: flex; 
-    align-items: center; 
-    border-bottom: 0.5px solid #376e85;
-
+    align-items: center;
+    background-color: white;
 }
 nav ul { 
     display: flex; 
@@ -50,7 +50,7 @@ nav h1 {
 }
 nav span{
     font-weight: bold;
-    color: #376e85;
+    color: #65944e;
     padding: 18px 15px;
     text-align: center;
     text-decoration: none;
@@ -59,7 +59,7 @@ nav span{
     font-size: 17px;
 }
 nav a:link, a:visited {
-    background-color: #376e85;
+    background-color: #65944e;
     color: white;
     width: 120px;
     padding: 18px 15px;
@@ -70,7 +70,7 @@ nav a:link, a:visited {
     font-size: 14px;
 }
 nav a:hover, a:active {
-    background-color: #52a2c2;
+    background-color: #bacd96;
 }
 input{
     box-sizing: border-box;
@@ -100,4 +100,8 @@ input[type=submit] {
 }
 form{
     margin-top: 50px;
+}
+
+#nav-logo {
+    width: 120px;
 }

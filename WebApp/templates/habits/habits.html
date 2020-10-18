@@ -3,10 +3,15 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='habits.css') }}">
 {% endblock %}
+
 {% block header %}
   <h1>{% block title %}User Habits{% endblock %}</h1>
 {% endblock %}
+
 {% block content %}
+
+  <a id="add-habit-link" href="{{ url_for('habit.add_habit') }} ">Add</a>
+
   {% for habit in habits %}
     <div ng-controller="myController" class="container">
       <div class="row">
@@ -22,5 +27,5 @@
       </div>
     </div>
   {% endfor %}
-  <a href="{{ url_for('habit.add_habit') }} ">Add</a>
+
 {% endblock %}
