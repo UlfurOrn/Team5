@@ -103,11 +103,30 @@ def delete_habit(habit):
 def userrecords():
     recorddict = get_user_records(
         current_app.config['API_URL'], session.get('user_id'))
-    if request.method == 'GET':
-        somestatement = True
+    if request.method == 'POST':
+        start_datetime = datetime.datetime.strptime(request.form['start_date'] + 'T' + request.form['start_time'], '%Y-%m-%dT%H:%M')
+        end_datetime = datetime.datetime.strptime(request.form['end_date'] + 'T' + request.form['end_time'], '%Y-%m-%dT%H:%M')
+        recorddict = record_daterange((start_datetime, end_datetime), recorddict['records'])
 
     return render_template('habits/records.html', records=recorddict['records'])
 
+def record_daterange(daterange, records):
+    '''Finds records withing a certain daterange
+
+    Args:
+        daterange (tuple): Tuple of datetime objects (start date, end date)
+        records (list): List of recoords
+
+    Returns:
+        ret_dict (dict): The records that fit in the daterange
+    '''
+
+    ret_dict = {'records': []}
+    for record in records:
+        if daterange[0] <= datetime.datetime.strptime(record['rdate'], '%Y-%m-%dT%H:%M:%S') <= daterange[1]:
+            ret_dict['records'].append(record)
+    
+    return ret_dict
 
 @bp.route('/records/<record>', methods=('GET', 'POST'))
 def single_record(record):

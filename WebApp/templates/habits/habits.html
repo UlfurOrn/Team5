@@ -1,23 +1,26 @@
 {% extends 'base.html' %}
-
+{% block style %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='habits.css') }}">
+{% endblock %}
 {% block header %}
   <h1>{% block title %}User Habits{% endblock %}</h1>
 {% endblock %}
-
 {% block content %}
-  <table style="width:100%">
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Measurement ID</th>
-    </tr>
-    {% for habit in habits %}
-      <tr>
-        <td><a href="{{ url_for('habit.single_habit', habit=habit) }}">{{ habit.name }}</a></td>
-        <td>{{ habit.description }}</td>
-        <td>{{ habit.measurementid }}</td>
-      </tr>
-    {% endfor %}
-  </table>
-  <a href="{{ url_for('habit.add_habit') }}">Add</a>
+  {% for habit in habits %}
+    <div ng-controller="myController" class="container">
+      <div class="row">
+          <div class="tile" ng-repeat="tile in items">
+            <a href="{{ url_for('habit.single_habit', habit=habit) }}">{{ habit.name }}</a>
+            <h3>
+              {{habit.description}}
+            </h3>
+            <p>
+              {{habit.measurementid}}
+            </p>
+          </div>
+      </div>
+    </div>
+  {% endfor %}
+  <a href="{{ url_for('habit.add_habit') }} ">Add</a>
 {% endblock %}
