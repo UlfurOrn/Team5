@@ -16,7 +16,7 @@
     <div ng-controller="myController" class="container">
       <div class="row">
           <div class="tile" ng-repeat="tile in items">
-            <a href="{{ url_for('habit.single_habit', habit=habit) }}">{{ habit.name }}</a>
+            <a class="habit-link" href="{{ url_for('habit.single_habit', habit=habit) }}">{{ habit.name }}</a>
             <h3>
               {{habit.description}}
             </h3>

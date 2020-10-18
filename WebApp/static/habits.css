@@ -30,7 +30,7 @@ header {
     display: inline;
 }
 
-.tile a:link, a:visited {
+.tile .habit-link:link, .habit-link:visited {
     background-color: #F78395;
     color: white;
     width: 120px;
@@ -42,7 +42,7 @@ header {
     font-size: 25px;
 }
 
-a:hover, a:active {
+.habit-link:hover, .habit-link:active {
     background-color: #FFA8B6;
 }
 
