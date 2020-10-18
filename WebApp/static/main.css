@@ -26,20 +26,21 @@ p{
     max-width: 1000px;
 }
 nav { 
-    padding: 20px 20px 20px 30px;
+    margin: -8px;
     display: flex; 
     align-items: center;
     background-color: white;
+    height: 55px;
 }
 nav ul { 
     display: flex; 
     list-style: none; 
     margin: 5px; 
-    padding: 0; 
 }
 nav li {
     float: right;
     display: inline;
+        margin-right: -5px;
 }
 nav h1 { 
     flex: auto; 
@@ -62,7 +63,7 @@ nav a:link, a:visited {
     background-color: #65944e;
     color: white;
     width: 120px;
-    padding: 18px 15px;
+    padding: 19.5px 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -103,5 +104,6 @@ form{
 }
 
 #nav-logo {
-    width: 120px;
+    height: 62px;
+    padding-top: 1px;
 }
