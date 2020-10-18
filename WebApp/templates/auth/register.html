@@ -25,8 +25,12 @@
       <label class="radio-label for="other">Other</label><br>
       <input type="number" placeholder="Weight (kg)" name="weight" id="weight" required><br>
       <input type="number" placeholder="Height (cm)" name="height" id="height" required><br>
+      {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
       <input class="auth-btn" type="submit" value="Register">
     </form>
 
   </div>
+  
 {% endblock %}

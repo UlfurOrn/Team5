@@ -1,0 +1,37 @@
+.account-container {
+    display: flex;
+    margin-top: 100px;
+}
+
+#account {
+    width: 50%;
+}
+
+#account-img {
+    width: 50%;
+}
+
+#account-img > img {
+    width: 100%;
+}
+
+#account-info {
+    background-color: #FFA8B6;
+    padding: 20px 0px 20px 50px;
+    margin: 0px 20px 100px 0px;
+    border-radius: 4px;
+}
+
+#edit-acc-link {
+    padding: 10px 30px 10px 30px;
+    color: #696969;
+    text-decoration: none;
+    border: 2px solid #65944e;
+    border-radius: 4px;
+}
+
+#edit-acc-link:hover {
+    background-color: #bacd96;
+    border: none;
+    color: white;
+}
