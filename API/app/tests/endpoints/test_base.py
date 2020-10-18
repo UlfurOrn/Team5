@@ -1,7 +1,10 @@
 import unittest
+from unittest.mock import Mock
 
 from flask import Flask
 from flask_restplus import Api
+
+from main.util.logging.logging_registry import LoggingRegistry
 
 from main.controller.record_controller import api as record_ns
 from main.controller.habit_controller import api as habit_ns
@@ -30,3 +33,14 @@ class TestBase(unittest.TestCase):
         self.valid_header = {
             "Content-Type": "application/json"
         }
+
+        mock_logger = Mock()
+
+        mock_logger.debug()
+        mock_logger.info()
+        mock_logger.exception()
+        mock_logger.critical()
+
+        mock_logger.reset_mock()
+
+        LoggingRegistry.LOGGER = mock_logger
