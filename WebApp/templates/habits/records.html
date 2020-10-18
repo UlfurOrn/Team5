@@ -26,12 +26,6 @@
       <th>Date</th>
       <th>Amount</th>
     </tr>
-    {% for record in records %}
-      <tr>
-        <th>Habit ID</th>
-        <th>Date</th>
-        <th>Amount</th>
-      </tr>
       {% for record in records %}
         <tr>
           <td><a class="rec-link" href="{{ url_for('habit.single_record', record=record) }}">{{ record.habitid }}</a></td>
