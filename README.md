@@ -262,7 +262,7 @@ Num | Non Functional Requirement | Priority
 2 | The response time shall be under 0.5 seconds | A 
 3 | The front end shall communicate with the backend | A 
 4 | The system shall be easy to use and understand | A 
-5 | A user shall be able to make an account via email | A 
+5 | If some parts of out system fails, the users info should be maintained and kept safe | A 
 6 | The system shall fulfil general security standards | A 
 7 | The user’s password shall be hashed in the database| A 
 8 | The system shall store the user’s information securely | A 
