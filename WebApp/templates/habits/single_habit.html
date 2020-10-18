@@ -40,7 +40,7 @@
 
           <div class="clearfix">
             <button type="button" onclick="document.getElementById('confirmDelete').style.display='none'" class="cancelbtn">Cancel</button>
-            <button type="button" onclick="document.getElementById('confirmDelete').style.display='none'" class="deletebtn">Delete</button>
+            <a href="{{ url_for('habit.delete_habit', habit=habit) }}">Delete</a>
           </div>
         </div>
       </form>
