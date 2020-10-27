@@ -4,9 +4,11 @@ from main.util.authentication.authentication_interface import AuthInterface
 
 
 class PasswordLength(AuthInterface):
+    MAX_LENGTH = 10
+
     @classmethod
     def test(cls, password):
-        return len(password) >= 10
+        return len(password) >= cls.MAX_LENGTH
 
 
 class PasswordLetter(AuthInterface):
