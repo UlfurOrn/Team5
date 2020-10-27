@@ -127,7 +127,7 @@ cd
 2. Export the environmental variables:
 ```sh
 Terminal: export FLASK_APP=WebApp
-Windows: set FLASK_APP=Webapp
+Windows: set FLASK_APP=WebApp
 ```
 3. Run the Flask app
 ```sh
