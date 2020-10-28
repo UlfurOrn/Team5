@@ -3,11 +3,13 @@ import functools
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 
 from ..services.api_calls import post_item, get_user, get_user_id, save_edited_user
+from .auth import login_required
 
 bp = Blueprint('account', __name__, url_prefix='/account')
 
 # User account view
 @bp.route('/', methods=('GET','POST'))
+@login_required
 def viewAccount():
     user_id = session.get('user_id')
     if request.method == 'GET':
@@ -15,6 +17,7 @@ def viewAccount():
     return render_template('account/viewAccount.html', account=details)
 
 @bp.route('/edit', methods=('GET','POST'))
+@login_required
 def editAccount():
     user_id = session.get('user_id')
     if request.method == 'GET':
