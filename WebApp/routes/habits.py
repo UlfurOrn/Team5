@@ -7,6 +7,7 @@ from .auth import login_required
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 
 from ..services.api_calls import get_user_habits, get_user_records, post_item, delete_item, put_item, get_measurements
+from .auth import login_required
 
 bp = Blueprint('habit', __name__, url_prefix='/habit')
 
@@ -14,6 +15,7 @@ bp = Blueprint('habit', __name__, url_prefix='/habit')
 
 
 @bp.route('/', methods=('GET', 'POST'))
+@login_required
 def userhabits():
     habitdict = get_user_habits(
         current_app.config['API_URL'], user_id=session.get('user_id'))
@@ -22,6 +24,7 @@ def userhabits():
 
 
 @bp.route('/<habit>', methods=('GET', 'POST'))
+@login_required
 def single_habit(habit):
     habit = literal_eval(habit)
     linked_records = get_user_records(
@@ -31,6 +34,7 @@ def single_habit(habit):
 
 
 @bp.route('/add', methods=('GET', 'POST'))
+@login_required
 def add_habit():
     measurements = get_measurements(current_app.config['API_URL'])[
         'measurements']
@@ -60,6 +64,7 @@ def add_habit():
 
 
 @bp.route('/<habit>/update', methods=('GET', 'POST'))
+@login_required
 def update_habit(habit):
     measurements = get_measurements(current_app.config['API_URL'])[
         'measurements']
@@ -93,6 +98,7 @@ def update_habit(habit):
 
 
 @bp.route('/<habit>/delete', methods=('GET', 'POST'))
+@login_required
 def delete_habit(habit):
     delete_item(current_app.config["API_URL"],
                 literal_eval(habit)['habitid'], 'habit')
@@ -100,6 +106,7 @@ def delete_habit(habit):
 
 
 @bp.route('/records', methods=('GET', 'POST'))
+@login_required
 def userrecords():
     recorddict = get_user_records(
         current_app.config['API_URL'], session.get('user_id'))
@@ -128,12 +135,15 @@ def record_daterange(daterange, records):
     
     return ret_dict
 
+
 @bp.route('/records/<record>', methods=('GET', 'POST'))
+@login_required
 def single_record(record):
     return render_template('/habits/single_record.html', record=literal_eval(record))
 
 
 @bp.route('/record/add', methods=('GET', 'POST'))
+@login_required
 def add_record():
     habits = get_user_habits(
         current_app.config['API_URL'], session.get('user_id'))['habits']
@@ -164,6 +174,7 @@ def add_record():
 
 
 @bp.route('/records/<record>/update', methods=('GET', 'POST'))
+@login_required
 def update_record(record):
     habits = get_user_habits(
         current_app.config['API_URL'], session.get('user_id'))['habits']
@@ -196,6 +207,7 @@ def update_record(record):
 
 
 @bp.route('/records/<record>/delete', methods=('GET', 'POST'))
+@login_required
 def delete_record(record):
     delete_item(current_app.config["API_URL"],
                 literal_eval(record)['recordid'], 'record')
