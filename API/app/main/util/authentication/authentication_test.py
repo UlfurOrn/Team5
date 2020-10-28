@@ -12,9 +12,10 @@ class AuthTest:
     PLUGIN_LIST = []
 
     @classmethod
-    def check_password(cls, password):
+    def valid_password(cls, password):
         security_level = 0
         for plugin in cls.PLUGIN_LIST:
-            security_level += plugin.test(password)
+            if plugin.test(password):
+                security_level += 1
 
         return security_level >= cls.MIN_SECURITY_LEVEL

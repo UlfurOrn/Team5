@@ -3,6 +3,7 @@ from flask_restplus import Resource
 from werkzeug.exceptions import BadRequest, NotFound
 
 from main.util.logging.logging_registry import LoggingRegistry
+from main.util.authentication.authentication_test import AuthTest
 
 from main.util.DTO.error_message import error_message
 from main.util.mappers.usermapper import UserMapper
@@ -33,10 +34,15 @@ class UserList(Resource):
         return user_list
 
     @api.response(201, 'User successfully created.')
+    @api.response(400, 'Invalid Password', error_message)
     @api.doc('create a new user')
     @api.expect(_expect, validate=True)
     def post(self):
         data = request.json
+
+        password = data["password"]
+        if not AuthTest.valid_password(password):
+            raise BadRequest("Password not secure")
 
         user = UserMapper()
         user.set_dict(data)
