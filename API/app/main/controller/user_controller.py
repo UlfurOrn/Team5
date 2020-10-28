@@ -37,6 +37,7 @@ class UserList(Resource):
     @api.expect(_expect, validate=True)
     def post(self):
         data = request.json
+
         user = UserMapper()
         user.set_dict(data)
         return DBapi.users.post(user)
