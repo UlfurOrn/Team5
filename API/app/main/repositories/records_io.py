@@ -27,8 +27,9 @@ class RecordsIO(AbcTable):
             super()._cur.execute("SELECT * FROM records;")
 
         records_list = []
-        for record_info in super()._cur.fetchall():
-            record = RecordMapper(*record_info)
-            records_list.append(record)
+        try:
+            for record_info in super()._cur.fetchall():
+                record = RecordMapper(*record_info)
+                records_list.append(record)
 
         return records_list

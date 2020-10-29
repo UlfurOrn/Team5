@@ -13,8 +13,9 @@ class McategoriesIO(AbcTable):
             super()._cur.execute("SELECT * FROM mcategories;")
 
         category_list = []
-        for category_info in super()._cur.fetchall():
-            category = CategoryMapper(*category_info)
-            category_list.append(category)
+        try:
+            for category_info in super()._cur.fetchall():
+                category = CategoryMapper(*category_info)
+                category_list.append(category)
 
         return category_list

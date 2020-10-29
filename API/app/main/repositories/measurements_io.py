@@ -13,8 +13,9 @@ class MeasurementsIO(AbcTable):
             super()._cur.execute("SELECT * FROM measurements;")
 
         measurements_list = []
-        for measurement_info in super()._cur.fetchall():
-            measurement = MeasurementMapper(*measurement_info)
-            measurements_list.append(measurement)
+        try:
+            for measurement_info in super()._cur.fetchall():
+                measurement = MeasurementMapper(*measurement_info)
+                measurements_list.append(measurement)
 
         return measurements_list

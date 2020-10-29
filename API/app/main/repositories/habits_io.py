@@ -23,8 +23,9 @@ class HabitsIO(AbcTable):
             super()._cur.execute("SELECT * FROM habits;")
 
         habits_list = []
-        for habit_info in super()._cur.fetchall():
-            habit = HabitMapper(*habit_info)
-            habits_list.append(habit)
+        try:
+            for habit_info in super()._cur.fetchall():
+                habit = HabitMapper(*habit_info)
+                habits_list.append(habit)
 
         return habits_list

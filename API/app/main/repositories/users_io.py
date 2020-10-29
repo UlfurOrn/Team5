@@ -23,10 +23,11 @@ class UsersIO(AbcTable):
             super()._cur.execute("SELECT * FROM users;")
 
         users_list = []
-        for user_info in super()._cur.fetchall():
-            user = UserMapper(*user_info)
-            users_list.append(user)
-
+        try:
+            for user_info in super()._cur.fetchall():
+                user = UserMapper(*user_info)
+                users_list.append(user)
+        
         return users_list
 
     @classmethod
