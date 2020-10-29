@@ -17,5 +17,7 @@ class McategoriesIO(AbcTable):
             for category_info in super()._cur.fetchall():
                 category = CategoryMapper(*category_info)
                 category_list.append(category)
-
+        except:
+            pass
+        
         return category_list

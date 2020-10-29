@@ -27,5 +27,7 @@ class HabitsIO(AbcTable):
             for habit_info in super()._cur.fetchall():
                 habit = HabitMapper(*habit_info)
                 habits_list.append(habit)
+        except:
+            pass
 
         return habits_list

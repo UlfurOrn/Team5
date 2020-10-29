@@ -17,5 +17,7 @@ class MeasurementsIO(AbcTable):
             for measurement_info in super()._cur.fetchall():
                 measurement = MeasurementMapper(*measurement_info)
                 measurements_list.append(measurement)
-
+        except:
+            pass
+        
         return measurements_list

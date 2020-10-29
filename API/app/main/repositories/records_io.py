@@ -31,5 +31,7 @@ class RecordsIO(AbcTable):
             for record_info in super()._cur.fetchall():
                 record = RecordMapper(*record_info)
                 records_list.append(record)
-
+        except:
+            pass
+        
         return records_list

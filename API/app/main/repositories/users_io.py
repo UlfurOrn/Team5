@@ -27,6 +27,8 @@ class UsersIO(AbcTable):
             for user_info in super()._cur.fetchall():
                 user = UserMapper(*user_info)
                 users_list.append(user)
+        except:
+            pass
         
         return users_list
 
