@@ -25,6 +25,11 @@ def editAccount():
     elif request.method == 'POST':
         details = get_user_id(current_app.config['API_URL'], user_id)
 
+<<<<<<< HEAD
+=======
+        print(details)
+
+>>>>>>> palliBranch
         if (request.form['fullname'] == ""):
             name = details['name']
         else:
@@ -59,11 +64,6 @@ def editAccount():
          #   gender = request.form['gender']
 
         
-        
-       
-        
-       
-
         error = None
         if error is None:
             print(f'Changing name to api: {current_app.config["API_URL"]}')
@@ -83,3 +83,42 @@ def editAccount():
         flash(error)
 
     return render_template('account/editAccount.html', account=details)
+
+@bp.route('/editpassword', methods=('GET','POST'))
+def editPassword():
+    user_id = session.get('user_id')
+    if request.method == 'GET':
+        details = get_user_id(current_app.config['API_URL'], user_id)
+    elif request.method == 'POST':
+        details = get_user_id(current_app.config['API_URL'], user_id)
+
+        print(details)
+        error = None
+        if (request.form['password1']==''):
+            password = details['password']
+        else:
+            if(request.form['password1']!=request.form['password2']):
+                error = "Passwords dont match"
+                password = details['password']
+            else:       
+                password = request.form['password1']
+            
+        if error is None:
+            print(f'Changing name to api: {current_app.config["API_URL"]}')
+            user = {
+                'password':password
+            }
+            resp = save_edited_user(current_app.config["API_URL"], user_id,user)
+            if resp is None:
+                error = resp
+            else:
+                error = resp
+            flash('Password successfully changed')
+        else:
+            flash(error)
+
+
+      
+
+        
+    return render_template('account/editPassword.html', account=details)
