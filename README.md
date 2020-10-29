@@ -44,6 +44,7 @@
   * [Sprint 2](#sprint-2)
   * [Sprint 3](#sprint-3)
   * [Sprint 4](#sprint-4)
+  * [Sprint 5](#sprint-5)
 * [Website](#website)
 * [Docker](#docker)
 * [Team Members](#team-members)
@@ -316,6 +317,16 @@ if the server hosting the website fails.
     decided to use Docker. We utilize docker by making preset docker containers of the REST api and the website allowing us to host it easily on multiple machines. The docker 
     containers contain our code as well as all dependencies and allow us to quickly bring up new website hosts if others where to fail. More information can be seen in the Docker 
     chapter below.
+
+### Sprint 5
+Previous conditional passes:  
+
+
+Microservice aspect:  
+For our microservice aspect we decided that it would be good to make a microservice out of our authentication in the REST api. This functionality is a big security risk and moving it to an independent microservice would allow us to secure it more and make sure it does not get exploited. For the patterns involved in the integration from monolith to microservice we would either utilize the Strangler approach or the Branch by abstraction. Both of these aproaches are good for our system, the strangler aporach can be done using a HTTP proxy since our REST api utilizes HTTP for communication. We could then simply start to implement the new authentication microservice and when it is ready change the proxy to the new one. The Branch by abstraction could also work really well for us since it is closely related to the Strangler approach but instead we would create an abstraction instead of a HTPP proxy. The reason both of these approaches would be good for our integration is because the authentication part is a really important one for the website an if the new one fails we can always go back to the old one. After the integration of the new one is fully complete and we make sure it works we would then start to remove the old authentication from the monolith system for security reasons as well as remove the test password functionality of the DBapi and implement it again in the new microservice.
+
+Screenshots of the system:  
+
 
 
 ## Website
