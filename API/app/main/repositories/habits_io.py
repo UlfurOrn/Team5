@@ -14,6 +14,7 @@ class HabitsIO(AbcTable):
     @classmethod
     def get(cls, habit_id=None, user_id=None):
         """ Takes in an int. Returns row from habits with set id or all rows if id=None as list of Habit objects"""
+        cls.test_connection()
         if habit_id:
             super()._cur.execute("SELECT * FROM habits WHERE habitid = %s;", (habit_id,))
         elif user_id:
@@ -22,8 +23,11 @@ class HabitsIO(AbcTable):
             super()._cur.execute("SELECT * FROM habits;")
 
         habits_list = []
-        for habit_info in super()._cur.fetchall():
-            habit = HabitMapper(*habit_info)
-            habits_list.append(habit)
+        try:
+            for habit_info in super()._cur.fetchall():
+                habit = HabitMapper(*habit_info)
+                habits_list.append(habit)
+        except:
+            pass
 
         return habits_list
