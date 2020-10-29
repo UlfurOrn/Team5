@@ -45,6 +45,6 @@ class AbcTable(ABC):
     def test_connection(cls):
         """ A method that checks if connection to the database is still intact, if not opens connection/cursor again """
         try:
-            cls._cur.execute("SELECT 1;")
+            cls._cur.execute("SELECT;")
         except psycopg2.InterfaceError:
             cls._cur = cls._conn.cursor(cursor_factory=extras.DictCursor)
