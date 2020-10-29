@@ -16,6 +16,7 @@ class UsersIO(AbcTable):
     @classmethod
     def get(cls, user_id=None):
         """ Takes in an int. Returns row from users with set id or all rows if id=None as list of User objects"""
+        cls.test_connection()
         if user_id:
             super()._cur.execute("SELECT * FROM users WHERE userid = %s;", (user_id,))
         else:
@@ -31,5 +32,6 @@ class UsersIO(AbcTable):
     @classmethod
     def checkpassword(cls, username, password):
         """ Takes in a username and a password and checks if the username and password match in the database """
+        cls.test_connection()
         super()._cur.execute("SELECT F_CheckPassword(%s, %s);", (password, username))
         return super()._cur.fetchall()

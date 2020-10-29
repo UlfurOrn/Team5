@@ -6,6 +6,7 @@ class MeasurementsIO(AbcTable):
     @classmethod
     def get(cls, measurement_id=None):
         """ Takes in an int. Returns row from habits with set id or all rows if id=None """
+        cls.test_connection()
         if measurement_id:
             super()._cur.execute("SELECT * FROM measurements WHERE measurementid = %s;", (measurement_id,))
         else:
