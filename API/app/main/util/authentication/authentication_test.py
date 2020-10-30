@@ -9,7 +9,13 @@ from main.util.authentication.authentication_plugins import (
 
 class AuthTest:
     MIN_SECURITY_LEVEL = 3
-    PLUGIN_LIST = []
+    PLUGIN_LIST = [
+        PasswordLength,
+        PasswordLetter,
+        PasswordCapital,
+        PasswordNumber,
+        PasswordSpecial
+    ]
 
     @classmethod
     def valid_password(cls, password):
