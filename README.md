@@ -58,7 +58,9 @@
 ## About The Project
 
 [![Swagger UI Screen Shot][product-screenshot]](https://i.imgur.com/WP7MQJj.png)
-
+<p align="center">
+  Image of the REST api test website made with Flask-restplus
+</p>
 This is the Github repository for Team 5's project in T-302-HONN.
 We created a habit tracking platform for any information a user would
 like to track like kilometers run, calories eaten, books read etc.
@@ -127,23 +129,20 @@ python3 -m venv venv
 API:
 
 
-1. Move to API folder
-```sh
-cd API/
-```
-2. Install packages with pip
+
+1. Install packages with pip
 ```sh
 pip install -r requirements.txt
 ```
-3. Move to main app folder
+2. Move to main app folder
 ```sh
-cd app/
+cd API/app/
 ```
-4. Run the API
+3. Run the API
 ```sh
 python app.py
 ```
-5. Open the link: http://127.0.0.1:8000/ in a web browser and try out the REST API
+4. Open the link: http://127.0.0.1:8000/ in a web browser and try out the REST API
 
 
 WebApp:
