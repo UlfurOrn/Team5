@@ -156,7 +156,7 @@ cd dest_to_folder/Team5/
 ```sh
 Terminal: export FLASK_APP=WebApp
 Windows cmd: set FLASK_APP=WebApp
-Windows Powershell: 
+Windows Powershell: $env:FLASK_APP=WebApp
 ```
 3. Run the Flask app
 ```sh
