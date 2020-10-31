@@ -16,6 +16,18 @@ h1 {
     margin-bottom: 50px;
 }
 
+input[type=submit] {
+    font-size: 16px;
+    background-color: #F78395;
+    color: white;
+    font-weight: bold;
+}
+
+input[type=submit]:hover {
+    background-color: #FFA8B6;
+    color: white;
+}
+
 .rec-link {
     color: black !important;
 }
