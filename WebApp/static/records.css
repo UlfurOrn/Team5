@@ -20,15 +20,15 @@ h1 {
     color: black !important;
 }
 
-#add-link, #update {
+#add-link, #update, #cancel-delete {
     border: 2px solid #65944e;
 }
 
-#delete {
+#delete, #confirm-delete {
     border: 2px solid #F78395;
 }
 
-#add-link, #update, #delete {
+#add-link, #update, #delete, #confirm-delete, #cancel-delete {
     height: 42px;
     padding: 10px 30px 10px 30px;
     color: #696969;
@@ -38,19 +38,58 @@ h1 {
     font-size: 15px;
 }
 
-#add-link:hover, #update:hover {
+#add-link:hover, #update:hover, #cancel-delete:hover {
     background-color: #bacd96;
     border: 2px solid #bacd96;
     color: white;
 }
 
-#delete:hover {
+#delete:hover, #confirm-delete:hover {
+    border: 2px solid #F78395;
     background-color: #F78395;
-    border: none;
     color: white;
 }
 
 .single-record {
     font-size: 20px;
     margin-bottom: 30px;
+}
+
+.container {
+    padding: 16px;
+    text-align: center;
+}
+p {
+    color: black;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #B76873;
+    padding-top: 50px
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto;
+    border-radius: 4px;
+    width: 80%;
+}
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+.close:hover,
+.close:focus {
+    color: #F78395;
+    cursor: pointer;
 }
