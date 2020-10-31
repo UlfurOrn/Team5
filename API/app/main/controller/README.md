@@ -8,6 +8,7 @@ Information for the controllers used by the REST api.
 ## General info
 This folder contains all the controllers we use for the REST api.
 #### Dependencies:
+* [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 * [flask-restplus](https://flask-restplus.readthedocs.io/en/stable/)
 * [Werkzeug](https://pypi.org/project/Werkzeug/)
 
