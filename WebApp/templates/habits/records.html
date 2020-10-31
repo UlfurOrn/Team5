@@ -6,9 +6,7 @@
 
 {% block content %}
 
- <div class="records-container">
-
-    <h1>{% block title %}User Records{% endblock %}</h1>
+  <h1>{% block title %}User Records{% endblock %}</h1>
 
   <form method="post">
     <label for="start_date">Start Datetime:</label>
@@ -37,6 +35,5 @@
 
     <a id="add-link" href="{{ url_for('habit.add_record') }}">Add</a>
 
-  </div>
 
 {% endblock %}

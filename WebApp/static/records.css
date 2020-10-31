@@ -2,7 +2,7 @@ h1 {
     color: black;
 }
 
-.records-container {
+.content {
     margin-top: 100px;
     padding: 3%;
     color: black;
@@ -20,27 +20,37 @@ h1 {
     color: black !important;
 }
 
+#add-link, #update {
+    border: 2px solid #65944e;
+}
+
+#delete {
+    border: 2px solid #F78395;
+}
+
 #add-link, #update, #delete {
+    height: 42px;
     padding: 10px 30px 10px 30px;
     color: #696969;
     text-decoration: none;
-    border: 2px solid #65944e;
     border-radius: 4px;
+    background-color: white;
+    font-size: 15px;
 }
 
-#add-link:hover, #update, #delete {
+#add-link:hover, #update:hover {
     background-color: #bacd96;
+    border: 2px solid #bacd96;
+    color: white;
+}
+
+#delete:hover {
+    background-color: #F78395;
     border: none;
     color: white;
 }
 
-.single-records-container {
-    padding: 20px;
-    margin-top: 100px;
-    background-color: white;
-    border-radius: 4px;
-}
-
 .single-record {
-    margin-bottom: 50px;
+    font-size: 20px;
+    margin-bottom: 30px;
 }
