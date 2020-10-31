@@ -64,26 +64,26 @@ We created a habit tracking platform for any information a user would
 like to track like kilometers run, calories eaten, books read etc.
 The project was built in 5 sprints using the scrum framework where
 each sprint got us closer and closer to our goal of a finished system.  
-Sprint 1 consisted of creating a REST api and a Database with a 
-database api using Flask-restplus and a Postgresql database.  
-Sprint 2 was the start of the website as well as a database redesign,
-refactoring of the REST and DB apis and the creation of a logger and
-a mail-service. This sprint also included some lecture aspects that
-we needed to implement.  
-Sprint 3 was mostly about making all the required diagrams and
-documenting the design principles as well as more refactoring to
-make the codebase more understandable and easily maintainable. We
-also added a lot of functionality to the website.  
-Sprint 4 was when the website took its current look. We made the
-website look a lot better, added functionality, documented some
-lecture aspects like risk management, non-functional requirements
-and plan logs. We also started hosting the website on a domain and
-made a docker container for future hosting. We also added more
-functionality to the REST api and did general debugging.  
-Sprint 5 was the final sprint. We went over all README files, tied up
-loose ends, fixed bugs, wrote more tests, reviewed previous
-conditional passes, added final functionality and made the website a
-functional application for people to use.  
+* Sprint 1 consisted of creating a REST api and a Database with a 
+  database api using Flask-restplus and a Postgresql database.  
+* Sprint 2 was the start of the website as well as a database redesign,
+  refactoring of the REST and DB apis and the creation of a logger and
+  a mail-service. This sprint also included some lecture aspects that
+  we needed to implement.  
+* Sprint 3 was mostly about making all the required diagrams and
+  documenting the design principles as well as more refactoring to
+  make the codebase more understandable and easily maintainable. We
+  also added a lot of functionality to the website.  
+* Sprint 4 was when the website took its current look. We made the
+  website look a lot better, added functionality, documented some
+  lecture aspects like risk management, non-functional requirements
+  and plan logs. We also started hosting the website on a domain and
+  made a docker container for future hosting. We also added more
+  functionality to the REST api and did general debugging.  
+* Sprint 5 was the final sprint. We went over all README files, tied up
+  loose ends, fixed bugs, wrote more tests, reviewed previous
+  conditional passes, added final functionality and made the website a
+  functional application for people to use.  
 
 ### Screenshots
 Here are a few screenshots of the current system which can also be
