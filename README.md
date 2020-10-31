@@ -20,7 +20,7 @@
     <a href="https://github.com/UlfurOrn/Team5"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/UlfurOrn/Team5">View Demo</a>
+    <a href="https://habittracker.gudjoniv.com">View Site</a>
     ·
     <a href="https://github.com/UlfurOrn/Team5/issues">Report Bug</a>
     ·
@@ -34,6 +34,7 @@
 ## Table of Contents
 
 * [About the Project](#about-the-project)
+  * [Screenshots](#screenshots)
   * [Built With](#built-with)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
@@ -44,6 +45,7 @@
   * [Sprint 2](#sprint-2)
   * [Sprint 3](#sprint-3)
   * [Sprint 4](#sprint-4)
+  * [Sprint 5](#sprint-5)
 * [Website](#website)
 * [Docker](#docker)
 * [Team Members](#team-members)
@@ -56,9 +58,38 @@
 ## About The Project
 
 [![Swagger UI Screen Shot][product-screenshot]](https://i.imgur.com/WP7MQJj.png)
-
+<p align="center">
+  Image of the REST api test website made with Flask-restplus
+</p>
 This is the Github repository for Team 5's project in T-302-HONN.
-We created a habit tracking platform for nutritional information.
+We created a habit tracking platform for any information a user would
+like to track like kilometers run, calories eaten, books read etc.
+The project was built in 5 sprints using the scrum framework where
+each sprint got us closer and closer to our goal of a finished system.  
+* Sprint 1 consisted of creating a REST api and a Database with a 
+  database api using Flask-restplus and a Postgresql database.  
+* Sprint 2 was the start of the website as well as a database redesign,
+  refactoring of the REST and DB apis and the creation of a logger and
+  a mail-service. This sprint also included some lecture aspects that
+  we needed to implement.  
+* Sprint 3 was mostly about making all the required diagrams and
+  documenting the design principles as well as more refactoring to
+  make the codebase more understandable and easily maintainable. We
+  also added a lot of functionality to the website.  
+* Sprint 4 was when the website took its current look. We made the
+  website look a lot better, added functionality, documented some
+  lecture aspects like risk management, non-functional requirements
+  and plan logs. We also started hosting the website on a domain and
+  made a docker container for future hosting. We also added more
+  functionality to the REST api and did general debugging.  
+* Sprint 5 was the final sprint. We went over all README files, tied up
+  loose ends, fixed bugs, wrote more tests, reviewed previous
+  conditional passes, added final functionality and made the website a
+  functional application for people to use.  
+
+### Screenshots
+Here are a few screenshots of the current system which can also be
+accessed at https://habittracker.gudjoniv.com 
 
 
 ### Built With
@@ -98,36 +129,34 @@ python3 -m venv venv
 API:
 
 
-1. Move to API folder
-```sh
-cd API/
-```
-2. Install packages with pip
+
+1. Install packages with pip
 ```sh
 pip install -r requirements.txt
 ```
-3. Move to main app folder
+2. Move to main app folder
 ```sh
-cd app/
+cd API/app/
 ```
-4. Run the API
+3. Run the API
 ```sh
 python app.py
 ```
-5. Open the link: http://127.0.0.1:8000/ in a web browser and try out the REST API
+4. Open the link: http://127.0.0.1:8000/ in a web browser and try out the REST API
 
 
 WebApp:
 
 
-1. Move to the Project folder
+1. Move to the root of the Project folder
 ```sh
-cd
+cd dest_to_folder/Team5/
 ```
 2. Export the environmental variables:
 ```sh
 Terminal: export FLASK_APP=WebApp
-Windows: set FLASK_APP=Webapp
+Windows cmd: set FLASK_APP=WebApp
+Windows Powershell: $env:FLASK_APP=WebApp
 ```
 3. Run the Flask app
 ```sh
@@ -316,6 +345,27 @@ if the server hosting the website fails.
     decided to use Docker. We utilize docker by making preset docker containers of the REST api and the website allowing us to host it easily on multiple machines. The docker 
     containers contain our code as well as all dependencies and allow us to quickly bring up new website hosts if others where to fail. More information can be seen in the Docker 
     chapter below.
+
+### Sprint 5
+Previous conditional passes:  
+* Dependency injection:  
+In sprint 3 we kind of got a conditional pass for our dependency injection not being quite correct. So we decided to rather talk about our other dependency injection which can be 
+found in the mail service. The mail_service.py file contains a class that takes in another class which can then be used. This class allows for a quick and easy change of classes by 
+simply changing the inserted class allowing us to have different classes with different functionality be interchangeable and creates no dependencies in the classes that use this 
+class to rely specifically on a single class. We hope that this class follows the correct dependency injection pattern.
+
+Microservice aspect:  
+For our microservice aspect we decided that it would be good to make a microservice out of our authentication in the REST api. This functionality is a big security risk and moving it 
+to an independent microservice would allow us to secure it more and make sure it does not get exploited. For the patterns involved in the integration from monolith to microservice we 
+would either utilize the Strangler approach or the Branch by abstraction. Both of these aproaches are good for our system, the strangler aporach can be done using a HTTP proxy since 
+our REST api utilizes HTTP for communication. We could then simply start to implement the new authentication microservice and when it is ready change the proxy to the new one. The 
+Branch by abstraction could also work really well for us since it is closely related to the Strangler approach but instead we would create an abstraction instead of a HTPP proxy. The 
+reason both of these approaches would be good for our integration is because the authentication part is a really important one for the website an if the new one fails we can always 
+go back to the old one. After the integration of the new one is fully complete and we make sure it works we would then start to remove the old authentication from the monolith system 
+for security reasons as well as remove the test password functionality of the DBapi and implement it again in the new microservice.
+
+Screenshots of the system:  
+See chapter [About the Project](#about-the-project)
 
 
 ## Website

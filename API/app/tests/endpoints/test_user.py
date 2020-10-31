@@ -9,14 +9,14 @@ class TestUserEndpoint(TestBase):
         super(TestUserEndpoint, self).setUp()
 
         self.test_user_mapper = UserMapper(
-            1, "testuser", "testuser@email.com", 'testuser', 'testpassword', "2020-04-25", "m", 85, 180
+            1, "testuser", "testuser@email.com", 'testuser', 'T3stPassw0rd', "2020-04-25", "m", 85, 180
         )
         self.test_user_dict = {
             'userid': 1,
             'name': "testuser",
             'email': "testuser@email.com",
             'username': 'testuser',
-            'password': 'testpassword',
+            'password': 'T3stPassw0rd',
             'dob': "2020-04-25",
             'gender': "m",
             'weight': 85,
@@ -141,3 +141,16 @@ class TestUserEndpoint(TestBase):
         for response in response_list:
             assert response.json["message"] == "User with id 1 not found"
             assert response.status_code == 404
+
+    @patch("main.controller.user_controller.DBapi.users.post")
+    def test_invalid_password(self, mock_db):
+        mock_db.return_value = None
+
+        password = self.test_user_dict["password"]
+        self.test_user_dict["password"] = "invalid password"
+        response = self.app.post("/user", headers=self.valid_header, json=self.test_user_dict)
+        data = response.json
+        self.test_user_dict["password"] = password
+
+        assert data == {"message": "Password not secure"}
+        mock_db.assert_not_called()
