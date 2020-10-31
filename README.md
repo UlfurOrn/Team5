@@ -148,14 +148,15 @@ python app.py
 WebApp:
 
 
-1. Move to the Project folder
+1. Move to the root of the Project folder
 ```sh
-cd
+cd dest_to_folder/Team5/
 ```
 2. Export the environmental variables:
 ```sh
 Terminal: export FLASK_APP=WebApp
-Windows: set FLASK_APP=WebApp
+Windows cmd: set FLASK_APP=WebApp
+Windows Powershell: 
 ```
 3. Run the Flask app
 ```sh
