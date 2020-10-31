@@ -81,7 +81,7 @@ nav a:link, a:visited {
 nav a:hover, a:active {
     background-color: #bacd96;
 }
-input{
+input, select{
     box-sizing: border-box;
     padding-left: 15px;
     background-color: #E8E8E8;
