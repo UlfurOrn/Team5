@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 {% endblock %}
 <nav>
-  <h1><img id="nav-logo" src="../static/images/habittracker.png" alt="Fruit"></h1>
+  <h1><img id="nav-logo" src="../../static/images/habittracker.png" alt="Fruit"></h1>
   <ul>
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
