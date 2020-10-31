@@ -47,4 +47,6 @@ class AbcTable(ABC):
         try:
             cls._cur.execute("SELECT;")
         except psycopg2.InterfaceError:
+            cls._conn = psycopg2.connect("dbname=habittracker2 user=habitapi password=habitapi123&  host=gudjoniv.com")
+            cls._conn.autocommit = True
             cls._cur = cls._conn.cursor(cursor_factory=extras.DictCursor)
