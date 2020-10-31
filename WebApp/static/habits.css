@@ -52,11 +52,11 @@ h1{
     background-color: #8bd8f7;
 }
 
-.container {
+.confirm-container {
   padding: 16px;
   text-align: center;
 }
-p {
+.confirm-container > p {
   color: black;
 }
 .modal {
