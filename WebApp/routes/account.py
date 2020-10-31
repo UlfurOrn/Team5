@@ -25,11 +25,8 @@ def editAccount():
     elif request.method == 'POST':
         details = get_user_id(current_app.config['API_URL'], user_id)
 
-<<<<<<< HEAD
-=======
         print(details)
 
->>>>>>> palliBranch
         if (request.form['fullname'] == ""):
             name = details['name']
         else:
