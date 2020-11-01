@@ -31,6 +31,10 @@
           <td>{{ record.amount }}</td>
         </tr>
       {% endfor %}
+        <tr>
+          <th>Total Amount</th>
+          <td>{{ total_amount }}</td>
+        </tr>
     </table>
 
     <a id="add-link" href="{{ url_for('habit.add_record') }}">Add</a>
