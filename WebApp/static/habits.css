@@ -44,7 +44,7 @@ h3{
   width: 290px;
   height: 230px;
   margin: 20px;
-  background-color: #F78395;
+  background-color: #FFA8B6;
 }
 
 .row{
@@ -54,7 +54,7 @@ h3{
 }
 
 .tile .habit-link:link, .habit-link:visited {
-    background-color: #F78395;
+    background-color: #FFA8B6;
     color: white;
     width: 260px;
     padding: 18px 15px;
@@ -66,7 +66,7 @@ h3{
 }
 
 .habit-link:hover, .habit-link:active {
-    background-color: #FFA8B6;
+    background-color: #F78395;
 }
 
 .confirm-container {
