@@ -47,10 +47,13 @@ h1 {
     text-decoration: none;
     border: 2px solid #65944e;
     border-radius: 4px;
+    margin-right: 2px;
 }
 
-#edit-acc-link:hover, #update-passsword:hover  {
+
+#edit-acc-link:hover, #update-passsword:hover {
     background-color: #bacd96;
     border: none;
     color: white;
-}
+    display: inline;
+  }

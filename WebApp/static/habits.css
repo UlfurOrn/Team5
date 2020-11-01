@@ -1,9 +1,25 @@
-header {
-  margin-top: 100px;
-}
-
 h1{
   display: inline;
+  color: black;
+}
+h3{
+  text-align: left;
+  margin-left: 5px;
+  font-size: 23px;
+}
+
+.content {
+  margin-top: 100px;
+  padding: 3%;
+  color: black;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.container {
+  background-color: white;
+  display: inline-block;
+ 
 }
 
 #add-habit-link {
@@ -25,22 +41,22 @@ h1{
 }
 
 .tile {
-    width: 250px;
-    height: 200px;
-    margin: 20px;
-    background-color: #6aa9c2 ;
-    opacity: 0.8;
+  width: 290px;
+  height: 230px;
+  margin: 20px;
+  background-color: #F78395;
 }
 
 .row{
-    float: left;
-    display: inline;
+  float: left;
+  display: inline;
+  
 }
 
 .tile .habit-link:link, .habit-link:visited {
-    background-color: #6aa9c2;
+    background-color: #F78395;
     color: white;
-    width: 220px;
+    width: 260px;
     padding: 18px 15px;
     text-align: center;
     text-decoration: none;
@@ -50,7 +66,7 @@ h1{
 }
 
 .habit-link:hover, .habit-link:active {
-    background-color: #8bd8f7;
+    background-color: #FFA8B6;
 }
 
 .confirm-container {
