@@ -4,6 +4,7 @@ from main.util.authentication.authentication_interface import AuthInterface
 
 
 class PasswordLength(AuthInterface):
+    """Check that a password is at least MAX_LENGTH characters long"""
     MAX_LENGTH = 10
 
     @classmethod
@@ -12,6 +13,7 @@ class PasswordLength(AuthInterface):
 
 
 class PasswordLetter(AuthInterface):
+    """Checks that a password has at least 1 lowercase letter"""
     @classmethod
     def test(cls, password):
         for c in password:
@@ -21,6 +23,7 @@ class PasswordLetter(AuthInterface):
 
 
 class PasswordCapital(AuthInterface):
+    """Checks that a password has at least 1 capital letter"""
     @classmethod
     def test(cls, password):
         for c in password:
@@ -30,6 +33,7 @@ class PasswordCapital(AuthInterface):
 
 
 class PasswordNumber(AuthInterface):
+    """Checks that a password has at least 1 number"""
     @classmethod
     def test(cls, password):
         for c in password:
@@ -39,6 +43,7 @@ class PasswordNumber(AuthInterface):
 
 
 class PasswordSpecial(AuthInterface):
+    """Checks that a password has at least 1 special character"""
     @classmethod
     def test(cls, password):
         for c in password:
