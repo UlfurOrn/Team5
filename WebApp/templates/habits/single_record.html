@@ -6,14 +6,19 @@
 
 {% block content %}
 
-  <div class="single-record">
-    </p><b>Habit ID:</b> {{ record.habitid }}<br><br>
-    <b>Date:</b> {{ record.rdate }}<br><br>
-    <b>Amount:</b> {{ record.amount }}<br><br>
-  </div>
+<div class="single-record-container">
+  <div id="single-rec">
+    <div class="single-record">
+      </p><b>Habit ID:</b> {{ record.habitid }}<br><br>
+      <b>Date:</b> {{ record.rdate }}<br><br>
+      <b>Amount:</b> {{ record.amount }}<br><br>
+    </div>
     <a id="update" href="{{ url_for('habit.update_record', record=record) }}">Update</a>
     <button id="delete" onclick="document.getElementById('confirmDelete').style.display='block'">Delete</button>
-  
+  </div>
+
+  <div id="single-rec-img"><img src="../../static/images/peach.jpg" alt="Peach"></div>
+</div>
 
   <!-- Confirm deletion Modal -->
   <div id="confirmDelete", class="modal">
