@@ -20,6 +20,10 @@
   <input type="number" placeholder="Weight (kg)" name="weight" id="weight"><br>
   <input type="number" placeholder="Height (cm)" name="height" id="height" ><br>
 
+
+  
   <input type="submit" value="Save">
+  
+  <a id="edit-acc-link" href="{{ url_for('account.deleteAccount') }}">Delete Account</a>
 </form>
 {% endblock %}
