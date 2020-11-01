@@ -65,6 +65,10 @@ h3{
     font-size: 25px;
 }
 
+.tile > h3 {
+  color: white;
+}
+
 .habit-link:hover, .habit-link:active {
     background-color: #F78395;
 }
@@ -151,7 +155,7 @@ h3{
   width: 50%;
 }
 
-h3 {
+records-table > h3 {
   margin-top: 0px;
 }
 
