@@ -1,14 +1,16 @@
 import pytest
 
 def test_index(client, auth):
-    response = client.get("/auth/login")
-    assert b"Log In" in response.data
-    assert b"Register" in response.data
-
     auth.login()
     response = client.get("/habit/records")
-    assert b"User Records" in response.data
-    assert b"Log Out" in response.data
-    assert b"View Account" in response.data
-    assert b"habits" in response.data
-    assert b"records" in response.data
+    assert b'User Records' in response.data
+
+@pytest.mark.parametrize('path', (
+    '/habit/records',
+    '/habit/records/1',
+    '/habit/records/1/update',
+    '/habit/records/1/delete'
+))
+def test_login_required(client, path):
+    response = client.post(path)
+    assert response.headers['Location'] == 'http://localhost/auth/login'

@@ -25,8 +25,6 @@ def editAccount():
     elif request.method == 'POST':
         details = get_user_id(current_app.config['API_URL'], user_id)
 
-        print(details)
-
         if (request.form['fullname'] == ""):
             name = details['name']
         else:
@@ -89,7 +87,6 @@ def editPassword():
     elif request.method == 'POST':
         details = get_user_id(current_app.config['API_URL'], user_id)
 
-        print(details)
         error = None
         if (request.form['password1']==''):
             password = details['password']
@@ -113,9 +110,5 @@ def editPassword():
             flash('Password successfully changed')
         else:
             flash(error)
-
-
-      
-
-        
+ 
     return render_template('account/editPassword.html', account=details)
