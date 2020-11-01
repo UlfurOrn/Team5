@@ -226,8 +226,8 @@ coverage report -m
 ## Lecture Aspects
 
 ### Sprint 1
-For this sprint we used a layered design where the database (data) and the Rest API (domain) work as independant entities. The presentation layer will be implemented in a future sprint.
-Objer-Oriented Programming was implemented in the DBapi using abstract classes and a main gateway (see more in services README.md). Encapsulation is also used is various places in the API.
+For this sprint we used a layered design where the database (data) and the Rest API (domain) work as independent entities. The presentation layer will be implemented in a future sprint.
+Object-Oriented Programming was implemented in the DBapi using abstract classes and a main gateway (see more in services README.md). Encapsulation is also used is various places in the API.
 
 ### Sprint 2
 The six of the eight Base Design Patterns we decided on implementing for our system are the following:
@@ -237,7 +237,8 @@ The registry design pattern is used to implement a global sole instance logger t
 this introduces logging to our system.
 
 * Plug-in: 
-The Plug-in pattern is used to read a config file for the logger, aka output format, output file and more
+The plugin pattern was implemented in the authentication password check. It allows for easy
+customization of what a password needs to fulfil to be valid.
 
 * Mapper:
 The Mapper design pattern is implemented to make changing between the rest api bodies and database structure easier. 
@@ -279,10 +280,10 @@ Conway´s Law:
 
 Components:
 * The first component is the Database. The current database we are using is a PostgreSQL 12.2 running on a Ubuntu 18.04.4 machine. This component is easily replaceable requiring only 
-the change of the database IO classes in the DBapi. The database component is responisble for storing all the data of the system like the users, records and habits as well as storing 
+the change of the database IO classes in the DBapi. The database component is responsible for storing all the data of the system like the users, records and habits as well as storing 
 the users passwords and offering a way to verify passwords.
 * The second component is the Mail service. This component is an individual and easily replaceable component that simply handles sending out emails for the system. Changing out this 
-component is not hard since it is not tigtly coupled with other components.
+component is not hard since it is not tightly coupled with other components.
 
 Non-Functional requirements:
 
@@ -304,17 +305,17 @@ Flask has some known issues, for example the flask-RESTplus extension is unmaint
 The system is currently hosted by Guðjón’s at-home server.
 
 Logs:  
-We are currently handeling logs of the active systems that is the WebApp requests, the REST api and the Database. These logs are simply auto generated for us when the applications 
+We are currently handling logs of the active systems that is the WebApp requests, the REST api and the Database. These logs are simply auto generated for us when the applications 
 run and they are all currently stored on the server that is hosting the Database and the Website. Here below are the 5 components we would like to monitor in more depth.
-* The first component we would like to monitor is the Server that hosts the database. This server is a fundimental to the whole service and so it is paramount that is stayes up and 
+* The first component we would like to monitor is the Server that hosts the database. This server is a fundamental to the whole service and so it is paramount that is stays up and 
 running. The metrics we would like to monitor are the hardware loads, network usage, power consumption and error rates. These metrics would give us a good idea of how our database 
 server is being used, how much it costs us and would give us errors about network issues or the server going offline.
 * The second component we would monitor is the database. Here the metrics would be number of queries, query logs, average response time, data usage and number of rows in the tables. 
 These metrics would help us get a good look at the time people need to wait, the highs and lows of traffic and it would also give us time to prepare for the event that the data usage 
-goes over our available data as well as give us insight into the ammount of data in the database like number of users. The query logs would then also enable us to look at suspicious 
+goes over our available data as well as give us insight into the amount of data in the database like number of users. The query logs would then also enable us to look at suspicious 
 activities.
-* The third component is the REST api. Here we would like to get metrics for the number of requests, number of individual users, logs of requests and average respons time. These 
-metrics allow us to catch potential missuse of the system for example one individual sending many requsts in a short time frame as well as give us an idea of the load on the system.
+* The third component is the REST api. Here we would like to get metrics for the number of requests, number of individual users, logs of requests and average response time. These 
+metrics allow us to catch potential misuse of the system for example one individual sending many requests in a short time frame as well as give us an idea of the load on the system.
 * The fourth component would be the servers or the docker containers hosting the Webapp. Here we would monitor the load of each server/container to enable us to increase or decrease 
 the number of servers hosting the website/REST api to give the users a good experience with latency and to save money in hosting costs.
 * The fifth and final component would be the Website itself. Here we could utilize Google Analytics or other similar applications to monitor how the users interact with our website. 
@@ -329,15 +330,15 @@ system will not be accessible by anyone.
 and the Website but the database is only one and if it fails everything will fail. 
     * The first high risk event is the event of a hard-drive failure. This would cause all the data to be lost and the service would effectively seize to exist if real world users 
     relied on it. To mitigate this risk the server running the database would need to utilize either a Raid 1 or Raid 4/5 for redundancy.
-    * The second high risk factor is the possibility of a lost connection or power-outage to the server. In case of a power-outage a good UPS would help to stop the possiblity of the 
+    * The second high risk factor is the possibility of a lost connection or power-outage to the server. In case of a power-outage a good UPS would help to stop the possibility of the 
     server going down. The connection issue and the power-issue can also be solved by utilizing another backup server somewhere else in the world, preferably not in the same country/
     city, that would always run alongside the main server. This would mean that in the case of an outage on the main the backup could hold the connection up. This would also mean 
     that the backup server could help with query requests to reduce latency and wait times between queries.
-* The REST api has a relatively high risk of being misuesed and abused. Since it is a connection to the database, getting access to the REST api could be very usefull to an attacker. 
+* The REST api has a relatively high risk of being misused and abused. Since it is a connection to the database, getting access to the REST api could be very useful to an attacker. 
     * The highest risk of the REST api is the possibility of abuse to get information or alter information in the database a user should not be able to get or do. To mitigate this 
     risk we need to implement an authentication method for the REST api where a logged in person can only send requests to the REST api for their own data. This mitigates the risk of 
     someone easily sending a REST request on another persons data.
-    * The second way to reduce the potential of missuse is hosting the REST api on a secure server somewhere. Meaning that if we secure the REST api to its full potential we also 
+    * The second way to reduce the potential of misuse is hosting the REST api on a secure server somewhere. Meaning that if we secure the REST api to its full potential we also 
     need to secure the machine it is running on.
 * The third and final highest risk we identified is the Hosting of the service. In this sprint we started hosting the website and so it is good to look at ways to minimize downtime 
 if the server hosting the website fails.
@@ -353,13 +354,18 @@ In sprint 3 we kind of got a conditional pass for our dependency injection not b
 found in the mail service. The mail_service.py file contains a class that takes in another class which can then be used. This class allows for a quick and easy change of classes by 
 simply changing the inserted class allowing us to have different classes with different functionality be interchangeable and creates no dependencies in the classes that use this 
 class to rely specifically on a single class. We hope that this class follows the correct dependency injection pattern.
+* Plugin pattern:
+In sprint 2 we got a conditional pass on the plugin pattern since it wasn't really a plugin pattern. We had a hard time finding a way to change this implementation to fulfil the
+Plugin pattern, so we decided instead to create a new use-case for the Plugin pattern. We created the password checker in the util/authentication folder. This uses the Plugin
+pattern to be able to easily switch out what a password should include to be a valid password. These plugins can then be added to a list of plugins which are then all tested
+against the password to see if it reaches a certain security level. We hope that this is a valid implementation of the Plugin design pattern.
 
 Microservice aspect:  
 For our microservice aspect we decided that it would be good to make a microservice out of our authentication in the REST api. This functionality is a big security risk and moving it 
 to an independent microservice would allow us to secure it more and make sure it does not get exploited. For the patterns involved in the integration from monolith to microservice we 
-would either utilize the Strangler approach or the Branch by abstraction. Both of these aproaches are good for our system, the strangler aporach can be done using a HTTP proxy since 
+would either utilize the Strangler approach or the Branch by abstraction. Both of these approaches are good for our system, the strangler approach can be done using a HTTP proxy since 
 our REST api utilizes HTTP for communication. We could then simply start to implement the new authentication microservice and when it is ready change the proxy to the new one. The 
-Branch by abstraction could also work really well for us since it is closely related to the Strangler approach but instead we would create an abstraction instead of a HTPP proxy. The 
+Branch by abstraction could also work really well for us since it is closely related to the Strangler approach but instead we would create an abstraction instead of a HTTP proxy. The 
 reason both of these approaches would be good for our integration is because the authentication part is a really important one for the website an if the new one fails we can always 
 go back to the old one. After the integration of the new one is fully complete and we make sure it works we would then start to remove the old authentication from the monolith system 
 for security reasons as well as remove the test password functionality of the DBapi and implement it again in the new microservice.
@@ -388,7 +394,7 @@ systemctl start webapp
 ```
 3. View webpage in browser at localhost:8080
 
-We are not sure this is going to work 100% since Guðjón was the only one doing this part and for some reasing WSL2 that provides linux on windows does not have Systemd enabled so 
+We are not sure this is going to work 100% since Guðjón was the only one doing this part and for some reason WSL2, that provides linux on windows, does not have Systemd enabled so 
 running the systemctl functions did not work. This container also only contains apache2 config for http and not https since we have yet to test out with Docker if we can just copy 
 and paste the keys and ssl configuration. This docker container was more of a proof of concept and a test of how we could utilize docker to our advantage and lower our risk involved 
 in hosting on a single server. This docker container also enables us to quickly respond to demand.  
