@@ -8,10 +8,10 @@
   <ul>
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('account.viewAccount') }}">View Account</a></li>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
       <li><a href="{{ url_for('habit.userhabits') }}">habits</a></li>
       <li><a href="{{ url_for('habit.userrecords') }}">records</a></li>
+      <li><a href="{{ url_for('account.viewAccount') }}">View Account</a></li>
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
     {% endif %}
   </ul>
 </nav>
