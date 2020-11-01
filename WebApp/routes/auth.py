@@ -58,8 +58,6 @@ def login():
         password = request.form['password']
         error = None
 
-        print(f'Getting user {username} from api: {current_app.config["API_URL"]}')
-
         resp = user_login(current_app.config["API_URL"], username, password)
 
         if not resp:
