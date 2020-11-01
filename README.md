@@ -90,42 +90,42 @@ each sprint got us closer and closer to our goal of a finished system.
 ### Screenshots
 Here are a few screenshots of the current system which can also be
 accessed at https://habittracker.gudjoniv.com 
-[![Login]](https://i.imgur.com/x9vttXl.png)
+[![Login][Login-img]](https://i.imgur.com/x9vttXl.png)
 <p align="center">
   Our Log In screen
 </p>
 
-[![Register]](https://i.imgur.com/9EIP5dP.png)
+[![Register][Register-img]](https://i.imgur.com/9EIP5dP.png)
 <p align="center">
   Our Register screen
 </p>
 
-[![Habit]](https://i.imgur.com/X6DpzbM.png)
+[![Habit][Habit-img]](https://i.imgur.com/X6DpzbM.png)
 <p align="center">
   Our Habit/main screen
 </p>
 
-[![Single habit]](https://i.imgur.com/t5odUmH.png)
+[![Single habit][Single-habit-img]](https://i.imgur.com/t5odUmH.png)
 <p align="center">
   Here is a single habit view
 </p>
 
-[![Add habit]](https://i.imgur.com/evYtCzY.png)
+[![Add habit][Add-habit-img]](https://i.imgur.com/evYtCzY.png)
 <p align="center">
   Here is add habit
 </p>
 
-[![Records]](https://i.imgur.com/IvOLIXN.png)
+[![Records][Records-img]](https://i.imgur.com/IvOLIXN.png)
 <p align="center">
   Here is the records screen
 </p>
 
-[![Add record]](https://i.imgur.com/zjrxBFJ.png)
+[![Add record][Add-record-img]](https://i.imgur.com/zjrxBFJ.png)
 <p align="center">
   Here is add record
 </p>
 
-[![Account]](https://i.imgur.com/9lqOGNj.png)
+[![Account][Account-img]](https://i.imgur.com/9lqOGNj.png)
 <p align="center">
   And finally the account page
 </p>
@@ -490,3 +490,12 @@ Gerardo Reynaga
 [flask]: https://flask.palletsprojects.com/en/1.1.x/
 [flask-restplus]: https://github.com/noirbizarre/flask-restplus
 [psycopg2]: https://www.psycopg.org/docs/
+
+[Login-img]:https://i.imgur.com/x9vttXl.png
+[Register-img]: https://i.imgur.com/9EIP5dP.png
+[Habit-img]: https://i.imgur.com/X6DpzbM.png
+[Single-habit-img]: https://i.imgur.com/t5odUmH.png
+[Add-habit-img]: https://i.imgur.com/evYtCzY.png
+[Records-img]: https://i.imgur.com/IvOLIXN.png
+[Add-record-img]: https://i.imgur.com/zjrxBFJ.png
+[Account-img]: https://i.imgur.com/9lqOGNj.png
