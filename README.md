@@ -237,7 +237,8 @@ The registry design pattern is used to implement a global sole instance logger t
 this introduces logging to our system.
 
 * Plug-in: 
-The Plug-in pattern is used to read a config file for the logger, aka output format, output file and more
+The plugin pattern was implemented in the authentication password check. It allows for easy
+customization of what a password needs to fulfil to be valid.
 
 * Mapper:
 The Mapper design pattern is implemented to make changing between the rest api bodies and database structure easier. 
@@ -353,13 +354,18 @@ In sprint 3 we kind of got a conditional pass for our dependency injection not b
 found in the mail service. The mail_service.py file contains a class that takes in another class which can then be used. This class allows for a quick and easy change of classes by 
 simply changing the inserted class allowing us to have different classes with different functionality be interchangeable and creates no dependencies in the classes that use this 
 class to rely specifically on a single class. We hope that this class follows the correct dependency injection pattern.
+* Plugin pattern:
+In sprint 2 we got a conditional pass on the plugin pattern since it wasn't really a plugin pattern. We had a hard time finding a way to change this implementation to fulfil the
+Plugin pattern, so we decided instead to create a new use-case for the Plugin pattern. We created the password checker in the util/authentication folder. This uses the Plugin
+pattern to be able to easily switch out what a password should include to be a valid password. These plugins can then be added to a list of plugins which are then all tested
+against the password to see if it reaches a certain security level. We hope that this is a valid implementation of the Plugin design pattern.
 
 Microservice aspect:  
 For our microservice aspect we decided that it would be good to make a microservice out of our authentication in the REST api. This functionality is a big security risk and moving it 
 to an independent microservice would allow us to secure it more and make sure it does not get exploited. For the patterns involved in the integration from monolith to microservice we 
-would either utilize the Strangler approach or the Branch by abstraction. Both of these aproaches are good for our system, the strangler aporach can be done using a HTTP proxy since 
+would either utilize the Strangler approach or the Branch by abstraction. Both of these approaches are good for our system, the strangler approach can be done using a HTTP proxy since 
 our REST api utilizes HTTP for communication. We could then simply start to implement the new authentication microservice and when it is ready change the proxy to the new one. The 
-Branch by abstraction could also work really well for us since it is closely related to the Strangler approach but instead we would create an abstraction instead of a HTPP proxy. The 
+Branch by abstraction could also work really well for us since it is closely related to the Strangler approach but instead we would create an abstraction instead of a HTTP proxy. The 
 reason both of these approaches would be good for our integration is because the authentication part is a really important one for the website an if the new one fails we can always 
 go back to the old one. After the integration of the new one is fully complete and we make sure it works we would then start to remove the old authentication from the monolith system 
 for security reasons as well as remove the test password functionality of the DBapi and implement it again in the new microservice.
