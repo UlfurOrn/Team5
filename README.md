@@ -392,7 +392,7 @@ In sprint 3 we kind of got a conditional pass for our dependency injection not b
 found in the mail service. The mail_service.py file contains a class that takes in another class which can then be used. This class allows for a quick and easy change of classes by 
 simply changing the inserted class allowing us to have different classes with different functionality be interchangeable and creates no dependencies in the classes that use this 
 class to rely specifically on a single class. We hope that this class follows the correct dependency injection pattern.
-* Plugin pattern:
+* Plugin pattern:  
 In sprint 2 we got a conditional pass on the plugin pattern since it wasn't really a plugin pattern. We had a hard time finding a way to change this implementation to fulfil the
 Plugin pattern, so we decided instead to create a new use-case for the Plugin pattern. We created the password checker in the util/authentication folder. This uses the Plugin
 pattern to be able to easily switch out what a password should include to be a valid password. These plugins can then be added to a list of plugins which are then all tested
@@ -411,6 +411,10 @@ for security reasons as well as remove the test password functionality of the DB
 Screenshots of the system:  
 See chapter [About the Project](#about-the-project)
 
+Some general info for troubleshooting:  
+* There is a minimum security measure for passwords. 400 Error on the register page is likely due to a weak password  
+* Using special characters in text fields can be problematic because of Psycopg sql injection prevention  
+* If the website Guðjón is hosting seems to be broken, please contact him with the information found below.  
 
 ## Website
 In the 4th sprint we decided to start hosting the website. We hosted it on the same server that currently runs the database and the link to the website is https://habittracker.gudjoniv.com/. For the hosting part we decided to implement a systemd daemon for the REST api and the WebApp to enable easy monitoring and to allow for easier setup for the docker containers that would enable fast setup of a new host.
