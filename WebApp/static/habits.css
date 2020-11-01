@@ -112,7 +112,7 @@ h3{
   cursor: pointer;
 }
 
-#cancel-delete, #update-habit {
+#cancel-delete, #update-habit, #add_record {
   border: 2px solid #65944e;
 }
 
@@ -120,7 +120,7 @@ h3{
   border: 2px solid #F78395;
 }
 
-#confirm-delete, #cancel-delete, #update-habit, #delete-habit {
+#confirm-delete, #cancel-delete, #update-habit, #delete-habit, #add_record {
   height: 42px;
   padding: 10px 30px 10px 30px;
   color: #696969;
@@ -130,7 +130,7 @@ h3{
   font-size: 15px;
 }
 
-#cancel-delete:hover, #update-habit:hover {
+#cancel-delete:hover, #update-habit:hover, #add_record:hover {
   background-color: #bacd96;
   border: 2px solid #bacd96;
   color: white;
@@ -166,4 +166,8 @@ records-table > h3 {
 
 table {
   width: 100%;
+}
+
+#records-table > table {
+  margin-bottom: 40px;
 }
