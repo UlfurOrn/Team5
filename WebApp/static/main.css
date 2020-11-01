@@ -132,4 +132,27 @@ input[type=submit] {
 input[type=submit]:hover {
     background-color: #FFA8B6;
     color: white;
+    cursor: pointer;
+}
+
+table {
+    font-size: 20px;
+}
+
+th {
+    padding: 10px;
+    text-align: left;
+    background-color: #FFD733;
+}
+
+tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #D1F5F3;
+}
+
+td {
+    padding: 10px 0px 10px 10px;
 }
