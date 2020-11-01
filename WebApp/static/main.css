@@ -64,7 +64,7 @@ nav h1 {
 nav span {
     font-weight: bold;
     color: #a3bd74;
-    padding: 18px 15px;
+    padding: 18px 40px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -75,7 +75,7 @@ nav a:link, a:visited {
     background-color: #a3bd74;
     color: white;
     width: 120px;
-    padding: 19.5px 15px;
+    padding: 20px 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;

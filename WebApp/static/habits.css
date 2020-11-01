@@ -19,7 +19,6 @@ h3{
 .container {
   background-color: white;
   display: inline-block;
- 
 }
 
 #add-habit-link {
@@ -27,6 +26,7 @@ h3{
   color: #65944e;
   font-size: 25px;
   font-weight: bold;
+  margin-left: 10px;
   text-decoration: none;
   border: 2px solid #65944e;
   border-radius: 50px;
