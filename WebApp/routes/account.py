@@ -1,7 +1,6 @@
 import functools
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
-from ast import literal_eval
 from ..services.api_calls import post_item, get_user, get_user_id, delete_item, save_edited_user
 from .auth import login_required
 
