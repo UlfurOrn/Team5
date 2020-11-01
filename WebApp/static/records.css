@@ -13,19 +13,12 @@ h1 {
 .records {
     text-align: left;
     width: 100%;
+    margin-top: 50px;
     margin-bottom: 50px;
 }
 
-input[type=submit] {
-    font-size: 16px;
-    background-color: #F78395;
-    color: white;
-    font-weight: bold;
-}
-
-input[type=submit]:hover {
-    background-color: #FFA8B6;
-    color: white;
+label{
+    color: black;
 }
 
 .rec-link {
@@ -104,4 +97,20 @@ p {
 .close:focus {
     color: #F78395;
     cursor: pointer;
+}
+
+.single-record-container {
+    display: flex;
+}
+
+#single-rec {
+    width: 50%;
+}
+
+#single-rec-img {
+    width: 50%;
+}
+
+#single-rec-img > img {
+    width: 100%;
 }

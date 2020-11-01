@@ -1,18 +1,27 @@
 {% extends 'base.html' %}
 {% block style %}
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='habits.css') }}">
 {% endblock %}
 {% block header %}
   <h1>{% block title %}Single Habit{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-    <b>Name:</b> {{ habit.name }}<br>
-    <b>Description:</b> {{ habit.description }}<br>
-    <b>Measuement ID:</b> {{ habit.measurementid }}<br>
-    <a href="{{ url_for('habit.update_habit', habit=habit) }}">Update</a>
+
+<div class="single-habit-container">
+  <div id="single-habit">
+    <div class="info">
+      <b>Name:</b> {{ habit.name }}<br><br>
+      <b>Description:</b> {{ habit.description }}<br><br>
+      <b>Measuement ID:</b> {{ habit.measurementid }}<br>
+    </div>
+    <a id="update-habit" href="{{ url_for('habit.update_habit', habit=habit) }}">Update</a>
     <!-- <a href="{{ url_for('habit.delete_habit', habit=habit) }}">Delete</a> -->
-    <button onclick="document.getElementById('confirmDelete').style.display='block'" class="modalbtn">Delete</button>
+    <button id="delete-habit" onclick="document.getElementById('confirmDelete').style.display='block'" class="modalbtn">Delete</button>
+  </div>
+    
+  <div id="records-table">
     <h3>Records</h3>
     <table>
       <thead>
@@ -30,19 +39,21 @@
         {% endfor %}
       </tbody>
     </table>
-    <a href="{{ url_for('habit.add_record') }}">Add</a>
+    <a id="add_record" href="{{ url_for('habit.add_record') }}">Add Record</a>
+  </div>
+
+</div>
 
     <!-- Confirm deletion Modal -->
     <div id="confirmDelete", class="modal">
       <span onclick="document.getElementById('confirmDelete').style.display='none'" class="close" title="Close Modal">&times;</span>
       <form class="modal-content">
-        <div class="container">
-          <h1>Delete Habit</h1>
+        <div class="confirm-container">
           <p>Are you sure you want to delete this habit?</p>
 
           <div class="clearfix">
-            <button type="button" onclick="document.getElementById('confirmDelete').style.display='none'" class="cancelbtn">Cancel</button>
-            <a href="{{ url_for('habit.delete_habit', habit=habit) }}">Delete</a>
+            <button id="cancel-delete" type="button" onclick="document.getElementById('confirmDelete').style.display='none'">Cancel</button>
+            <a id="confirm-delete" href="{{ url_for('habit.delete_habit', habit=habit) }}">Delete</a>
           </div>
         </div>
       </form>

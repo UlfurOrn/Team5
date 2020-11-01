@@ -1,8 +1,14 @@
 .account-container {
     background-color: white;
-    padding: 50px;
     display: flex;
+    border-radius: 4px;
+}
+
+.content {
     margin-top: 100px;
+    padding: 3%;
+    color: black;
+    background-color: white;
     border-radius: 4px;
 }
 
@@ -31,16 +37,24 @@ p {
     margin-bottom: 30px;
 }
 
-#edit-acc-link {
+h1 {
+    color: black;
+}
+
+#edit-acc-link, #update-passsword {
+    height: 42px;
     padding: 10px 30px 10px 30px;
     color: #696969;
     text-decoration: none;
     border: 2px solid #65944e;
     border-radius: 4px;
+    margin-right: 2px;
 }
 
-#edit-acc-link:hover {
+
+#edit-acc-link:hover, #update-passsword:hover {
     background-color: #bacd96;
-    border: none;
+    border: 2px solid #bacd96;
     color: white;
-}
+    display: inline;
+  }
