@@ -108,15 +108,15 @@ h3{
   cursor: pointer;
 }
 
-#cancel-delete {
+#cancel-delete, #update-habit {
   border: 2px solid #65944e;
 }
 
-#confirm-delete {
+#confirm-delete, #delete-habit {
   border: 2px solid #F78395;
 }
 
-#confirm-delete, #cancel-delete {
+#confirm-delete, #cancel-delete, #update-habit, #delete-habit {
   height: 42px;
   padding: 10px 30px 10px 30px;
   color: #696969;
@@ -126,13 +126,13 @@ h3{
   font-size: 15px;
 }
 
-#cancel-delete:hover {
+#cancel-delete:hover, #update-habit:hover {
   background-color: #bacd96;
   border: 2px solid #bacd96;
   color: white;
 }
 
-#confirm-delete:hover {
+#confirm-delete:hover,  #delete-habit:hover {
   border: 2px solid #F78395;
   background-color: #F78395;
   color: white;

@@ -11,9 +11,9 @@
     <b>Name:</b> {{ habit.name }}<br>
     <b>Description:</b> {{ habit.description }}<br>
     <b>Measuement ID:</b> {{ habit.measurementid }}<br>
-    <a href="{{ url_for('habit.update_habit', habit=habit) }}">Update</a>
+    <a id="update-habit" href="{{ url_for('habit.update_habit', habit=habit) }}">Update</a>
     <!-- <a href="{{ url_for('habit.delete_habit', habit=habit) }}">Delete</a> -->
-    <button onclick="document.getElementById('confirmDelete').style.display='block'" class="modalbtn">Delete</button>
+    <button id="delete-habit" onclick="document.getElementById('confirmDelete').style.display='block'" class="modalbtn">Delete</button>
     <h3>Records</h3>
     <table>
       <thead>
