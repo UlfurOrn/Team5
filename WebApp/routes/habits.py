@@ -113,7 +113,7 @@ def userrecords():
     total_amount = 0
     if recorddict is not None:
         for record in recorddict['records']:
-            total_amount += record
+            total_amount += record['amount']
     if request.method == 'POST':
         start_datetime = datetime.datetime.strptime(request.form['start_date'] + 'T' + request.form['start_time'], '%Y-%m-%dT%H:%M')
         end_datetime = datetime.datetime.strptime(request.form['end_date'] + 'T' + request.form['end_time'], '%Y-%m-%dT%H:%M')
