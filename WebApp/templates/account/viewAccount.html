@@ -5,11 +5,9 @@
 {% endblock %}
 
 {% block header %}
-<ul>
-  <h1>{% block title %}My Account{% endblock %}</h1>
-  <li><a href="{{ url_for('account.editAccount') }}">Edit Account</a></li>
-  <li><a href="{{ url_for('account.editPassword') }}">Update Password</a></li>
-</ul>
+
+<h1>{% block title %}My Account{% endblock %}</h1>
+
 {% endblock %}
 
 {% block content %}
@@ -29,7 +27,7 @@
       </div>
 
       <a id="edit-acc-link" href="{{ url_for('account.editAccount') }}">Edit Account</a>
-
+      <a id="update-passsword" href="{{ url_for('account.editPassword') }}">Update Password</a>
     </div>
 
     <div id="account-img">

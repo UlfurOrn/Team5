@@ -4,14 +4,14 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 {% endblock %}
 <nav>
-  <h1><img id="nav-logo" src="/../../../static/images/habittracker.png" alt="Fruit"></h1>
+  <h1><a id="logo" href="{{ url_for('habit.userhabits') }}"><img id="nav-logo" src="/../../../static/images/habittracker.png" alt="Fruit"></a></h1>
   <ul>
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('account.viewAccount') }}">View Account</a></li>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
       <li><a href="{{ url_for('habit.userhabits') }}">habits</a></li>
       <li><a href="{{ url_for('habit.userrecords') }}">records</a></li>
+      <li><a href="{{ url_for('account.viewAccount') }}">View Account</a></li>
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
     {% endif %}
   </ul>
 </nav>

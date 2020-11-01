@@ -1,35 +1,39 @@
-html{
+html {
     font-family: Arial, Helvetica, sans-serif;
 }
-body{
+body {
     background-image: url(images/background.jpg);
     background-size: cover;
     
 }
-h1{
+h1 {
     font-size: 30px;
     color: white;
     opacity: 0.8;
 }
-h3{
-    color: white;
+h3 {
     padding-left: 5px;
 }
 p{
-    color: white;
+     color: white;
     font-size:20px;
     padding-left: 5px;
 
 }
-label{
-    color: white;
+label {
     font-size: 20px;
     display: block;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
-.content{
+input[type=radio] {
+    border: 0px;
+    width: 100%;
+    height: 2em;
+    margin: 0 0 20px 0;
+}
+.content {
     margin: auto;
     max-width: 1000px;
 }
@@ -57,7 +61,7 @@ nav h1 {
     color: white;
     opacity: 0.9;
 }
-nav span{
+nav span {
     font-weight: bold;
     color: #a3bd74;
     padding: 18px 15px;
@@ -81,7 +85,7 @@ nav a:link, a:visited {
 nav a:hover, a:active {
     background-color: #bacd96;
 }
-input{
+input, select {
     box-sizing: border-box;
     padding-left: 15px;
     background-color: #E8E8E8;
@@ -107,11 +111,50 @@ input[type=submit] {
     margin-left: auto;
     margin-right: auto;
 }
-form{
+form {
     margin-top: 50px;
 }
 
 #nav-logo {
     height: 62px;
     margin: 20px;
+}
+
+#logo {
+    background: none;
+}
+
+input[type=submit] {
+    font-size: 16px;
+    background-color: #F78395;
+    color: white;
+    font-weight: bold;
+}
+
+input[type=submit]:hover {
+    background-color: #FFA8B6;
+    color: white;
+    cursor: pointer;
+}
+
+table {
+    font-size: 20px;
+}
+
+th {
+    padding: 10px;
+    text-align: left;
+    background-color: #FFD733;
+}
+
+tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #D1F5F3;
+}
+
+td {
+    padding: 10px 0px 10px 10px;
 }

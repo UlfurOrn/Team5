@@ -1,17 +1,34 @@
-header {
-  margin-top: 100px;
-}
 h1{
   display: inline;
+  color: black;
+}
+h3{
+  text-align: left;
+  margin-left: 5px;
+  font-size: 23px;
+}
+
+.content {
+  margin-top: 100px;
+  padding: 3%;
+  color: black;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.container {
+  background-color: white;
+  display: inline-block;
+ 
 }
 
 #add-habit-link {
   padding: 1px 7px 1px 7px;
-  color: white;
+  color: #65944e;
   font-size: 25px;
   font-weight: bold;
   text-decoration: none;
-  border: 2px solid white;
+  border: 2px solid #65944e;
   border-radius: 50px;
   opacity: 0.9;
 }
@@ -24,22 +41,22 @@ h1{
 }
 
 .tile {
-    width: 250px;
-    height: 200px;
-    margin: 20px;
-    background-color: #6aa9c2 ;
-    opacity: 0.8;
+  width: 290px;
+  height: 230px;
+  margin: 20px;
+  background-color: #FFA8B6;
 }
 
 .row{
-    float: left;
-    display: inline;
+  float: left;
+  display: inline;
+  
 }
 
 .tile .habit-link:link, .habit-link:visited {
-    background-color: #6aa9c2;
+    background-color: #FFA8B6;
     color: white;
-    width: 220px;
+    width: 260px;
     padding: 18px 15px;
     text-align: center;
     text-decoration: none;
@@ -48,9 +65,109 @@ h1{
     font-size: 25px;
 }
 
-.habit-link:hover, .habit-link:active {
-    background-color: #8bd8f7;
+.tile > h3 {
+  color: white;
 }
 
+.habit-link:hover, .habit-link:active {
+    background-color: #F78395;
+}
 
+.confirm-container {
+  padding: 16px;
+  text-align: center;
+}
+.confirm-container > p {
+  color: black;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #B76873;
+  padding-top: 50px
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto;
+  border-radius: 4px;
+  width: 80%;
+}
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+.close:hover,
+.close:focus {
+  color: #F78395;
+  cursor: pointer;
+}
 
+#cancel-delete, #update-habit, #add_record {
+  border: 2px solid #65944e;
+}
+
+#confirm-delete, #delete-habit {
+  border: 2px solid #F78395;
+}
+
+#confirm-delete, #cancel-delete, #update-habit, #delete-habit, #add_record {
+  height: 42px;
+  padding: 10px 30px 10px 30px;
+  color: #696969;
+  text-decoration: none;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 15px;
+}
+
+#cancel-delete:hover, #update-habit:hover, #add_record:hover {
+  background-color: #bacd96;
+  border: 2px solid #bacd96;
+  color: white;
+}
+
+#confirm-delete:hover,  #delete-habit:hover {
+  border: 2px solid #F78395;
+  background-color: #F78395;
+  color: white;
+}
+
+.single-habit-container {
+  display: flex;
+}
+
+#single-habit {
+  width: 50%;
+  margin-top: 50px;
+}
+
+#records-table {
+  width: 50%;
+}
+
+records-table > h3 {
+  margin-top: 0px;
+}
+
+.info {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+table {
+  width: 100%;
+}
+
+#records-table > table {
+  margin-bottom: 40px;
+}

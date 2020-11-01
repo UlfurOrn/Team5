@@ -15,6 +15,7 @@
     <label for="end_date">End Datetime:</label>
     <input type="date" name="end_date", id="end_date">
     <input type="time" name="end_time", id="end_time" value="11:59"><br>
+
     <input type="submit" value="Submit">
   </form>
 
@@ -26,7 +27,7 @@
     </tr>
       {% for record in records %}
         <tr>
-          <td><a class="rec-link" href="{{ url_for('habit.single_record', record=record) }}">{{ record.habitid }}</a></td>
+          <td><b><a class="rec-link" href="{{ url_for('habit.single_record', record=record) }}">{{ record.habitid }}</a></b></td>
           <td>{{ record.rdate }}</td>
           <td>{{ record.amount }}</td>
         </tr>
