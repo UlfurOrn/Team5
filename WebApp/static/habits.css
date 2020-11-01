@@ -24,11 +24,11 @@ h3{
 
 #add-habit-link {
   padding: 1px 7px 1px 7px;
-  color: white;
+  color: #65944e;
   font-size: 25px;
   font-weight: bold;
   text-decoration: none;
-  border: 2px solid white;
+  border: 2px solid #65944e;
   border-radius: 50px;
   opacity: 0.9;
 }
