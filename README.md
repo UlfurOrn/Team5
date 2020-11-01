@@ -90,42 +90,42 @@ each sprint got us closer and closer to our goal of a finished system.
 ### Screenshots
 Here are a few screenshots of the current system which can also be
 accessed at https://habittracker.gudjoniv.com 
-[![Login][product-screenshot]](https://i.imgur.com/x9vttXl.png)
+[![Login]](https://i.imgur.com/x9vttXl.png)
 <p align="center">
   Our Log In screen
 </p>
 
-[![Register][product-screenshot]](https://i.imgur.com/9EIP5dP.png)
+[![Register]](https://i.imgur.com/9EIP5dP.png)
 <p align="center">
   Our Register screen
 </p>
 
-[![Habit][product-screenshot]](https://i.imgur.com/X6DpzbM.png)
+[![Habit]](https://i.imgur.com/X6DpzbM.png)
 <p align="center">
   Our Habit/main screen
 </p>
 
-[![Single habit][product-screenshot]](https://i.imgur.com/t5odUmH.png)
+[![Single habit]](https://i.imgur.com/t5odUmH.png)
 <p align="center">
   Here is a single habit view
 </p>
 
-[![Add habit][product-screenshot]](https://i.imgur.com/evYtCzY.png)
+[![Add habit]](https://i.imgur.com/evYtCzY.png)
 <p align="center">
   Here is add habit
 </p>
 
-[![Records][product-screenshot]](https://i.imgur.com/IvOLIXN.png)
+[![Records]](https://i.imgur.com/IvOLIXN.png)
 <p align="center">
   Here is the records screen
 </p>
 
-[![Add record][product-screenshot]](https://i.imgur.com/zjrxBFJ.png)
+[![Add record]](https://i.imgur.com/zjrxBFJ.png)
 <p align="center">
   Here is add record
 </p>
 
-[![Account][product-screenshot]](https://i.imgur.com/9lqOGNj.png)
+[![Account]](https://i.imgur.com/9lqOGNj.png)
 <p align="center">
   And finally the account page
 </p>
