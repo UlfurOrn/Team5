@@ -8,7 +8,10 @@ from main.util.authentication.authentication_plugins import (
 
 
 class AuthTest:
-    MIN_SECURITY_LEVEL = 3
+    MIN_SECURITY_LEVEL = 3  # Number of valid plugins for password to be valid
+
+    # A list of plugins that test a passwords strength, each one implements
+    # the AuthInterface.
     PLUGIN_LIST = [
         PasswordLength,
         PasswordLetter,
@@ -19,6 +22,9 @@ class AuthTest:
 
     @classmethod
     def valid_password(cls, password):
+        """Tests a passwords security level and if it reaches the
+        specified MIN_SECURITY_LEVEL benchmark
+        """
         security_level = 0
         for plugin in cls.PLUGIN_LIST:
             if plugin.test(password):
