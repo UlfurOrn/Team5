@@ -137,3 +137,29 @@ h3{
   background-color: #F78395;
   color: white;
 }
+
+.single-habit-container {
+  display: flex;
+}
+
+#single-habit {
+  width: 50%;
+  margin-top: 50px;
+}
+
+#records-table {
+  width: 50%;
+}
+
+h3 {
+  margin-top: 0px;
+}
+
+.info {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+table {
+  width: 100%;
+}
